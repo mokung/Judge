@@ -1,0 +1,293 @@
+web搭建注意事项：
+安装软件
+yum install php httpd php-mysql mysql-server php-xml php-gd gcc-c++ php-mbstring glibc mysql-devel glibc-devel glibc-static httpd-devel
+
+
+config
+    --base.php ------------- 设置base_url,web工程在服务器的根路径
+    --url ------------加入服务器ip地址为trusted host
+          ------------domain, cookie domain 设置不对会引起cookie无法保存
+    --database.php ------------ 设置服务器type 为 mysqli
+.htaccess -------- 重定向，过滤url index.php后缀
+
+数据库迁移 需要检查密码保存值
+
+application/logs/ 查看kohana错误日志
+tail -f /etc/httpd/logs/error_log //查看apache错误日志
+
+开启apache访问
+apachectl start --开启apache服务
+/etc/init.d/iptables stop --关闭防火墙
+
+vim /etc/httpd/conf/httpd.conf  找到  DocumentRoot "/var/www/html" 修改为：DocumentRoot "/home"
+再加入 <Directory “/home”>设置
+chmod o+x /home
+
+开启mysql
+service mysqld start
+
+
+配置Web界面
+cp -R web /var/www/html/JudgeOnline
+注册用户
+http://127.0.0.1/JudgeOnline/registerpage.php 注册一个普通帐号zhblue
+创建管理员
+insert into privilege(user_id,rightstr) values('zhblue','administrator'); zhblue 为需要加管理员权限的帐号
+管理员登录
+普通登录后访问http://127.0.0.1/JudgeOnline/admin
+
+您需要修改系统php.ini,给予php操作数据目录的权限。 以下是推荐修改的设置
+       sudo gedit /etc/php5/apache2/php.ini 
+       open_basedir =/home/judge/data:/var/www/JudgeOnline:/tmp  
+       max_execution_time = 300     ; Maximum execution time of each script, in seconds
+       max_input_time = 600 
+       memory_limit = 256M      ; Maximum amount of memory a script may consume (16MB)
+       post_max_size = 64M
+       upload_tmp_dir =/tmp
+       upload_max_filesize = 64M
+      
+修改php.ini后apache需重启
+
+
+安装php扩展fastcgi
+sudo rpm --import http://dag.wieers.com/rpm/packages/RPM-GPG-KEY.dag.txt
+sudo rpm -ivh http://pkgs.repoforge.org/rpmforge-release/rpmforge-release-0.5.3-1.el6.rf.x86_64.rpm
+sudo yum install mod_fastcgi
+# vim /etc/httpd/conf/httpd.conf
+找到LoadModule部分，添加一行加载语句
+...
+LoadModule fastcgi_module modules/mod_fastcgi.so
+...
+
+重启服务： # /etc/init.d/httpd restart
+
+如果能正常启动，则log里面将显示以下信息 
+# grep -i "FastCGI" /var/log/httpd/error_log
+
+[Mon Jul 29 06:54:27 2013] [notice] FastCGI: process manager initialized (pid 2098) 
+[Mon Jul 29 06:54:27 2013] [notice] Apache/2.2.15 (Unix) DAV/2 mod_fastcgi/2.4.6 configured -- resuming normal operations 
+
+安装FPM（FastCGI进程管理器）FPM（FastCGI 进程管理器）用于替换 PHP FastCGI 的大部分附加功能，对于高负载网站是非常有用的。
+# yum install php-fpm
+# /etc/init.d/php-fpm start
+# chkconfig php-fpm on
+# netstat -anp |grep php
+tcp        0      0 127.0.0.1:9000              0.0.0.0:*                   LISTEN      2575/php-fpm        
+unix  3      [ ]         STREAM     CONNECTED     25812  2575/php-fpm        
+unix  3      [ ]         STREAM     CONNECTED     25811  2575/php-fpm        
+
+修改配置，新建一个配置文件/etc/httpd/conf.d/fastcgi.php.conf
+
+DirectoryIndex index.html index.shtml index.cgi index.php
+AddHandler php5-fcgi .php
+Action php5-fcgi /php5-fcgi
+Alias /php5-fcgi /var/www/cgi-bin/php5-fcgi
+FastCgiExternalServer /var/www/cgi-bin/php5-fcgi -idle-timeout 60 -host 127.0.0.1:9000 -pass-header Authorization
+
+重启Apache和FPM： 
+# service httpd restart 
+# service php-fpm restart 
+
+测试phpinfo()页面，配置成功则显示为： 
+... 
+Server API        FPM/FastCGI 
+...
+/*********************************************************************************************************/
+/*********************************************************************************************************/
+/*********************************************************************************************************/
+后台judge进程搭建注意事项：
+1、 创建judge进程工作目录 /home/judge
+    mkdir /project-root/etc
+    mkdir /project-root/data
+    mkdir /project-root/log
+
+    ln -s /project-root/etc  /home/judge/etc
+    ln -s /project-root/data  /home/judge/data
+    ln -s /project-root/log  /home/judge/log
+    
+    cd /project-root/core/
+    sudo ./make.sh
+
+2、 c、c++编译错误 ld permission denied 打开文件失败 写入失败等问题，
+    修改文件访问权限，及其父路径权限
+    查看生成可执行文件是否 sudo
+
+3、java判题运行需要安装jdk，下载linux下jdk-8u91-linux-x64.rpm，并用rpm命令进行安装
+
+4、判题配置文件
+########################/home/judge/etc/judge.conf###########################
+        OJ_HOST_NAME=localhost    #数据库地址
+        OJ_USER_NAME=jol #数据库用户名
+        OJ_PASSWORD=# 数据库密码
+        OJ_DB_NAME=jol #数据库名
+        OJ_PORT_NUMBER=3306 #数据库端口
+        OJ_RUNNING=1 #可以同时运行几个进程
+        OJ_SLEEP_TIME=1 #如果有空闲 要休眠多久
+        OJ_TOTAL=1 #总共有多少台机器负责判题
+        OJ_MOD=0 #当前机器评判取模为多少的提交
+########################/home/judge/etc/judge.conf###########################
+
+5、判题测试设置规则
+   放入 /project-root/data 中，判题目录名为problem id 里面放入测试用例文件：
+   输入文件 input%d.in
+   输出文件 output%d.out
+
+
+
+
+
+方法二选一
+1、下载安装程序
+debian/ubuntu用户:sudo apt-get update;sudo apt-get install subversion 
+redhat/centos用户:sudo yum update;sudo yum install subversion.i386
+
+svn checkout http://hustoj.googlecode.com/svn/trunk/install hustoj
+cd hustoj
+编辑install.sh和web/include/db_info.inc.php，设定数据库用户名密码后
+sudo ./install.sh
+自动安装使用install.sh，运行前阅读脚本头部说明设置数据库帐号，使用root运行。
+2、手动安装顺序如下：
+下载源码
+        http://code.google.com/p/hustoj/
+        svn checkout http://hustoj.googlecode.com/svn/trunk/ hustoj-read-only
+创建数据库
+        mysql
+        set names utf8; 
+        create database jol;
+        use jol;
+        source db.sql
+配置Web界面
+cp -R web /var/www/html/JudgeOnline
+注册用户
+http://127.0.0.1/JudgeOnline/registerpage.php 注册一个普通帐号zhblue
+创建管理员
+insert into privilege(user_id,rightstr) values('zhblue','administrator'); zhblue 为需要加管理员权限的帐号
+管理员登录
+普通登录后访问http://127.0.0.1/JudgeOnline/admin
+##########添加用户 useradd --uid 1536 judge judge_client.cc:424
+setuid(1536); ==> //设置判题用户//
+编译判题服务器、客户端
+          需要make g++ libmysql++-dev 
+        (yum install gcc-c++  mysql-devel  / apt-get install g++ libmysql++-dev)
+    mkdir /home/judge/
+    mkdir /home/judge/etc
+    mkdir /home/judge/data
+    mkdir /home/judge/log
+    mkdir /home/judge/run0
+
+cd hustoj-read-only/core/
+sudo ./make.sh
+判题配置文件
+########################/home/judge/etc/judge.conf###########################
+        OJ_HOST_NAME=localhost    #数据库地址
+        OJ_USER_NAME=jol #数据库用户名
+        OJ_PASSWORD=# 数据库密码
+        OJ_DB_NAME=jol #数据库名
+        OJ_PORT_NUMBER=3306 #数据库端口
+        OJ_RUNNING=1 #可以同时运行几个进程
+        OJ_SLEEP_TIME=1 #如果有空闲 要休眠多久
+        OJ_TOTAL=1 #总共有多少台机器负责判题
+        OJ_MOD=0 #当前机器评判取模为多少的提交
+########################/home/judge/etc/judge.conf###########################
+设置启动脚本
+   with root or sudo
+   echo "LANG=C /usr/bin/judged" > /etc/init.d/judged
+   chmod +x  /etc/init.d/judged
+   ln -s /etc/init.d/judged /etc/rc2.d/S93judged
+   ln -s /etc/init.d/judged /etc/rc3.d/S93judged
+您需要修改系统php.ini,给予php操作数据目录的权限。 以下是推荐修改的设置
+       sudo gedit /etc/php5/apache2/php.ini 
+       open_basedir =/home/judge/data:/var/www/JudgeOnline:/tmp  
+       max_execution_time = 300     ; Maximum execution time of each script, in seconds
+       max_input_time = 600 
+       memory_limit = 256M      ; Maximum amount of memory a script may consume (16MB)
+       post_max_size = 64M
+       upload_tmp_dir =/tmp
+       upload_max_filesize = 64M
+      
+修改php.ini后apache需重启
+
+Centos用户：
+尽管我们强烈推荐使用Debian/Ubuntu，但是由于驱动或资源的原因，有的用户不得不使用CentOS/RE/Federa。
+Through Debian/Ubuntu is highly recommended, but in case of server hardware drivers or something else, people like to install HUSTOJ on CentOS/RedHat/Federa system.
+这里是已知的一些问题。 Here is something for those users:
+yum install php httpd php-mysql mysql-server php-xml php-gd gcc-c++ php-mbstring glibc mysql-devel glibc-devel glibc-static
+默认web目录在/var/www/html，需要调整install.sh中的设置
+SELinux会影响PHP的运行，可能需要关闭(/etc/selinux/config and setenforce 0)才能web编辑测试数据。
+或者执行 chcon -R -t httpd_sys_content_t /home
+PHP.ini的位置在/etc/php.ini
+php.ini中short_open_tag必须设为On,但是似乎默认为Off
+php.ini中register_globals必须设为Off,但是似乎默认为On
+编译时mysql库的位置在/usr/lib/mysql
+因此需要手工修改judged和judge_client中两个makefile 将 -L/usr/local/mysql/lib/mysql 改为 -L/usr/lib/mysql
+-I/usr/local/mysql/include/mysql 改为 -I/usr/include/mysql
+install what you need before starting by :
+yum install php httpd php-mysql mysql-server php-xml php-gd gcc-c++
+the default web site root directory is different from debian/ubuntu
+/var/www/html you gonna need to adjust it in install.sh before running "sudo ./install.sh"
+SELinux settings will stop php when it trying to make file I/O, so if you don't know how to make SELinux working with HUSTOJ, just disable it for a moment(/etc/selinux/config and setenforce 0), and find the right way later.
+this line should works
+chcon -R -t httpd_sys_content_t /home
+PHP.ini is located at /etc/php.ini
+You need to change php.ini
+short_open_tag=On
+register_globals=Off
+open_basedir=/var/www/html:/var/www/html/JudgeOnline:/tmp:/home/judge/data
+change makefiles in core/judged and core/judge_client
+change -L/usr/local/mysql/lib/mysql to -L/usr/lib/mysql
+-I/usr/local/mysql/include/mysql to -I/usr/include/mysqlins
+for English user ,email or issue is recommended for Chinese user ,QQ-qun group IM is recomended.
+刚刚在全新的CentOS 5.6中安装了OJ，主要遇到问题和解决方法如下：
+安装时候提示找不到www-data用户，修改web的用户为apache
+运行/etc/init.d/judged出错，提示/lib/init/vars.sh找不到，修改/etc/init.d/judged,删除原有内容，修改内容为:
+/usr/bin/judged
+打开页面空白，这是由于CentOS默认带的php版本为5.1，不支持mysql_set_charset函数，这个函数需要5.2.3的支持，打开include/db_info.inc.php，注释掉第37行:
+if(!$OJ_SAE)mysql_set_charset("utf8");
+打开题目列表页面不完全，yum install php-mbstring。
+关于Java，如果Java提示编译失败，可以尝试： 1、卸载Java，安装官方jdk 2、测试（应该继续失败） 3、卸载官方jdk，安装java-1.6.0-openjdk-devel 4、测试（貌似就没有问题了，原因不明） PS:在CentOS 6下测试通过。 
+https://code.google.com/p/hustoj/wiki/CentOS
+
+分布式系统搭建方法
+
+Introduction
+http://hustoj.5d6d.com/forum-4-1.html
+Details
+建立分布式判题系统 HUSTOJ 支持一台数据库服务器，多台web服务器和多台判题服务器，以承担较高的访问负荷。
+首先，需要创建用于从远程连接数据库的帐号。
+GRANT ALL PRIVILEGES ON jol.* TO 'judge'@'%'
+IDENTIFIED BY 'judge_pass' WITH GRANT OPTION;
+对于网络原因无法远程MySQL的，请参考HTTPJudge
+其中jol为数据库，judge为帐号，judge_pass为密码。 注意： 检查/etc/mysql/my.cnf 确保
+bind-address        = 0.0.0.0
+为了提高性能，可以适当增大
+key_buffer              = 128M
+query_cache_limit       = 4M
+query_cache_size        = 128M
+其次，配置各web程序连接到数据库。 修改include/db_info.inc.php
+   static  $DB_HOST="数据库服务器ip";
+   static  $DB_NAME="jol";
+   static  $DB_USER="judge";
+   static  $DB_PASS="judge_pass";
+第三，配置各判题程序连接到数据库，分配任务。
+   OJ_HOST_NAME=数据库服务器ip
+   OJ_USER_NAME=judge
+   OJ_PASSWORD=judge_pass
+   OJ_DB_NAME=jol
+   ...
+   OJ_TOTAL=判题机总数
+   OJ_MOD=本机编号，从0开始
+   ...
+其中OJ_TOTAL=判题机总数,OJ_MOD=本机编号，从0开始，例如 有3台机器判题，分别编号0，1，2 OJ_TOTAL都设为3，OJ_MOD分别设为0,1,2
+从r784开始不必设置OJ_TOTAL和OJ_MOD,所有judged会自动分配任务。
+第四，复制测试数据目录到各判题机。
+从r1520开始，使用HTTP_JUDGE方式不必单独复制数据，数据将从web服务器按需下载。
+从主机向判题机复制
+   scp -r /home/judge/data  root@判题机ip:/home/judge/
+或用同步命令。
+   rsync -vzrtopg --progress --delete /home/judge/data root@判题机ip:/home/judge/
+判题机从主机复制
+   scp -r root@主机ip:/home/judge/data  /home/judge/
+或用同步命令。
+   rsync -vzrtopg --progress --delete root@主机ip:/home/judge/data /home/judge/
+最后，在各判题机重启判题程序。
+   sudo pkill judged&&sudo judged
