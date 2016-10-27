@@ -171,6 +171,17 @@ Route::set('admin', 'admin(/<controller>(/<action>(/<id>)))')
     )
 );
 
+
+    //new
+//     Route::set(
+//     'situation', 'situation/<action>',
+//     array('action' => '(inject)')
+// )->defaults(array(
+//          'controller' => 'situation'
+//     )
+// );
+
+
 Route::set(
     'auth', '<action>',
     array('action' => '(login|logout|setting|setting)')

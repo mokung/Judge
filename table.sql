@@ -1,122 +1,108 @@
--- phpMyAdmin SQL Dump
--- version 4.5.4.1deb2ubuntu2
--- http://www.phpmyadmin.net
+-- MySQL dump 10.13  Distrib 5.1.73, for redhat-linux-gnu (x86_64)
 --
--- Host: localhost
--- Generation Time: 2016-10-23 10:00:45
--- 服务器版本： 5.7.15-0ubuntu0.16.04.1
--- PHP Version: 7.0.8-0ubuntu0.16.04.3
-
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET time_zone = "+00:00";
-
+-- Host: localhost    Database: judge
+-- ------------------------------------------------------
+-- Server version 5.1.73
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
+/*!40101 SET NAMES utf8 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Database: `judge`
+-- Table structure for table `compileinfo`
 --
 
--- --------------------------------------------------------
-
---
--- 表的结构 `compileinfo`
---
-
+DROP TABLE IF EXISTS `compileinfo`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `compileinfo` (
   `solution_id` int(11) NOT NULL DEFAULT '0',
-  `error` text
+  `error` text,
+  PRIMARY KEY (`solution_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- 表的结构 `contest`
+-- Table structure for table `contest`
 --
 
+DROP TABLE IF EXISTS `contest`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `contest` (
-  `contest_id` int(11) NOT NULL,
+  `contest_id` int(11) NOT NULL AUTO_INCREMENT,
   `title` varchar(255) DEFAULT NULL,
   `start_time` datetime DEFAULT NULL,
   `end_time` datetime DEFAULT NULL,
   `defunct` char(1) NOT NULL DEFAULT 'N',
   `description` text,
   `private` tinyint(4) NOT NULL DEFAULT '0',
-  `langmask` int(11) NOT NULL DEFAULT '0' COMMENT 'bits for LANG to mask'
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
+  `langmask` int(11) NOT NULL DEFAULT '0' COMMENT 'bits for LANG to mask',
+  PRIMARY KEY (`contest_id`)
+) ENGINE=MyISAM AUTO_INCREMENT=1004 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- 表的结构 `contest_problem`
+-- Table structure for table `contest_problem`
 --
 
+DROP TABLE IF EXISTS `contest_problem`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `contest_problem` (
   `problem_id` int(11) NOT NULL DEFAULT '0',
   `contest_id` int(11) DEFAULT NULL,
   `title` char(200) NOT NULL DEFAULT '',
   `num` int(11) NOT NULL DEFAULT '0'
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- 表的结构 `custominput`
+-- Table structure for table `custominput`
 --
 
+DROP TABLE IF EXISTS `custominput`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `custominput` (
   `solution_id` int(11) NOT NULL DEFAULT '0',
-  `input_text` text
+  `input_text` text,
+  PRIMARY KEY (`solution_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
--- 表的结构 `groups`
---
-
-CREATE TABLE `groups` (
-  `group_id` varchar(48) CHARACTER SET utf8 NOT NULL,
-  `time_created` datetime DEFAULT NULL,
-  `defunct` char(1) CHARACTER SET utf8 NOT NULL DEFAULT 'N'
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- 表的结构 `invitation`
+-- Table structure for table `loginlog`
 --
 
-CREATE TABLE `invitation` (
-  `invited_code` varchar(50) CHARACTER SET utf8 NOT NULL,
-  `group_id` varchar(48) CHARACTER SET utf8 NOT NULL,
-  `type` int(1) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
--- 表的结构 `loginlog`
---
-
+DROP TABLE IF EXISTS `loginlog`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `loginlog` (
   `user_id` varchar(48) NOT NULL DEFAULT '',
   `password` varchar(40) DEFAULT NULL,
   `ip` varchar(100) DEFAULT NULL,
-  `time` datetime DEFAULT NULL
+  `time` datetime DEFAULT NULL,
+  KEY `user_log_index` (`user_id`,`time`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- 表的结构 `mail`
+-- Table structure for table `mail`
 --
 
+DROP TABLE IF EXISTS `mail`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `mail` (
-  `mail_id` int(11) NOT NULL,
+  `mail_id` int(11) NOT NULL AUTO_INCREMENT,
   `to_user` varchar(48) NOT NULL DEFAULT '',
   `from_user` varchar(48) NOT NULL DEFAULT '',
   `title` varchar(200) NOT NULL DEFAULT '',
@@ -124,31 +110,38 @@ CREATE TABLE `mail` (
   `new_mail` tinyint(1) NOT NULL DEFAULT '1',
   `reply` tinyint(4) DEFAULT '0',
   `in_date` datetime DEFAULT NULL,
-  `defunct` char(1) NOT NULL DEFAULT 'N'
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
+  `defunct` char(1) NOT NULL DEFAULT 'N',
+  PRIMARY KEY (`mail_id`),
+  KEY `uid` (`to_user`)
+) ENGINE=MyISAM AUTO_INCREMENT=1014 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- 表的结构 `news`
+-- Table structure for table `news`
 --
 
+DROP TABLE IF EXISTS `news`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `news` (
-  `news_id` int(11) NOT NULL,
+  `news_id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` varchar(48) NOT NULL DEFAULT '',
   `title` varchar(200) NOT NULL DEFAULT '',
   `content` text NOT NULL,
   `time` datetime NOT NULL DEFAULT '2016-05-13 19:24:00',
   `importance` tinyint(4) NOT NULL DEFAULT '0',
-  `defunct` char(1) NOT NULL DEFAULT 'N'
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
+  `defunct` char(1) NOT NULL DEFAULT 'N',
+  PRIMARY KEY (`news_id`)
+) ENGINE=MyISAM AUTO_INCREMENT=1004 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- 表的结构 `online`
+-- Table structure for table `online`
 --
 
+DROP TABLE IF EXISTS `online`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `online` (
   `hash` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
   `ip` varchar(20) CHARACTER SET utf8 NOT NULL DEFAULT '',
@@ -156,44 +149,51 @@ CREATE TABLE `online` (
   `refer` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `lastmove` int(10) NOT NULL,
   `firsttime` int(10) DEFAULT NULL,
-  `uri` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL
+  `uri` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`hash`),
+  UNIQUE KEY `hash` (`hash`)
 ) ENGINE=MEMORY DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
--- --------------------------------------------------------
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- 表的结构 `options`
+-- Table structure for table `options`
 --
 
+DROP TABLE IF EXISTS `options`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `options` (
-  `option_id` int(11) UNSIGNED NOT NULL,
+  `option_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(64) NOT NULL DEFAULT '',
   `desc` varchar(128) NOT NULL DEFAULT '',
-  `value` varchar(128) NOT NULL DEFAULT ''
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
+  `value` varchar(128) NOT NULL DEFAULT '',
+  PRIMARY KEY (`option_id`)
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- 表的结构 `privilege`
+-- Table structure for table `privilege`
 --
 
+DROP TABLE IF EXISTS `privilege`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `privilege` (
   `user_id` char(48) NOT NULL DEFAULT '',
-  `group_id` varchar(48) NOT NULL,
   `rightstr` char(30) NOT NULL DEFAULT '',
   `defunct` char(1) NOT NULL DEFAULT 'N'
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- 表的结构 `problem`
+-- Table structure for table `problem`
 --
 
+DROP TABLE IF EXISTS `problem`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `problem` (
-  `problem_id` int(11) NOT NULL,
-  `stage` int(2) NOT NULL,
+  `problem_id` int(11) NOT NULL AUTO_INCREMENT,
   `title` varchar(200) NOT NULL DEFAULT '',
   `description` text,
   `input` text,
@@ -209,121 +209,150 @@ CREATE TABLE `problem` (
   `defunct` char(1) NOT NULL DEFAULT 'N',
   `accepted` int(11) DEFAULT '0',
   `submit` int(11) DEFAULT '0',
-  `solved` int(11) DEFAULT '0'
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
+  `solved` int(11) DEFAULT '0',
+  PRIMARY KEY (`problem_id`)
+) ENGINE=MyISAM AUTO_INCREMENT=100111 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- 表的结构 `reply`
+-- Table structure for table `reply`
 --
 
+DROP TABLE IF EXISTS `reply`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `reply` (
-  `rid` int(11) NOT NULL,
+  `rid` int(11) NOT NULL AUTO_INCREMENT,
   `author_id` varchar(48) NOT NULL,
   `time` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   `content` text NOT NULL,
   `topic_id` int(11) NOT NULL,
   `status` int(2) NOT NULL DEFAULT '0',
-  `ip` varchar(30) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
+  `ip` varchar(30) NOT NULL,
+  PRIMARY KEY (`rid`),
+  KEY `author_id` (`author_id`)
+) ENGINE=MyISAM AUTO_INCREMENT=36 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- 表的结构 `runtimeinfo`
+-- Table structure for table `runtimeinfo`
 --
 
+DROP TABLE IF EXISTS `runtimeinfo`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `runtimeinfo` (
   `solution_id` int(11) NOT NULL DEFAULT '0',
-  `error` text
+  `error` text,
+  PRIMARY KEY (`solution_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- 表的结构 `sessions`
+-- Table structure for table `sessions`
 --
 
+DROP TABLE IF EXISTS `sessions`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `sessions` (
   `session_id` varchar(24) NOT NULL,
-  `last_active` int(10) UNSIGNED NOT NULL,
-  `contents` text NOT NULL
+  `last_active` int(10) unsigned NOT NULL,
+  `contents` text NOT NULL,
+  PRIMARY KEY (`session_id`),
+  KEY `last_active` (`last_active`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- 表的结构 `sim`
+-- Table structure for table `sim`
 --
 
+DROP TABLE IF EXISTS `sim`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `sim` (
   `s_id` int(11) NOT NULL,
   `sim_s_id` int(11) DEFAULT NULL,
-  `sim` int(11) DEFAULT NULL
+  `sim` int(11) DEFAULT NULL,
+  PRIMARY KEY (`s_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- 表的结构 `solution`
+-- Table structure for table `solution`
 --
 
+DROP TABLE IF EXISTS `solution`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `solution` (
-  `solution_id` int(11) NOT NULL,
+  `solution_id` int(11) NOT NULL AUTO_INCREMENT,
   `problem_id` int(11) NOT NULL DEFAULT '0',
   `user_id` char(48) NOT NULL,
   `time` int(11) NOT NULL DEFAULT '0',
   `memory` int(11) NOT NULL DEFAULT '0',
   `in_date` datetime NOT NULL DEFAULT '1000-01-01 00:00:00',
   `result` smallint(6) NOT NULL DEFAULT '0',
-  `language` int(10) UNSIGNED NOT NULL DEFAULT '0',
+  `language` int(10) unsigned NOT NULL DEFAULT '0',
   `ip` char(15) NOT NULL,
   `contest_id` int(11) DEFAULT NULL,
   `valid` tinyint(4) NOT NULL DEFAULT '1',
   `num` tinyint(4) NOT NULL DEFAULT '-1',
   `code_length` int(11) NOT NULL DEFAULT '0',
   `judgetime` datetime DEFAULT NULL,
-  `pass_rate` decimal(2,2) UNSIGNED NOT NULL DEFAULT '0.00'
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
+  `pass_rate` decimal(2,2) unsigned NOT NULL DEFAULT '0.00',
+  PRIMARY KEY (`solution_id`),
+  KEY `uid` (`user_id`),
+  KEY `pid` (`problem_id`),
+  KEY `res` (`result`),
+  KEY `cid` (`contest_id`)
+) ENGINE=MyISAM AUTO_INCREMENT=17140 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- 表的结构 `source_code`
+-- Table structure for table `source_code`
 --
 
+DROP TABLE IF EXISTS `source_code`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `source_code` (
   `solution_id` int(11) NOT NULL,
-  `source` text NOT NULL
+  `source` text NOT NULL,
+  PRIMARY KEY (`solution_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- 表的结构 `topic`
+-- Table structure for table `topic`
 --
 
+DROP TABLE IF EXISTS `topic`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `topic` (
-  `tid` int(11) NOT NULL,
+  `tid` int(11) NOT NULL AUTO_INCREMENT,
   `title` varbinary(60) NOT NULL,
   `status` int(2) NOT NULL DEFAULT '0',
   `top_level` int(2) NOT NULL DEFAULT '0',
   `cid` int(11) DEFAULT NULL,
   `pid` int(11) NOT NULL,
-  `author_id` varchar(48) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
+  `author_id` varchar(48) NOT NULL,
+  PRIMARY KEY (`tid`),
+  KEY `cid` (`cid`,`pid`)
+) ENGINE=MyISAM AUTO_INCREMENT=24 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- 表的结构 `users`
+-- Table structure for table `users`
 --
 
+DROP TABLE IF EXISTS `users`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `users` (
   `user_id` varchar(48) NOT NULL DEFAULT '',
-  `group_id` varchar(48) NOT NULL COMMENT '用户所在组',
-  `stage` int(2) NOT NULL DEFAULT '1' COMMENT '用户所在阶段',
   `email` varchar(100) DEFAULT NULL,
   `submit` int(11) DEFAULT '0',
   `solved` int(11) DEFAULT '0',
@@ -340,203 +369,17 @@ CREATE TABLE `users` (
   `theme` char(30) DEFAULT NULL,
   `score` int(11) DEFAULT NULL,
   `punish` int(11) DEFAULT '0',
-  `activity` tinyint(1) NOT NULL DEFAULT '1' COMMENT '用户是否活跃'
+  PRIMARY KEY (`user_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
--- --------------------------------------------------------
-
---
--- 表的结构 `users_status`
---
-
-CREATE TABLE `users_status` (
-  `user_id` varchar(48) CHARACTER SET utf8 NOT NULL,
-  `date` date NOT NULL,
-  `group_id` varchar(48) CHARACTER SET utf8 NOT NULL,
-  `submited` int(11) DEFAULT NULL,
-  `score` int(11) DEFAULT NULL,
-  `staged` int(2) NOT NULL,
-  `during_time` text CHARACTER SET utf8
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
--- 表的结构 `users_subject`
---
-
-CREATE TABLE `users_subject` (
-  `user_id` varchar(48) CHARACTER SET utf8 NOT NULL,
-  `problem_id` int(11) NOT NULL,
-  `stage` int(2) NOT NULL,
-  `status` tinyint(1) DEFAULT '0'
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Indexes for dumped tables
---
-
---
--- Indexes for table `compileinfo`
---
-ALTER TABLE `compileinfo`
-  ADD PRIMARY KEY (`solution_id`);
-
---
--- Indexes for table `contest`
---
-ALTER TABLE `contest`
-  ADD PRIMARY KEY (`contest_id`);
-
---
--- Indexes for table `custominput`
---
-ALTER TABLE `custominput`
-  ADD PRIMARY KEY (`solution_id`);
-
---
--- Indexes for table `loginlog`
---
-ALTER TABLE `loginlog`
-  ADD KEY `user_log_index` (`user_id`,`time`);
-
---
--- Indexes for table `mail`
---
-ALTER TABLE `mail`
-  ADD PRIMARY KEY (`mail_id`),
-  ADD KEY `uid` (`to_user`);
-
---
--- Indexes for table `news`
---
-ALTER TABLE `news`
-  ADD PRIMARY KEY (`news_id`);
-
---
--- Indexes for table `online`
---
-ALTER TABLE `online`
-  ADD PRIMARY KEY (`hash`),
-  ADD UNIQUE KEY `hash` (`hash`);
-
---
--- Indexes for table `options`
---
-ALTER TABLE `options`
-  ADD PRIMARY KEY (`option_id`);
-
---
--- Indexes for table `privilege`
---
-ALTER TABLE `privilege`
-  ADD PRIMARY KEY (`user_id`);
-
---
--- Indexes for table `problem`
---
-ALTER TABLE `problem`
-  ADD PRIMARY KEY (`problem_id`);
-
---
--- Indexes for table `reply`
---
-ALTER TABLE `reply`
-  ADD PRIMARY KEY (`rid`),
-  ADD KEY `author_id` (`author_id`);
-
---
--- Indexes for table `runtimeinfo`
---
-ALTER TABLE `runtimeinfo`
-  ADD PRIMARY KEY (`solution_id`);
-
---
--- Indexes for table `sessions`
---
-ALTER TABLE `sessions`
-  ADD PRIMARY KEY (`session_id`),
-  ADD KEY `last_active` (`last_active`);
-
---
--- Indexes for table `sim`
---
-ALTER TABLE `sim`
-  ADD PRIMARY KEY (`s_id`);
-
---
--- Indexes for table `solution`
---
-ALTER TABLE `solution`
-  ADD PRIMARY KEY (`solution_id`),
-  ADD KEY `uid` (`user_id`),
-  ADD KEY `pid` (`problem_id`),
-  ADD KEY `res` (`result`),
-  ADD KEY `cid` (`contest_id`);
-
---
--- Indexes for table `source_code`
---
-ALTER TABLE `source_code`
-  ADD PRIMARY KEY (`solution_id`);
-
---
--- Indexes for table `topic`
---
-ALTER TABLE `topic`
-  ADD PRIMARY KEY (`tid`),
-  ADD KEY `cid` (`cid`,`pid`);
-
---
--- Indexes for table `users`
---
-ALTER TABLE `users`
-  ADD PRIMARY KEY (`user_id`);
-
---
--- 在导出的表使用AUTO_INCREMENT
---
-
---
--- 使用表AUTO_INCREMENT `contest`
---
-ALTER TABLE `contest`
-  MODIFY `contest_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1004;
---
--- 使用表AUTO_INCREMENT `mail`
---
-ALTER TABLE `mail`
-  MODIFY `mail_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1014;
---
--- 使用表AUTO_INCREMENT `news`
---
-ALTER TABLE `news`
-  MODIFY `news_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1005;
---
--- 使用表AUTO_INCREMENT `options`
---
-ALTER TABLE `options`
-  MODIFY `option_id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
---
--- 使用表AUTO_INCREMENT `problem`
---
-ALTER TABLE `problem`
-  MODIFY `problem_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=100111;
---
--- 使用表AUTO_INCREMENT `reply`
---
-ALTER TABLE `reply`
-  MODIFY `rid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
---
--- 使用表AUTO_INCREMENT `solution`
---
-ALTER TABLE `solution`
-  MODIFY `solution_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17140;
---
--- 使用表AUTO_INCREMENT `topic`
---
-ALTER TABLE `topic`
-  MODIFY `tid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2016-10-11 15:08:11
