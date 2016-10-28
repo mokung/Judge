@@ -37,12 +37,13 @@ class Controller_Admin_Problem extends Controller_Admin_Base {
                 $problem->spj = Model_Problem::JUDGE_SPECIAL;
             $problem->save();
         }
-        $this->template_data['title'] = 
+        $this->template_data['title'] =
             __('admin.problem.edit.edit_:id_:name',
                 array(':id' => $problem['problem_id'],
                       ':name' => $problem['title']));
         $this->template_data['problem'] = $problem;
     }
+
 
     public function action_defunct($pid = null)
     {
@@ -51,7 +52,7 @@ class Controller_Admin_Problem extends Controller_Admin_Base {
 
         if (! $pid )
             $pid = $this->get_query('problem_id');
-        
+
         $problem = Model_Problem::find_by_id($pid);
 
         $ret = new JPackage();
