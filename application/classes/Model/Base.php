@@ -112,9 +112,9 @@ abstract class Model_Base extends Model_Database implements ArrayAccess
         {
             $query->order_by($col,  $order);
         }
-        
+
         $result = $query->as_object(get_called_class())->execute();
-        
+
         return $result->as_array();
     }
 

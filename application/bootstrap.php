@@ -163,6 +163,18 @@ Route::set('del_problem_data', 'admin/problem/deldata/<id>/<filename>.<ext>', ar
                 )
      );
 
+
+Route::set(
+    'invite', 'admin/invite/code(/<id>(/<overflow>))',
+    array(
+         'overflow' => '.*?'
+    ))->defaults(array(
+         'directory'  => 'admin',
+         'controller' => 'invite',
+         'action'     => 'index'
+    )
+);
+
 Route::set('admin', 'admin(/<controller>(/<action>(/<id>)))')
     ->defaults(array(
         'directory'  => 'admin',
@@ -170,6 +182,20 @@ Route::set('admin', 'admin(/<controller>(/<action>(/<id>)))')
         'action'     => 'index'
     )
 );
+
+
+
+
+
+    //new
+//     Route::set(
+//     'situation', 'situation/<action>',
+//     array('action' => '(inject)')
+// )->defaults(array(
+//          'controller' => 'situation'
+//     )
+// );
+
 
 Route::set(
     'auth', '<action>',

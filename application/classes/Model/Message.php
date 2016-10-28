@@ -11,6 +11,8 @@ class Model_Message extends Model_Base {
     static $primary_key = 'message_id';
 
     static $cols = array(
+
+
         'message_id',
         'problem_id',
         'parent_id',
