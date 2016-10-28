@@ -8,6 +8,4 @@
 
         <li <?php if (Request::$current->controller() == 'Invite'):?>class="active" <?php endif;?>><a href="<?php e::url('/admin/Invite/index');?>"><?php echo(__("invitation_code")); ?></a></li>
 
- <li <?php if (Request::$current->controller() == 'Groups'):?>class="active" <?php endif;?>><a href="<?php e::url('admin/groups/index');?>"><?php echo(__('groups')); ?></a ></li>
-
 </ul>
