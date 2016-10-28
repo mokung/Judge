@@ -3,8 +3,8 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: 2016-10-23 10:00:45
--- 服务器版本： 5.7.15-0ubuntu0.16.04.1
+-- Generation Time: 2016-10-28 19:43:53
+-- 服务器版本： 5.7.16-0ubuntu0.16.04.1
 -- PHP Version: 7.0.8-0ubuntu0.16.04.3
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
@@ -79,7 +79,7 @@ CREATE TABLE `custominput` (
 --
 
 CREATE TABLE `groups` (
-  `group_id` varchar(48) CHARACTER SET utf8 NOT NULL,
+  `group_id` varchar(48) CHARACTER SET utf8 NOT NULL DEFAULT '',
   `time_created` datetime DEFAULT NULL,
   `defunct` char(1) CHARACTER SET utf8 NOT NULL DEFAULT 'N'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -322,7 +322,6 @@ CREATE TABLE `topic` (
 
 CREATE TABLE `users` (
   `user_id` varchar(48) NOT NULL DEFAULT '',
-  `group_id` varchar(48) NOT NULL COMMENT '用户所在组',
   `stage` int(2) NOT NULL DEFAULT '1' COMMENT '用户所在阶段',
   `email` varchar(100) DEFAULT NULL,
   `submit` int(11) DEFAULT '0',
@@ -393,6 +392,12 @@ ALTER TABLE `contest`
 --
 ALTER TABLE `custominput`
   ADD PRIMARY KEY (`solution_id`);
+
+--
+-- Indexes for table `groups`
+--
+ALTER TABLE `groups`
+  ADD PRIMARY KEY (`group_id`);
 
 --
 -- Indexes for table `loginlog`
@@ -511,7 +516,7 @@ ALTER TABLE `mail`
 -- 使用表AUTO_INCREMENT `news`
 --
 ALTER TABLE `news`
-  MODIFY `news_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1005;
+  MODIFY `news_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1006;
 --
 -- 使用表AUTO_INCREMENT `options`
 --
