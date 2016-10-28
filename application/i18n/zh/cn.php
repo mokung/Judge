@@ -147,6 +147,7 @@ return array(
     'user.register.theme'                                   => '主题',
     'user.register.captcha'                                 => '验证码',
     'user.register.register'                                => '注册',
+    'user.register.invitation'                              => '邀请码',
 
     'user.edit.user_edit'                                   => '用户修改',
     'user.edit.current_password'                            => '当前密码',
