@@ -10,5 +10,5 @@
 
         <li <?php if (Request::$current->controller() == 'Situation' AND Request::$current->action() == 'inject'):?>class="active" <?php endif;?>><a href="<?php e::url('situation/inject');?>"><?php echo(__("situaInject")); ?></a></li>
 
-        <li <?php if (Request::$current->controller() == 'InvitationCode' AND Request::$current->action() == 'generate'):?>class="active" <?php endif;?>><a href="<?php e::url('InvitationCode/generate/?group=stju&type=2&limit=5');?>"><?php echo(__("code")); ?></a></li>
+
 </ul>

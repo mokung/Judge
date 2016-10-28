@@ -10,6 +10,7 @@
 class Model_InvitationCode extends Model_Base
 {
     static $cols = array(
+        'id',
         'group_id',
         'invited_code',
         'type',
@@ -18,10 +19,11 @@ class Model_InvitationCode extends Model_Base
 
     );
 
-    static $primary_key = 'mail_id'; // NNNNNNNNNNO
+    static $primary_key = 'id'; // NNNNNNNNNNO
 
     static $table = 'invitation';
 
+    public $id;
     public $group_id;
     public $invited_code;
     public $type;
