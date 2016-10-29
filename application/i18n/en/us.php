@@ -148,6 +148,7 @@ return array(
     'user.register.theme'                          => 'Theme',
     'user.register.captcha'                        => 'Captcha',
     'user.register.register'                       => 'Register',
+    'user.register.invitation'                     => 'Invitation Code',
 
     'user.edit.user_edit'                          => 'Edit User',
     'user.edit.current_password'                   => 'Current Password',
