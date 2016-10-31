@@ -50,6 +50,24 @@ class Model_Situation extends Model_Base
     //     return $result->as_array();
 
     // }
+    //
+    //
+      public function save()
+    {
+        // prepare data
+        //        $this->data['update_at'] = PP::format_time();
+
+        // 过滤不存在的数据
+        $data = $this->raw_array();
+
+        // else save new record
+        $keys   = array_keys($data);
+        $values = array_values($data);
+
+        $query  = DB::insert(static::$table, $keys)->values($values);
+
+        $query->execute();
+    }
 
     public static function get_oneday_userdetail($user_id)
     {
@@ -126,11 +144,12 @@ class Model_Situation extends Model_Base
      *
      * @return Model_Problem[]
      */
-    public static function search($text, $area, $orderby = array(), $show_all=false)
+    public static function search($text, $area, $orderby = array(), $show_all=false, $left, $right)
     {
         $term = "%{$text}%";
-        $query = DB::select()->from('solution')
+        $query = DB::select()->from('users_status')
             ->where($area, 'LIKE', $term)
+            ->where($left, '=' , $right)
             ->limit(100);
 
         foreach($orderby as $key => $order)

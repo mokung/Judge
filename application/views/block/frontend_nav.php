@@ -6,9 +6,7 @@
     <li <?php if (Request::$current->controller() == 'Contest'):?>class="active" <?php endif;?>><a href="<?php e::url('contest');?>"><?php echo(__("top_frontend.contest")); ?></a></li>
     <li <?php if (Request::$current->action() == 'faqs'):?>class="active" <?php endif;?>><a href="<?php e::url('faqs');?>"><?php echo(__("top_frontend.faqs")); ?></a></li>
     <li <?php if (Request::$current->controller() == 'Discuss'):?>class="active" <?php endif;?>><a href="<?php e::url('discuss');?>"><?php echo(__("top_frontend.discuss")); ?></a></li>
-        <li <?php if (Request::$current->controller() == 'Situation' AND Request::$current->action() == 'list'):?>class="active" <?php endif;?>><a href="<?php e::url('situation/list');?>"><?php echo(__("situation")); ?></a></li>
 
-        <li <?php if (Request::$current->controller() == 'Situation' AND Request::$current->action() == 'inject'):?>class="active" <?php endif;?>><a href="<?php e::url('situation/inject');?>"><?php echo(__("situaInject")); ?></a></li>
 
 
 </ul>

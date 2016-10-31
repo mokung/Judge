@@ -40,5 +40,9 @@
 <td class="pid "><?php  print_r($oneday_user_id); ?></td>
 
 
+
+        <td class="pid "><?php   echo($user); ?></td>
+        <td class="pid "><?php   echo($date); ?></td>
+
 </tbody>
 </table>
