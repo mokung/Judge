@@ -27,11 +27,8 @@ class Controller_Admin_Invite extends Controller_Admin_Base
         $type = Arr::get($_GET,'type');
         $limit = Arr::get($_GET,'num');
 
-        //get current date (format ---> 2016-10-26 10:39:06.352216)
-        $date = Model_InvitationCode::getTimeToMicroseconds();
-
-        //generate hashcode(invitationcode) by date
-        $incode = hash("md5",$date);
+            //generate hashcode(invitationcode) by date
+        $incode = Model_InvitationCode::generateRandomString(6);
 
 
 //test

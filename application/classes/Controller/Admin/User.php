@@ -2,6 +2,46 @@
 
 class Controller_Admin_User extends Controller_Admin_Base{
 
+
+    //run per one day
+    public function action_addscore()
+    {
+// $this->view = 'situation/list';
+        $this->view = 'admin/situation/test';
+
+
+        $user = Arr::get($_GET,'user');
+        $date = Arr::get($_GET,'date');
+
+        $this->template_data['user'] = $user;
+        $this->template_data['date'] = $date;
+
+        // $date = strtotime($date);
+
+
+        //get message from solution
+        // $result = Model_Situation::oneday_message_from_solution();
+
+        $order_by = array(
+                'date' => Model_Base::ORDER_DESC
+            );
+
+        $result = Model_Situation::search($date,'date',$order_by,$show_all=true, 'user_id', $user);
+
+         $this->template_data['oneday'] = $result;
+         $this->template_data['oneday'] = $result;
+         $this->template_data['oneday'] = $result;
+         $this->template_data['oneday'] = $result;
+
+         $title = __('ddd');
+        $this->template_data['title'] = $title;
+
+
+
+    }
+
+
+
     public function action_index()
     {
         $this->view = 'admin/user/list';

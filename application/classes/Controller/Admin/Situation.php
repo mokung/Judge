@@ -1,6 +1,6 @@
 <?php defined('SYSPATH') or die('No direct script access.');
 
-class Controller_Situation extends Controller_Base
+class Controller_Admin_Situation extends Controller_Admin_Base
 {
 
 
@@ -9,7 +9,7 @@ class Controller_Situation extends Controller_Base
     public function action_inject()
     {
 // $this->view = 'situation/list';
-        $this->view = 'situation/test';
+        $this->view = 'admin/situation/test';
 
         //get message from solution
         // $result = Model_Situation::oneday_message_from_solution();

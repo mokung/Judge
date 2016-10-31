@@ -175,6 +175,18 @@ Route::set(
     )
 );
 
+
+    Route::set(
+    'addscore', 'admin/user/addscore(/<id>(/<overflow>))',
+    array(
+         'overflow' => '.*?'
+    ))->defaults(array(
+         'directory'  => 'admin',
+         'controller' => 'user',
+         'action'     => 'addscore'
+    )
+);
+
 Route::set('admin', 'admin(/<controller>(/<action>(/<id>)))')
     ->defaults(array(
         'directory'  => 'admin',
