@@ -23,20 +23,16 @@ class Controller_Admin_User extends Controller_Admin_Base{
         // $result = Model_Situation::oneday_message_from_solution();
 
         $order_by = array(
-                'date' => Model_Base::ORDER_DESC
+                'date' => Model_Base::ORDER_ASC
             );
 
         $result = Model_Situation::search($date,'date',$order_by,$show_all=true, 'user_id', $user);
 
          $this->template_data['oneday'] = $result;
-         $this->template_data['oneday'] = $result;
-         $this->template_data['oneday'] = $result;
-         $this->template_data['oneday'] = $result;
+
 
          $title = __('ddd');
         $this->template_data['title'] = $title;
-
-
 
     }
 

@@ -13,7 +13,7 @@
         <li <?php if (Request::$current->controller() == 'user' AND Request::$current->action() == 'addscore'):?>class="active" <?php endif;?>><a href="<?php e::url('/admin/user/addscore?user=yibo&date=10');?>"><?php echo(__("situaInject")); ?></a></li> -->
 
 
-        <li <?php if (Request::$current->controller() == 'user' AND Request::$current->action() == 'addscore'):?>class="active" <?php endif;?>><a href="<?php e::url('/admin/user/addscore?user=zhang&date=2016-09');?>"><?php echo(__("addscore")); ?></a></li>
+        <li <?php if (Request::$current->controller() == 'user' AND Request::$current->action() == 'addscore'):?>class="active" <?php endif;?>><a href="<?php e::url('/admin/user/addscore?user=zhang&date=2016-11');?>"><?php echo(__("addscore")); ?></a></li>
 
         <li <?php if (Request::$current->controller() == 'user' AND Request::$current->action() == 'addscore'):?>class="active" <?php endif;?>><a href="<?php e::url('/admin/groups/status?id=stju&date=2016-10');?>"><?php echo(__("status")); ?></a></li>
 
