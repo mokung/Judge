@@ -32,25 +32,22 @@ class Model_InvitationCode extends Model_Base
 
 
 
-
-
-
-public static function getTimeToMicroseconds()
-{
-    $t = microtime(true);
-    $micro = sprintf("%06d", ($t - floor($t)) * 1000000);
-    $d = new DateTime(date('Y-m-d H:i:s.' . $micro, $t));
-
-    return $d->format("Y-m-d H:i:s.u");
+    const MAIL_NEW  = 1;
+    const MAIL_READ = 0;
+/*
+anthod: zhang ze xiang
+function : generate invitation code
+date: 2016.10.31 13:02
+ */
+public static function generateRandomString($length = 6) {
+    $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    $charactersLength = strlen($characters);
+    $randomString = '';
+    for ($i = 0; $i < $length; $i++) {
+        $randomString .= $characters[rand(0, $charactersLength - 1)];
+    }
+    return $randomString;
 }
-
-
-
-// public static function get_Group_id($invitation)
-// {
-//      $result = DB::select(static::$group_id)->from(static::$table)->where(static::$invited_code, '=', $invitation)->execute();
-//      return $result;
-// }
 
     public static function get_Group_id($invitation)
     {
@@ -107,10 +104,10 @@ public static function getTimeToMicroseconds()
    
     protected function initial_data()
     {
-        // $this->new_mail = self::MAIL_NEW;
-        // $this->in_date = e::format_time();
-        // $this->reply = 0;
-        // $this->defunct = self::DEFUNCT_NO;
+       $this->new_mail = self::MAIL_NEW;
+       $this->in_date = e::format_time();
+       $this->reply = 0;
+       $this->defunct = self::DEFUNCT_NO;
     }
 
     public function validate()
