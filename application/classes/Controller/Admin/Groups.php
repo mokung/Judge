@@ -10,21 +10,19 @@ class Controller_Admin_Groups extends Controller_Admin_Base{
 	public function action_create(){
 
 			$group_id  = $_GET['id'];
-			$group =  new Model_Groups;
-			$group->group_id = $group_id;
-			$group->save();
+      $group = Model_Groups::find_by_id($group_id);
+
+      if (!$group) {
+           $group =  new Model_Groups;
+          $group->group_id = $group_id;
+          $group->save();
 
 
-			    // if ( $group->save() )
-       //       {
-     		// $this->template_data['title'] = $group_id;
-       //$this->redirect('/admin/groups/index');
-            // } else {
-            	$this->template_data['title'] = $group['group_id'];
-              // $this->flash_error(__('common.error'));
-           // }
-		// $this->template_data['id'] =$group_id;
-		
+      }else{
+        $this->flash_error(array(__('common.group_exist')));
+      }
+			
+      $this->redirect('admin/groups/');
 
 	}
 

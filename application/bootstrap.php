@@ -164,16 +164,6 @@ Route::set('del_problem_data', 'admin/problem/deldata/<id>/<filename>.<ext>', ar
      );
 
 
-Route::set(
-    'invite', 'admin/invite/code(/<id>(/<overflow>))',
-    array(
-         'overflow' => '.*?'
-    ))->defaults(array(
-         'directory'  => 'admin',
-         'controller' => 'invite',
-         'action'     => 'index'
-    )
-);
 
 Route::set('admin', 'admin(/<controller>(/<action>(/<id>)))')
     ->defaults(array(
@@ -183,6 +173,38 @@ Route::set('admin', 'admin(/<controller>(/<action>(/<id>)))')
     )
 );
 
+
+//组管理员
+
+Route::set('show_problem_data', 'leader/problem/showdata/<id>/<filename>.<ext>', array(
+    'filename' => '\w+',
+    'ext' => '\w+',
+))->defaults(array(
+                    'directory'  => 'leader',
+                    'controller' => 'problem',
+                    'action'     => 'showdata'
+                )
+     );
+
+Route::set('del_problem_data', 'leader/problem/deldata/<id>/<filename>.<ext>', array(
+    'filename' => '\w+',
+    'ext' => '\w+',
+))->defaults(array(
+                    'directory'  => 'leader',
+                    'controller' => 'problem',
+                    'action'     => 'deldata'
+                )
+     );
+
+
+
+Route::set('leader', 'leader(/<controller>(/<action>(/<id>)))')
+    ->defaults(array(
+        'directory'  => 'leader',
+        'controller' => 'index',
+        'action'     => 'index'
+    )
+);
 
 
 

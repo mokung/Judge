@@ -31,10 +31,6 @@ class Model_InvitationCode extends Model_Base
     public $createtime;
 
 
-    const MAIL_NEW  = 1;
-    const MAIL_READ = 0;
-
-
 
 
 
@@ -50,154 +46,71 @@ public static function getTimeToMicroseconds()
 
 
 
+// public static function get_Group_id($invitation)
+// {
+//      $result = DB::select(static::$group_id)->from(static::$table)->where(static::$invited_code, '=', $invitation)->execute();
+//      return $result;
+// }
 
-
-
-
-
-
-
-
-
-    /**
-     * @param     $username
-     * @param int $page
-     * @param int $limit
-     *
-     * @return Model_Mail
-     */
-    public static function find_user_inbox($username, $page = 1, $limit =  20)
+    public static function get_Group_id($invitation)
     {
+       
         $filter = array(
-            'to_user' => $username,
+            'invited_code' => $invitation,
         );
 
-        return self::find($filter, $page, $limit);
+        $result = self::find($filter);
+
+        if ($result) return $result[0];
+
+        return null;
     }
+    public static function invitation_del($invited_code){
 
-    /**
-     * @param     $username
-     * @param int $page
-     * @param int $limit
-     *
-     * @return Model_Mail
-     */
-    public static function find_user_outbox($username, $page = 1, $limit = 20)
-    {
-        $filter = array(
-            'from_user' => $username,
-        );
+         $query = DB::delete(self::$table)
+            ->where('invited_code', '=', $invited_code);
+        return $query->execute();
 
-        return self::find($filter, $page, $limit);
     }
-
-    /**
-     * fetch user send mail
-     *
-     * @param $username
-     *
-     * @return int
-     */
-    public static function count_user_outbox($username)
+ 
+      public function save()
     {
-        $filter = array(
-            'from_user' => $username,
-        );
+        // prepare data
+//        $this->data['update_at'] = PP::format_time();
 
-        return self::count($filter);
-    }
+        // 过滤不存在的数据
+        $data = $this->raw_array();
 
-    /**
-     * @param $username
-     *
-     * @return int
-     */
-    public static function count_user_inbox($username)
-    {
-        $filter = array(
-            'to_user' => $username,
-        );
-
-        return self::count($filter);
-    }
-
-    /**
-     * mark mail as read
-     *
-     */
-    public function mark_as_read()
-    {
-        if ( $this->is_unread() )
+        if ( isset($this->{static::$primary_key}) and $this->{static::$primary_key})
         {
-            $this->new_mail = self::MAIL_READ;
-            $this->save();
+            // if primary key exist, then update, contain primary key, haha
+            $primary_id = $this->{static::$primary_key};
+            //            unset($this->data[static::$primary_key]);
+
+            $query = DB::update(static::$table)->set($data)->where(static::$primary_key, '=', $primary_id);
+            $ret   = $query->execute();
+
+            return $ret;
+        } else
+        {
+            // else save new record
+            $keys   = array_keys($data);
+            $values = array_values($data);
+
+            list($id, $affect_row) = DB::insert(static::$table, $keys)->values($values)->execute();
+
+            $this->{static::$primary_key} = $id;
+
+            return $affect_row;
         }
     }
-
-    /**
-     * is mail unread
-     *
-     * @return bool
-     */
-    public function is_unread()
-    {
-        return (int)$this->new_mail == self::MAIL_NEW;
-    }
-
-    /**
-     * judge user is the receiver
-     *
-     * @param Model_User|string $user
-     *
-     * @return bool
-     */
-    public function is_receiver($user)
-    {
-        if ( $user instanceof Model_User )
-        {
-            return $this->to_user == $user->user_id;
-        }
-        return $this->to_user == $user;
-    }
-
-    /**
-     *
-     * the number of unread mail for user
-     *
-     * @param $user_id
-     *
-     * @return int
-     */
-    public static function number_of_unread_mail_for_user($user_id)
-    {
-        $query = DB::select(DB::expr('count(*) as number'))->from(self::$table)
-            ->where('to_user', '=', $user_id)
-            ->where('new_mail', '=', self::MAIL_NEW);
-
-        $result = $query->execute()->current();
-
-        return $result['number'];
-    }
-
-    /**
-     *  is the user is the sender or the receiver
-     *
-     * @param Model_User $user
-     *
-     * @return bool
-     */
-    public function is_owner($user)
-    {
-        return $this->to_user == $user->user_id
-            OR $this->from_user == $user->user_id;
-    }
-
+   
     protected function initial_data()
     {
-        $this->new_mail = self::MAIL_NEW;
-        $this->in_date = e::format_time();
-        $this->reply = 0;
-        $this->defunct = self::DEFUNCT_NO;
+        // $this->new_mail = self::MAIL_NEW;
+        // $this->in_date = e::format_time();
+        // $this->reply = 0;
+        // $this->defunct = self::DEFUNCT_NO;
     }
 
     public function validate()

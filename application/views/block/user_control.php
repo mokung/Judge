@@ -13,6 +13,10 @@
                 <?php if ( OJ::is_admin() ): ?>
                     <li><a href="<?php e::url('admin');?>" data-no-turbolink><?php echo(__("top_frontend.adminctl")); ?></a></li>
                 <?php endif; ?>
+                
+                <?php if ( OJ::is_leader() ): ?>
+                    <li><a href="<?php e::url('leader');?>" data-no-turbolink><?php echo(__("top_frontend.adminctl")); ?></a></li>
+                <?php endif; ?>
                 <?php if ( $cu ):?>
                     <li class="divider"></li>
                     <li><a href="<?php e::url('logout');?>" data-no-turbolink><?php echo(__("top_frontend.logout")); ?></a></li>

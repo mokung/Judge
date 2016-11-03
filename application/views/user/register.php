@@ -35,6 +35,12 @@
             <input class="form-control" name="email" id="email" type="text" placeholder="<?php echo(__('user.register.1_to_30')); ?>"/>
         </div>
     </div>
+    <div class="form-group">
+        <label class="col-sm-5 control-label" for="invitation"><?php echo(__('user.register.invitation')); ?></label>
+        <div class="col-sm-7">
+            <input class="form-control" name="invitation" id="invitation" type="text" placeholder="<?php echo(__('user.register.required')); ?>"/>
+        </div>
+    </div>
     <?php if ( $mode = OJ::is_captcha_enabled() ):?>
     <div class="form-group">
         <label class="col-sm-5 control-label"><?php echo(__('user.register.captcha')); ?></label>

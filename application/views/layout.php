@@ -24,8 +24,11 @@
 <?php
     if ( OJ::is_backend())
         echo View::factory('block/backend_nav');
+    else if (OJ::is_backendl())
+        echo View::factory('block/backendl_nav');
     else
         echo View::factory('block/frontend_nav');
+
 ?>
         <?php echo View::factory('block/user_control'); ?>
         </div><!--/.nav-collapse -->
