@@ -9,3 +9,4 @@
      <li <?php if (Request::$current->controller() == 'Invite'):?>class="active" <?php endif;?>><a href="<?php e::url('/admin/Invite/index');?>"><?php echo(__("invitation_code")); ?></a></li>
 
 </ul>
+
