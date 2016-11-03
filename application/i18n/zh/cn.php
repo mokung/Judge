@@ -147,6 +147,7 @@ return array(
     'user.register.theme'                                   => '主题',
     'user.register.captcha'                                 => '验证码',
     'user.register.register'                                => '注册',
+    'user.register.invitation'                              => '邀请码',
 
     'user.edit.user_edit'                                   => '用户修改',
     'user.edit.current_password'                            => '当前密码',
@@ -392,6 +393,8 @@ return array(
     'common.user_not_found'                                 => '未找到此用户',
     'common.user_exist'                                     => '用户已存在',
     'common.login_error'                                    => '用户名或密码错误，请重试',
+
+    'common.group_exist'                                    => '组已存在',
     'common.captcha_error'                                  => '验证码错误',
     'common.news_not_found'                                 => '未找到新闻',
     'common.mail_not_found'                                 => '未找到邮件',
@@ -400,6 +403,7 @@ return array(
     'common.contest_not_found'                              => '比赛不可用',
     'common.solution_detail_not_found'                      => '此解的详情不可用',
     'common.:user_not_found'                                => '未找到用户:user',
+    'common.code_not_found'                                 => '此邀请码不可用',
     'common.submit_before_topic'                            => '在发帖前，请先至少提交一个题库问题',
     'common.rejudge_:problem'                               => '正在重测题目 :problem',
     'common.rejudge_:runid'                                 => '正在重测解 :runid',

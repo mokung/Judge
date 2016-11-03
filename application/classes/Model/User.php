@@ -8,6 +8,8 @@ class Model_User extends Model_Base
 {
     static $cols = array(
         'user_id',
+        'group_id',
+        'stage',
         'email',
         'submit',
         'solved',
@@ -24,6 +26,7 @@ class Model_User extends Model_Base
         'theme',
         'score',
         'punish',
+        'activity',
     );
 
     static $primary_key = 'user_id';
@@ -31,6 +34,8 @@ class Model_User extends Model_Base
     static $table = 'users';
 
     public $user_id;
+    public $group_id;
+    public $stage;
     public $email;
     public $submit;
     public $solved;
@@ -47,6 +52,7 @@ class Model_User extends Model_Base
     public $theme;
     public $score;
     public $punish;
+    public $activity;
 
     /* @var Model_Privilege[] $permission_list */
     protected $permission_list = null;
@@ -343,6 +349,15 @@ class Model_User extends Model_Base
     {
         return $this->has_permission(Model_Privilege::PERM_ADMIN);
     }
+    /**
+     * 判断用户是否是group管理员
+     *
+     * @return array|bool
+     */
+    public function is_leader()
+    {
+        return $this->has_permission(Model_Privilege::PERM_LEADER);
+    }
 
     /**
      * disable user
@@ -385,6 +400,7 @@ class Model_User extends Model_Base
         $now = e::format_time();
 
         $this->reg_time    = $now;
+        $this->stage       = 1;
         $this->solved      = 0;
         $this->submit      = 0;
         $this->volume      = 1;
@@ -394,6 +410,7 @@ class Model_User extends Model_Base
         $this->ip          = Request::$client_ip;
         $this->defunct     = self::DEFUNCT_NO;
         $this->score       = 0;
+        $this->activity    = 1;
     }
 
     /**
