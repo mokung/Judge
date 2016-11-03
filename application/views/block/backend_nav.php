@@ -8,9 +8,6 @@
     <li <?php if (Request::$current->controller() == 'Groups'):?>class="active" <?php endif;?>><a href="<?php e::url('admin/groups/index');?>"><?php echo(__('groups')); ?></a></li>
      <li <?php if (Request::$current->controller() == 'Invite'):?>class="active" <?php endif;?>><a href="<?php e::url('/admin/Invite/index');?>"><?php echo(__("invitation_code")); ?></a></li>
 
-<!--              <li <?php if (Request::$current->controller() == 'Situation' AND Request::$current->action() == 'list'):?>class="active" <?php endif;?>><a href="<?php e::url('/admin/situation/list');?>"><?php echo(__("situation")); ?></a></li>
-
-        <li <?php if (Request::$current->controller() == 'user' AND Request::$current->action() == 'addscore'):?>class="active" <?php endif;?>><a href="<?php e::url('/admin/user/addscore?user=yibo&date=10');?>"><?php echo(__("situaInject")); ?></a></li> -->
 
 
         <li <?php if (Request::$current->controller() == 'user' AND Request::$current->action() == 'addscore'):?>class="active" <?php endif;?>><a href="<?php e::url('/admin/user/addscore?user=zhang&date=2016-11');?>"><?php echo(__("addscore")); ?></a></li>
