@@ -11,15 +11,18 @@ class Model_Privilege extends Model_Save
     static $primary_key = 'user_id';
 
     const PERM_ADMIN = 'administrator';
+    const PERM_LEADER = 'leader';
     const PERM_SOURCEVIEW = 'source_browser';
 
     static $cols = array(
         'user_id',
+        'group_id',
         'rightstr',
         'defunct',
     );
 
     public $user_id;
+    public $group_id;
     public $rightstr;
     public $defunct;
 

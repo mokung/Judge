@@ -116,16 +116,48 @@ class Controller_User extends Controller_Base
                               ->rule('school', 'max_length', array(':value', 30))
                               ->rule('email', 'not_empty')
                               ->rule('email', 'max_length', array(':value', 30))
-                              ->rule('email', 'email');
+                              ->rule('email', 'email')
+                              ->rule('invitation', 'not_empty');
             if ($post->check()) {
                 $user = Model_User::find_by_id($post['username']);
-                if ( ! $user )
+                $invitation = Model_InvitationCode::get_Group_id($post['invitation']);
+
+                if($invitation==null){
+                    $this->flash_error(array(__('common.code_not_found')));
+
+                }else if ( ! $user )
                 {
                     $user = new Model_User;
+                    
+                    //邀请码使用次数减一
+
+                    if ($invitation['num']==1) {
+
+                       Model_InvitationCode::invitation_del($invitation['invited_code']);
+                    }else{
+                        $invite =$invitation;
+                        $invite->num = $invitation['num']-1;
+                        $invite->save(); 
+
+                    }
+
+
+
                     $user->update($post->data());
+                    $user->group_id = $invitation['group_id'];
                     $user->user_id = $post['username'];
                     $user->update_password($post['password']);
                     $user->save(true);
+
+
+                    if ($invitation['type']==2) {
+                        $privilege = new Model_Privilege;
+                        $privilege->user_id=$post['username'];
+                        $privilege->group_id=$invitation['group_id'];
+                        $privilege->rightstr=Model_Privilege::PERM_LEADER;
+                        $privilege->save();
+
+                    }
 
                     Auth::instance()->login($post['username'], $post['password'], true);
                     $this->go_home();

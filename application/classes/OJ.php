@@ -70,6 +70,19 @@ class OJ
 
         return false;
     }
+    /**
+     * 判断当前用户是否是GROUP管理员
+     *
+     * @return bool
+     */
+    public static function is_leader()
+    {
+        $user = Auth::instance()->get_user();
+        if ( $user )
+            return $user->is_leader();
+
+        return false;
+    }
 
     public static function is_backend()
     {
@@ -80,6 +93,14 @@ class OJ
         return false;
     }
 
+    public static function is_backendl()
+    {
+        if ( Request::current()->directory() == 'Leader')
+        {
+            return true;
+        }
+        return false;
+    }
     /**
      * proxy for permissions
      *

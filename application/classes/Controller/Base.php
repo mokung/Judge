@@ -91,6 +91,19 @@ class Controller_Base extends Controller
         return $user;
     }
 
+     /**
+     * check current user is leader
+     */
+    public function check_leader()
+    {
+        $user = $this->check_login();
+        if ( ! $user->is_leader() )
+        {
+            $this->go_home();
+        }
+        return $user;
+    }
+
     public function after()
     {
         View::set_global('current_user', $this->get_current_user());
