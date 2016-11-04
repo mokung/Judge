@@ -24,7 +24,7 @@ class Controller_Leader_Index extends Controller_Leader_Base{
             } else if ($type == 'SOLUTION') {
                 $solution = Model_Solution::find_by_id($id);
                 if ( $solution )
-                {
+                {`
                     $solution->rejudge();
                     $this->flash_info(__('common.rejudge_:runid',
                         array(':runid' => $solution->solution_id)));
@@ -33,7 +33,7 @@ class Controller_Leader_Index extends Controller_Leader_Base{
         }
         $this->redirect('/admin/');
     }
-    
+
     public function action_rescore()
     {
         $user_list = Model_User::get_all_users();
@@ -54,18 +54,18 @@ class Controller_Leader_Index extends Controller_Leader_Base{
 		    $point += 10;
                     continue;
 		}
-                
+
 		if($s->problem_id<100000){
 		    $point += 40;
                     continue;
 		}
-           }    
+           }
            $u->score = $point - $u->punish;
            $u->save();
         }
-        
+
         $this->redirect('/leader/');
-     
+
     }
 
 }
