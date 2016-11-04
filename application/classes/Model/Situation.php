@@ -134,7 +134,25 @@ class Model_Situation extends Model_Base
 
 
 
+public static function inject($text, $area, $orderby = array(), $show_all=false)
+    {
+        $term = "%{$text}%";
+        $query = DB::select()->from('solution')
+            ->where($area, 'LIKE', $term)
+            ->limit(100);
 
+        foreach($orderby as $key => $order)
+        {
+            $query->order_by($key, $order);
+        }
+
+        if ( ! $show_all )
+            $query->where('defunct', '=', self::DEFUNCT_NO);
+
+        $ret = $query->as_object(get_called_class())->execute();
+
+        return $ret->as_array();
+    }
 
   /**
      * @param       $text

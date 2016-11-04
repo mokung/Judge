@@ -148,6 +148,7 @@ return array(
     'user.register.theme'                          => 'Theme',
     'user.register.captcha'                        => 'Captcha',
     'user.register.register'                       => 'Register',
+    'user.register.invitation'                     => 'Invitation Code',
 
     'user.edit.user_edit'                          => 'Edit User',
     'user.edit.current_password'                   => 'Current Password',
@@ -392,6 +393,9 @@ return array(
     'common.discuss_not_found'                     => 'Discuss topic not found',
     'common.user_not_found'                        => 'User not found',
     'common.user_exist'                            => 'User exist',
+    'common.group_exist'                            => 'Group exist',
+
+
     'common.login_error'                           => 'Wrong username or password, please try again',
     'common.captcha_error'                         => 'Wrong captcha',
     'common.news_not_found'                        => 'News not found',
@@ -401,6 +405,7 @@ return array(
     'common.contest_not_found'                     => 'Contest not available',
     'common.solution_detail_not_found'             => 'Solution details not available',
     'common.:user_not_found'                       => 'User :user not found',
+    'common.code_not_found'                        => 'Code :code not found',
     'common.submit_before_topic'                   => 'Submit code for one problem before taking part in discuss',
     'common.rejudge_:problem'                      => 'Rejudging problem :problem',
     'common.rejudge_:runid'                        => 'Rejudging solution :runid',

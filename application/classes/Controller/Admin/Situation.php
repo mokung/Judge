@@ -5,57 +5,6 @@ class Controller_Admin_Situation extends Controller_Admin_Base
 
 
 
-//run per one day
-    public function action_inject()
-    {
-// $this->view = 'situation/list';
-        $this->view = 'admin/situation/test';
-
-        //get message from solution
-        // $result = Model_Situation::oneday_message_from_solution();
-
-        $order_by = array(
-                'in_date' => Model_Base::ORDER_DESC
-            );
-
-        $result = Model_Situation::search(date("Y-m-d"),'in_date',$order_by,$show_all=true);
-
-         $this->template_data['oneday'] = $result;
-
-         $title = __('ddd');
-        $this->template_data['title'] = $title;
-
-        //process date --> from solution
-        //get user_id , during_time
-
-        $oneday_user_id = Model_Situation::get_oneday_userid($result);
-
-        $this->template_data['oneday_user_id'] = $oneday_user_id;
-
-        foreach ($oneday_user_id as $key => $value) {
-
-            $oneday_user_detail = Model_Situation::get_oneday_userdetail($key);
-
-            $situation = new Model_Situation;
-            # code...
-            $situation->user_id = $key;
-            $situation->date = date('Y-m-d H:i:s');
-            $situation->group_id = $oneday_user_detail->group_id;
-            $situation->submited = $oneday_user_detail->submit;
-            $situation->score = $oneday_user_detail->score;
-            $situation->staged = $oneday_user_detail->staged;
-            $situation->during_time = (json_encode($value));
-            // $situation->during_time = unserialize($situation->during_time);
-            $situation->defunct = "N";
-
-            $situation->save();
-        }
-
-
-
-    }
-
-
 
     public function action_index()
     {
