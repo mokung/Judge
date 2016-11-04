@@ -429,4 +429,7 @@ return array(
     'administrator'                                => 'Administrator',
     'source_browser'                               => 'Source Browser',
 
+    'leader.config.group'                          => 'group config'
+
+
 );
