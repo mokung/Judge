@@ -237,6 +237,7 @@ return array(
     'admin.index.index.runid'                               => '运行号',
     'admin.index.index.id'                                  => '编号',
     'admin.index.index.submit'                              => '重测',
+    'admin.index.index.invitation'                          => '邀请码',
 
     'admin.problem.sidebar.new'                             => '创建题目',
 

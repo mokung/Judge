@@ -238,6 +238,7 @@ return array(
     'admin.index.index.runid'                      => 'Run ID',
     'admin.index.index.id'                         => 'ID',
     'admin.index.index.submit'                     => 'Submit',
+    'admin.index.index.invitation'                     => 'Invitation',
 
     'admin.problem.sidebar.new'                    => 'New',
 
