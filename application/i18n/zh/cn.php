@@ -228,6 +228,12 @@ return array(
     'mail.view.sender'                                      => '发件人：',
     'mail.view.time'                                        => '时间：',
 
+    'leader.index.index.configure'                          => '阶段配置',
+    'leader.index.index.create_stage'                       => '创建阶段',
+    'leader.index.index.stagenum'                           => '阶段数量',
+    'leader.index.index.difficulty'                         => '难度',
+    'leader.index.index.score'                              => '分数',
+
     'admin.index.sidebar.home'                              => '首页',
     'admin.index.index.dashboard'                           => '总览',
     'admin.index.index.rejudge'                             => '重测',

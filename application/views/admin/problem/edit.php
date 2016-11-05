@@ -11,10 +11,10 @@
     </div>
     <div class="row col-sm-offset-2">
         <div class="form-group col-sm-4">
-            <label class="control-label col-sm-4" for="difficulty"><?php echo(__('admin.problem.edit.difficulty')); ?></label>
+            <label class="control-label col-sm-4" for="level"><?php echo(__('admin.problem.edit.difficulty')); ?></label>
             <div class="col-sm-8">
                 <div class="input-group">
-                    <select type="text" class="form-control" name="difficulty" id="difficulty">
+                    <select type="text" class="form-control" name="level" id="level">
                         <option value="1">1</option>
                         <option value="2">2</option>
                         <option value="3">3</option>

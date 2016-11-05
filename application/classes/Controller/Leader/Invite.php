@@ -123,7 +123,7 @@ class Controller_Leader_Invite extends Controller_Leader_Base
 
         $this->template_data['pages'] = ceil(intval(Model_InvitationCode::count($filter)) / OJ::per_page);
         $this->template_data['problem_list'] = $problem_list;
-        $this->template_data['title'] = __('admin.problem.list.problem_list');
+        $this->template_data['title'] = __('user.register.invitation');
     }
 
     public function action_show()

@@ -1,3 +1,2 @@
-<ul class="nav nav-pills nav-stacked">
-    <li><a href="<?php e::url('/admin/Invite/code/?id=stju&type=1&num=5');?>"><?php echo(__('generate')); ?></a></li>
-</ul>
+<a href="<?php e::url('/admin/Invite/code/?id=2&type=1&num=5');?>" class="btn btn-primary">生成邀请码</a>
+

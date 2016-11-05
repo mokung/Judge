@@ -128,7 +128,7 @@ class Controller_Admin_Invite extends Controller_Admin_Base
 
         $this->template_data['pages'] = ceil(intval(Model_InvitationCode::count($filter)) / OJ::per_page);
         $this->template_data['problem_list'] = $problem_list;
-        $this->template_data['title'] = __('admin.problem.list.problem_list');
+        $this->template_data['title'] = __('user.register.invitation');
     }
 
     public function action_show()
