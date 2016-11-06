@@ -18,7 +18,7 @@ class Controller_Admin_Invite extends Controller_Admin_Base
 
 
 
-        $this->view = 'admin/invite/list';
+        $this->view = 'admin/index/index';
         $title = "code";
         $this->template_data['title'] = $title;
 

@@ -37,10 +37,10 @@
 <div class="container">
 <?php if (OJ::is_backend()):?>
     <div class="row">
-        <div class="col-md-1 sidebar">
-            <?php echo View::factory('admin/'. strtolower(Request::current()->controller()).'/sidebar');?>
-        </div>
-        <div class="col-md-11">
+        <?php echo View::factory('admin/'. strtolower(Request::current()->controller()).'/sidebar');?>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
             <h3><?php echo $title;?></h3>
             <?php echo View::factory('block/message');?>
             <?php echo($body); ?>

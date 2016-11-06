@@ -243,6 +243,7 @@ return array(
     'admin.index.index.runid'                               => '运行号',
     'admin.index.index.id'                                  => '编号',
     'admin.index.index.submit'                              => '重测',
+    'admin.index.index.invitation'                          => '邀请码',
 
     'admin.problem.sidebar.new'                             => '创建题目',
 
@@ -291,6 +292,11 @@ return array(
     'admin.user.list.ratio'                                 => '比率',
     'admin.user.list.op'                                    => '操作',
     'admin.user.list.edit'                                  => '修改',
+    'admin.group.list.group_list'                            => '组列表',
+    'admin.group.list.group_name'                            => '组名称',
+    'admin.group.list.group_leader'                          => '管理员',
+    'admin.group.list.group_time'                            => '创建时间',
+    'admin.group.list.group_member'                          => '用户数量',
 
     'admin.user.edit.edit_:user'                            => '修改 :user',
     'admin.user.edit.basic'                                 => '基础信息',
