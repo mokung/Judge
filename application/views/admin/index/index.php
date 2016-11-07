@@ -44,7 +44,7 @@
         <div class="panel panel-default">
             <div class="panel-heading text-center"><?php echo(__('admin.index.index.invitation')); ?></div>
             <div class="panel-body">
-                <form role="form" class="form-horizontal col-sm-12" action="<?php e::url('/admin/invite/code');?>">
+                <form role="form" class="form-horizontal col-sm-12" action="<?php e::url('/admin/index/code');?>">
                     <div class="form-group">
                         <div class="col-sm-offset-2 col-sm-6">
                             <label class="radio-inline pull-left">
@@ -77,7 +77,12 @@
                     </div>
                     <div class="form-group">
                         <div class="alert alert-info col-sm-offset-2 col-sm-8" role="alert">
-                            此处生成邀请码
+                            <?php if(isset( $code ))
+                                echo $code;
+                                else 
+                                    echo "此处生成邀请码";
+                            ?>
+
                         </div>
                     </div>
                 </form>
