@@ -93,9 +93,9 @@ class Controller_Admin_Index extends Controller_Admin_Base
         $type = Arr::get($_GET,'type');
         $limit = Arr::get($_GET,'num');
 
-        $group = Model_Groups::find_by_id($group);
+        $group_id = Model_Groups::find_by_id($group);
 
-        if ($group) {
+        if ($group_id) {
 
 
             if ($limit>=1) {
@@ -128,8 +128,7 @@ class Controller_Admin_Index extends Controller_Admin_Base
         }else{
             $this->flash_error(array(__('common.group_not_exist')));
         }
-         
-
+      
 
     }
        
