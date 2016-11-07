@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: 2016-10-28 19:43:53
+-- Generation Time: 2016-11-03 15:56:10
 -- 服务器版本： 5.7.16-0ubuntu0.16.04.1
 -- PHP Version: 7.0.8-0ubuntu0.16.04.3
 
@@ -93,7 +93,10 @@ CREATE TABLE `groups` (
 CREATE TABLE `invitation` (
   `invited_code` varchar(50) CHARACTER SET utf8 NOT NULL,
   `group_id` varchar(48) CHARACTER SET utf8 NOT NULL,
-  `type` int(1) NOT NULL
+  `type` int(1) NOT NULL,
+  `num` int(10) NOT NULL,
+  `createtime` datetime NOT NULL,
+  `id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -322,6 +325,7 @@ CREATE TABLE `topic` (
 
 CREATE TABLE `users` (
   `user_id` varchar(48) NOT NULL DEFAULT '',
+  `group_id` varchar(48) NOT NULL,
   `stage` int(2) NOT NULL DEFAULT '1' COMMENT '用户所在阶段',
   `email` varchar(100) DEFAULT NULL,
   `submit` int(11) DEFAULT '0',
@@ -398,6 +402,12 @@ ALTER TABLE `custominput`
 --
 ALTER TABLE `groups`
   ADD PRIMARY KEY (`group_id`);
+
+--
+-- Indexes for table `invitation`
+--
+ALTER TABLE `invitation`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `loginlog`
@@ -507,6 +517,11 @@ ALTER TABLE `users`
 --
 ALTER TABLE `contest`
   MODIFY `contest_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1004;
+--
+-- 使用表AUTO_INCREMENT `invitation`
+--
+ALTER TABLE `invitation`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 --
 -- 使用表AUTO_INCREMENT `mail`
 --

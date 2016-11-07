@@ -1,3 +1,8 @@
+<<<<<<< HEAD
 #log
 application/logs/
 application/cache/
+=======
+application/logs/
+application/cache/
+>>>>>>> d266b760538f791c0c7b32d1448e26a6bb5459e6

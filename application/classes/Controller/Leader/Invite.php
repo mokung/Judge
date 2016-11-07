@@ -55,7 +55,6 @@ class Controller_Leader_Invite extends Controller_Leader_Base
     }
 
 
-
      public function action_new()
     {
         $this->view = 'Invitationcode/test';
