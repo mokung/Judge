@@ -12,11 +12,8 @@ return array
             'hostname'   => '127.0.0.1',
             'database'   => 'judge',
             'username'   => 'root',
-<<<<<<< HEAD
             'password'   => '873525',
-=======
-            'password'   => '19950305',
->>>>>>> d266b760538f791c0c7b32d1448e26a6bb5459e6
+
             'persistent' => FALSE,
         ),
         'table_prefix' => '',

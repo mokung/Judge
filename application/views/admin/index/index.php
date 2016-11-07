@@ -39,17 +39,7 @@
                 </form>
             </div>
         </div>
-<<<<<<< HEAD
-        <div class="form-group">
-            <div class="col-sm-offset-6 col-sm-8">
-                <button type="submit" class="btn btn-primary"><?php echo(__('admin.index.index.submit')); ?></button>
-                <td class="pid"><?php print_r($all_group_id); ?></td>
-            </div>
-        </div>
-    </fieldset>
-    </form>
 
-=======
     </div>
     <div class="col-md-6">
         <div class="panel panel-default">
@@ -90,10 +80,10 @@
                         <div class="alert alert-info col-sm-offset-2 col-sm-8" role="alert">
                             <?php if(isset( $code ))
                                 echo $code;
-                                else 
+                                else
                                     echo "此处生成邀请码";
                             ?>
->>>>>>> d266b760538f791c0c7b32d1448e26a6bb5459e6
+
 
                         </div>
                     </div>

@@ -5,7 +5,7 @@ RewriteEngine On
 
 # Installation directory
 #RewriteBase /~Desmond/judge/
-RewriteBase /Judge/
+RewriteBase /judge/
 
 # Protect hidden files from being viewed
 <Files .*>
