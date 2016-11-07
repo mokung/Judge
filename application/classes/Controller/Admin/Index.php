@@ -6,6 +6,11 @@ class Controller_Admin_Index extends Controller_Admin_Base
     public function action_index()
     {
         $this->template_data['title'] = __('admin.index.index.dashboard');
+
+        $all_group_id = Model_Groups::find_all_groupid();
+
+        $this->template_data['all_group_id'] = $all_group_id[1];
+
     }
 
     public function action_rejudge()
@@ -34,7 +39,7 @@ class Controller_Admin_Index extends Controller_Admin_Base
         }
         $this->redirect('/admin/');
     }
-    
+
     public function action_rescore()
     {
         $user_list = Model_User::get_all_users();
@@ -55,18 +60,69 @@ class Controller_Admin_Index extends Controller_Admin_Base
 		    $point += 10;
                     continue;
 		}
-                
+
 		if($s->problem_id<100000){
 		    $point += 40;
                     continue;
 		}
-           }    
+           }
            $u->score = $point - $u->punish;
            $u->save();
         }
-        
+
         $this->redirect('/admin/');
-     
+
+    }
+
+     /*
+
+    generate invitation code and save to database
+
+
+    */
+    public function action_code()
+    {
+
+
+        $user = $this->get_current_user();
+        $this->template_data['user'] = $user;
+
+
+
+        $this->view = 'admin/invite/list';
+        $title = "code";
+        $this->template_data['title'] = $title;
+
+
+        $group = Arr::get($_GET,'id');
+        $type = Arr::get($_GET,'type');
+        $limit = Arr::get($_GET,'num');
+
+            //generate hashcode(invitationcode) by date
+        $incode = Model_InvitationCode::generateRandomString(6);
+
+
+//test
+        $this->template_data['code'] = $incode;
+        $this->template_data['group_id'] = Arr::get($_GET,'id');
+        $this->template_data['type'] = Arr::get($_GET,  'type');
+        $this->template_data['limit'] = Arr::get($_GET,'num');
+
+
+        //save new invitation code to database --> invitation
+        $code = new Model_InvitationCode;
+
+        $code->group_id = $group;
+        $code->invited_code = $incode;
+        $code->type = $type;
+        $code->num = $limit;
+        $code->createtime = date('Y-m-d H:i:s');
+
+        $code->save();
+
+        $this->action_list();
+
+
     }
 
 }

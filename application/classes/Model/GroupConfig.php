@@ -84,7 +84,6 @@ class Model_GroupConfig extends Model_Base
         $query->execute();
     }
 
-
     /**
      * 题目列表
      *

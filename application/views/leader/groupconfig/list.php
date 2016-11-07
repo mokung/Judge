@@ -9,7 +9,7 @@
     <div class="form-group">
         <label class="col-sm-5 control-label" for="nick"><?php echo(__('stagenum')); ?></label>
         <div class="col-sm-7">
-            <input class="form-control" name="stagenum" id="nick" type="text" placeholder="<?php echo($stagenum); ?>"/>
+            <input class="form-control" name="stagenum" id="nick" type="text" placeholder="<?php echo ("levelnum"); ?>"/>
         </div>
     </div>
     <div class="form-group">

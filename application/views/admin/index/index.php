@@ -20,6 +20,7 @@
         <div class="form-group">
             <div class="col-sm-offset-6 col-sm-8">
                 <button type="submit" class="btn btn-primary"><?php echo(__('admin.index.index.submit')); ?></button>
+                <td class="pid"><?php print_r($all_group_id); ?></td>
             </div>
         </div>
     </fieldset>

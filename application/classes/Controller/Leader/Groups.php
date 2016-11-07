@@ -9,7 +9,7 @@ class Controller_Leader_Groups extends Controller_Leader_Base{
   date : 2016.11.3 14:15
    */
 
-//show configed message
+// show configed message
 
     public function action_list()
     {
@@ -29,23 +29,30 @@ class Controller_Leader_Groups extends Controller_Leader_Base{
 
         $configDate = Model_GroupConfig::find_by_id($current_user_groupid);
 
+        if($configDate == null){
+
+          $this->flash_error("has not configed");
+          $this->template_data['group_id'] = $current_user_groupid;
+
+        }else{
+
         $this->template_data['group_id'] = $current_user_groupid;
         $this->template_data['stagenum'] = $configDate->stage_num;
-        $this->template_data['stagelevel'] = $configDate->stage_level;
-        $this->template_data['levelscore'] = $configDate->level_score;
-        $this->template_data['levelnum'] = $configDate->pass_num;
+        $this->template_data['stagelevel'] = unserialize($configDate->stage_level);
+        $this->template_data['levelscore'] = unserialize($configDate->level_score);
+        $this->template_data['levelnum'] = unserialize($configDate->pass_num);
 
-
+      }
 
     }
 
 
 //save config
-//
+
     public function action_config()
     {
 
-      $this->view = 'leader/groupconfig/register';
+      $this->view = 'leader/groupconfig/test';
 
       $current_user = $this->get_current_user();
 
@@ -77,20 +84,20 @@ class Controller_Leader_Groups extends Controller_Leader_Base{
 
                 $this->template_data['stagenum'] = $stagenum;
 
-                $stagelevel = [1=>1,2=>2,3=>3,4=>4,5=>5];
+                $stagelevel = array(1=>"1",2=>"2",3=>"3",4=>"4",5=>"5");
 
                 $this->template_data['stagelevel'] = $stagelevel;
 
-                $levelnum = [1=>18,2=>18,3=>18,4=>15,5=>10];
-                $levelscore = [1=>1,2=>10,3=>30,4=>50,5=>100];
+                $levelnum = array(1=>"18",2=>"20",3=>"30",4=>"40",5=>"50");
+                $levelscore = array(1=>"1",2=>"5",3=>"10",4=>"20",5=>"30");
 
-
-                $config = new Model_GroupConfig;
+               $config = new Model_GroupConfig;
                $config->group_id = $current_user_groupid;
                $config->stage_num = $stagenum;
-               $config->stage_level = json_encode($stagelevel);
-               $config->level_score = json_encode($levelscore);
-               $config->pass_num = json_encode($levelnum);
+               $config->stage_level = serialize($stagelevel);
+               $config->pass_num = serialize($levelnum);
+               $config->level_score = serialize($levelscore);
+
 
                $config->save();
 
@@ -111,7 +118,7 @@ class Controller_Leader_Groups extends Controller_Leader_Base{
       }
 
         $this->template_data['title'] = __('leader.config.group');
-        $this->action_list();
+        // $this->action_list();
     }
 
 

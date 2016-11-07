@@ -4,36 +4,120 @@ class Controller_Problem extends Controller_Base
 {
     public function action_index()
     {
-        $this->view = 'problem/list';
+        $this->view = 'problem/userlist';
         $this->action_list();
     }
 
+
+    /*
+    author : zhang zexiang
+    function : stage problem list
+    date : 2016.11.5 09:57
+     */
     public function action_list()
     {
-        $default_page = Session::instance()->get('volume', 1);
-        // get user last volume
-        $current_user = $this->get_current_user();
-        if ( $current_user )
-        {
-            $default_page = $current_user->get_last_volume();
-        }
-
-        $page = $this->request->param('id', $default_page);
-        // save current volume
-        Session::instance()->set('volume', $page);
-
-        $total_volumes = Model_Problem::number_of_volume();
-
-        $page = e::adjust_scope($page, $total_volumes);
-
-        $this->template_data['problemlist'] = Model_Problem::problems_for_volume($page);
-
-        $title = __('problem.list.problem_set_:id', array(':id' => $page));
+        $this->view = 'problem/userlist';
+        $title = __('haha');
         $this->template_data['title'] = $title;
 
-        $this->template_data['page'] = $page;
-        $this->template_data['pages'] = $total_volumes;
+
+         $current_user = $this->get_current_user();
+         $current_user_group = $current_user->group_id;
+         $current_user_stage = $current_user->stage;
+
+
+         //if this user group has configed
+
+         $current_user_group_config = Model_GroupConfig::find_by_id($current_user_group);
+         if($current_user_group_config){
+
+            $stage_num = $current_user_group_config->stage_num;
+            $stage_level = unserialize($current_user_group_config->stage_level);
+            $pass_num = unserialize($current_user_group_config->pass_num);
+
+            $current_problem_level = $stage_level[$current_user_stage];
+            $current_show_num = $pass_num[$current_user_stage];
+
+            $this->template_data['current_problem_level'] = $current_problem_level;
+
+            $current_problem = Model_UsersProblem::find_current_problem($current_user->user_id, $current_problem_level);
+
+            $num = count($current_problem);
+
+
+            if($num == 0){
+
+                $this->action_generate($current_problem_level,$current_show_num);
+
+            }else{
+
+
+            $this->template_data['current_problem'] = $current_problem[0]['problem_id'];
+            $this->template_data['num'] = $num;
+            $this->template_data['current_show_num'] = $current_show_num;
+
+            }
+
+
+         }else{
+            $this->flash_error("this group no confige !");
+         }
+
     }
+
+    /*
+    author : zhang zexiang
+    funtion : random generate current problem list
+    date : 2016.11.6 22:50
+    */
+
+
+   public function action_generate($current_problem_level,$current_show_num)
+   {
+        $all_leve_problem = Model_UsersProblem::find_level_problem($current_problem_level);
+        $this->template_data['all_leve_problem'] = $all_leve_problem[0]['title'];
+
+        $num = count($all_leve_problem);
+        $this->template_data['num'] = $current_show_num;
+
+        if($num < $current_show_num)    // if all this level problem number < need to show number
+        {
+
+        } else{
+            Model_UsersProblem::
+        }
+
+
+
+
+   }
+
+    // public function action_list()
+    // {
+    //     $default_page = Session::instance()->get('volume', 1);
+    //     // get user last volume
+    //     $current_user = $this->get_current_user();
+    //     if ( $current_user )
+    //     {
+    //         $default_page = $current_user->get_last_volume();
+    //     }
+
+    //     $page = $this->request->param('id', $default_page);
+    //     // save current volume
+    //     Session::instance()->set('volume', $page);
+
+    //     $total_volumes = Model_Problem::number_of_volume();
+
+    //     $page = e::adjust_scope($page, $total_volumes);
+
+    //     $this->template_data['problemlist'] = Model_Problem::problems_for_volume($page);
+
+    //     $title = __('problem.list.problem_set_:id', array(':id' => $page));
+    //     $this->template_data['title'] = $title;
+
+    //     $this->template_data['page'] = $page;
+    //     $this->template_data['pages'] = $total_volumes;
+    // }
 
     public function action_show()
     {

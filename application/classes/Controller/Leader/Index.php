@@ -24,7 +24,7 @@ class Controller_Leader_Index extends Controller_Leader_Base{
             } else if ($type == 'SOLUTION') {
                 $solution = Model_Solution::find_by_id($id);
                 if ( $solution )
-                {`
+                {
                     $solution->rejudge();
                     $this->flash_info(__('common.rejudge_:runid',
                         array(':runid' => $solution->solution_id)));

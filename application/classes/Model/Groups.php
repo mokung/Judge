@@ -15,7 +15,20 @@ class Model_Groups extends Model_Base {
     public $group_id;
     public $time_created;
     public $defunct;
-    
+
+
+
+    public static function  find_all_groupid()
+    {
+
+        $query = DB::select('group_id')->from(static::$table);
+
+        $result = $query->execute();
+        return $result;
+    }
+
+
+
   public function save()
     {
         // prepare data

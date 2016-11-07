@@ -15,5 +15,7 @@
 <tbody>
 <th><?php echo  ($stagenum); ?></th>
 <th><?php print_r  ($stagelevel); ?></th>
+<th><?php print_r  ($stagelevel); ?></th>
+<th><?php print_r  ($stagelevel); ?></th>
 </tbody>
 </table>
