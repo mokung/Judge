@@ -7,9 +7,11 @@ class Controller_Admin_Index extends Controller_Admin_Base
     {
         $this->template_data['title'] = __('admin.index.index.dashboard');
 
+
         $all_group_id = Model_Groups::find_all_groupid();
 
         $this->template_data['all_group_id'] = $all_group_id[1];
+
 
     }
 
@@ -125,6 +127,10 @@ class Controller_Admin_Index extends Controller_Admin_Base
 
     }
 
+
+
+
+
     /*
 
     generate invitation code and save to database
@@ -149,7 +155,13 @@ class Controller_Admin_Index extends Controller_Admin_Base
         $type = Arr::get($_GET,'type');
         $limit = Arr::get($_GET,'num');
 
-            //generate hashcode(invitationcode) by date
+        $group_id = Model_Groups::find_by_id($group);
+
+        if ($group_id) {
+
+
+            if ($limit>=1) {
+                  //generate hashcode(invitationcode) by date
         $incode = Model_InvitationCode::generateRandomString(6);
 
 
@@ -173,8 +185,14 @@ class Controller_Admin_Index extends Controller_Admin_Base
 
         // $this->action_list();
         $this->template_data['code'] = $incode;
+            }
+
+        }else{
+            $this->flash_error(array(__('common.group_not_exist')));
+        }
 
 
     }
+
 
 }
