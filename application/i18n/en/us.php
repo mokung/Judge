@@ -275,6 +275,12 @@ return array(
     'admin.problem.edit.save'                      => 'Save changes',
     'admin.problem.edit.cancel'                    => 'Cancel',
 
+
+    'admin.gorups.list.group_id'                   => 'Group ID',
+    'admin.gorups.list.member'                     => 'Member Number',
+    'admin.gorups.list.timecreated'                => 'Time Created',
+
+
     'admin.user.sidebar.new'                       => 'New',
 
     'admin.user.list.user_list'                    => 'User List',
@@ -395,6 +401,7 @@ return array(
     'common.user_not_found'                        => 'User not found',
     'common.user_exist'                            => 'User exist',
     'common.group_exist'                            => 'Group exist',
+    'common.group_not_exist'                            => 'Group not exist',
 
 
     'common.login_error'                           => 'Wrong username or password, please try again',

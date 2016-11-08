@@ -142,7 +142,6 @@ class Controller_User extends Controller_Base
                     }
 
 
-
                     $user->update($post->data());
                     $user->group_id = $invitation['group_id'];
                     $user->user_id = $post['username'];
@@ -158,6 +157,10 @@ class Controller_User extends Controller_Base
                         $privilege->save();
 
                     }
+
+                    $group = Model_Groups::find_by_id($invitation['group_id']);
+                    $group->member=$group['member']+1;
+                    $group->save();
 
                     Auth::instance()->login($post['username'], $post['password'], true);
                     $this->go_home();
