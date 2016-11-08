@@ -34,30 +34,33 @@ class Controller_Problem extends Controller_Base
             $stage_num = $current_user_group_config->stage_num;
             $stage_level = unserialize($current_user_group_config->stage_level);
             $pass_num = unserialize($current_user_group_config->pass_num);
+            $show_num = unserialize($current_user_group_config->show_num);
 
             $current_problem_level = $stage_level[$current_user_stage];
-            $current_show_num = $pass_num[$current_user_stage];
+            $current_show_num = $show_num[$current_user_stage];
 
             $this->template_data['current_problem_level'] = $current_problem_level;
 
-            $current_problem = Model_UsersProblem::find_current_problem($current_user->user_id, $current_problem_level);
+            $current_problem = Model_UsersProblem::find_current_problem($current_user->user_id, $current_user_stage);
 
             $num = count($current_problem);
 
+            $this->template_data['current_problem_level'] = $current_problem;
 
             if($num == 0){
 
-                $this->action_generate($current_problem_level,$current_show_num);
+                $problemlist = $this->action_generate($current_problem_level,$current_show_num, $current_user, $current_user_group_config,$current_problem);
 
             }else{
 
+                $all_stage_problem = array();
 
-            $this->template_data['current_problem'] = $current_problem[0]['problem_id'];
-            $this->template_data['num'] = $num;
-            $this->template_data['current_show_num'] = $current_show_num;
-
+                foreach ($current_problem as $key) {
+                    # code...
+                    array_push($all_stage_problem,Model_Problem::find_by_id($key));
+                }
+                $this->template_data['num'] = $all_stage_problem;
             }
-
 
          }else{
             $this->flash_error("this group no confige !");
@@ -72,25 +75,106 @@ class Controller_Problem extends Controller_Base
     */
 
 
-   public function action_generate($current_problem_level,$current_show_num)
+   public function action_generate($current_problem_level,$current_show_num,$current_user, $current_user_group_config,$current_problem)
    {
         $all_leve_problem = Model_UsersProblem::find_level_problem($current_problem_level);
         $this->template_data['all_leve_problem'] = $all_leve_problem[0]['title'];
+        $current_user_stage = $current_user->stage;
+
 
         $num = count($all_leve_problem);
-        $this->template_data['num'] = $current_show_num;
+        $this->template_data['num'] = $num;
 
-        if($num < $current_show_num)    // if all this level problem number < need to show number
-        {
+        $stage_level = unserialize($current_user_group_config->stage_level);
 
-        } else{
-            Model_UsersProblem::
+
+        $diff = array();
+
+
+        foreach ($stage_level as $key => $value) {
+            # code...
+            if($current_user_stage > $key)
+            {
+                if($value == $current_problem_level)
+                {
+                    $diff_tmp = array();
+                    $diff_tmp = Model_UsersProblem::find_current_problem($current_user->user_id, $key);
+
+                    foreach ($diff_tmp as $key) {
+                        # code...
+                        array_push($diff, $key['problem_id']);
+                    }
+                }
+            }
         }
 
 
 
 
+        $current_problem_array = array();
+        foreach ($all_leve_problem as $key) {
+            # code...
+            array_push($current_problem_array, $key['problem_id']);
+
+        }
+
+
+        $left_level_problem = array_diff($current_problem_array,$diff);
+        $this->template_data['left_level_problem'] = $left_level_problem;
+
+
+
+        if($num < $current_show_num)    // if all this level problem number < need to show number
+        {
+
+
+
+
+        } else{
+                // $problemlist = Model_UsersProblem::UniqueRandomNumbersWithinRange(0,$num-1,$current_show_num);
+
+                $problemlist = array_rand($left_level_problem,$current_show_num);
+
+            array_multisort($problemlist);
+            $this->template_data['num'] = $problemlist;
+        }
+
+        $problem_array = array();
+        $problem_id_array = array();
+
+        foreach ($problemlist as $key) {
+            # code...
+            array_push($problem_array, $all_leve_problem[$key]);
+            array_push($problem_id_array, $all_leve_problem[$key]['problem_id']);
+
+            $users_problem = new Model_UsersProblem;
+            $users_problem->user_id = $current_user->user_id;
+            $users_problem->problem_id = $all_leve_problem[$key]['problem_id'];
+            $users_problem->stage = $current_user->stage;
+
+            $users_problem->save();
+
+        }
+
+
+        $this->template_data['num'] = $problem_id_array;
+
    }
+
+   /*
+   author : zhang zexiang
+   funtion : next stage show
+   date : 2016.11.8 08:50
+   */
+
+  public function next_stage()
+  {
+    $current_user = $this->get_current_user();
+    $current_user_group = $current_user->group_id;
+    $current_user_stage = $current_user->stage;
+
+    //count this user this stage pass number
+  }
 
     // public function action_list()
     // {

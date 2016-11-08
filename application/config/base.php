@@ -11,7 +11,7 @@ return array(
     'desc'                => 'DESMOND ACM组织',
     'keyword'             => 'DESMOND, spidermandl, online judge, 计算机竞赛, 编程',
     //'domain'              => 'acm.hust.edu.cn',
-    'base_url'            => '/Judge/', // should ends with /, for example '/oj/'
+    'base_url'            => '/judge/', // should ends with /, for example '/oj/'
     'salt'                => 'hustoj',
     'oi_mode'             => false,
     'submit_time'         => 5, // in second

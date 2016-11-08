@@ -95,7 +95,7 @@ if (defined('Kohana::'.strtoupper($env)) === false)
 I18n::lang('en-us');
 
 Kohana::init(array(
-     'base_url'  => '/html/judge/',
+     'base_url'  => '',
      'index_file' => FALSE,
      'profile'    => Kohana::$environment !== Kohana::PRODUCTION,
      'caching'    => Kohana::$environment === Kohana::PRODUCTION,

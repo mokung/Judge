@@ -84,19 +84,21 @@ class Controller_Leader_Groups extends Controller_Leader_Base{
 
                 $this->template_data['stagenum'] = $stagenum;
 
-                $stagelevel = array(1=>"1",2=>"2",3=>"3",4=>"4",5=>"5");
+                $stagelevel = array(1=>"1",2=>"2",3=>"3",4=>"5",5=>"5");
 
                 $this->template_data['stagelevel'] = $stagelevel;
 
-                $levelnum = array(1=>"18",2=>"20",3=>"30",4=>"40",5=>"50");
+                $passnum = array(1=>"18",2=>"20",3=>"30",4=>"2",5=>"2");
                 $levelscore = array(1=>"1",2=>"5",3=>"10",4=>"20",5=>"30");
+                $shownum = array(1=>"20",2=>"23",3=>"35",4=>"3",5=>"2");
 
                $config = new Model_GroupConfig;
                $config->group_id = $current_user_groupid;
                $config->stage_num = $stagenum;
                $config->stage_level = serialize($stagelevel);
-               $config->pass_num = serialize($levelnum);
+               $config->pass_num = serialize($passnum);
                $config->level_score = serialize($levelscore);
+               $config->show_num = serialize($shownum);
 
 
                $config->save();

@@ -11,7 +11,7 @@ class Model_UsersProblem extends Model_Base
     static $cols = array(
         'user_id',
         'problem_id',
-        'level',
+        'stage',
     );
 
     static $primary_key = 'user_id';
@@ -20,10 +20,12 @@ class Model_UsersProblem extends Model_Base
 
     public $user_id;
     public $problem_id;
-    public $level;
+    public $stage;
+
+    public static $pass_num_add = 0;    //this is all this stage promblem number
 
 
-    function UniqueRandomNumbersWithinRange($min, $max, $quantity) {
+    public static function UniqueRandomNumbersWithinRange($min, $max, $quantity) {
         $numbers = range($min, $max);
         shuffle($numbers);
         return array_slice($numbers, 0, $quantity);
@@ -35,13 +37,13 @@ class Model_UsersProblem extends Model_Base
     funtion: get current stage --> problem level
     date: 2016.11.5 14:45
      */
-    public static function find_current_problem($user_id, $current_problem_level)
+    public static function find_current_problem($user_id, $current_user_stage)
     {
 
 
         $query = DB::select('problem_id')->from(static::$table)
             ->where('user_id', '=', $user_id)
-            ->where('level', '=', $current_problem_level);
+            ->where('stage', '=', $current_user_stage);
 
 
         $result = $query->execute();
@@ -59,6 +61,28 @@ class Model_UsersProblem extends Model_Base
 
         $result = $query->execute();
         return $result;
+    }
+
+    /**
+     * 保存当前实例到数据库
+     *
+     * @return int
+     */
+    public function save()
+    {
+        // prepare data
+        //        $this->data['update_at'] = PP::format_time();
+
+        // 过滤不存在的数据
+        $data = $this->raw_array();
+
+        // else save new record
+        $keys   = array_keys($data);
+        $values = array_values($data);
+
+        $query  = DB::insert(static::$table, $keys)->values($values);
+
+        $query->execute();
     }
 
 

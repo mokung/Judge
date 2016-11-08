@@ -13,6 +13,7 @@ class Model_GroupConfig extends Model_Base
         'stage_level',
         'level_score',
         'pass_num',
+        'show_num',
 
     );
 
@@ -27,6 +28,7 @@ class Model_GroupConfig extends Model_Base
     public $stage_level;
     public $level_score;
     public $pass_num;
+    public $show_num;
 
 
     public static function search($text, $area, $orderby = array(), $show_all=false)

@@ -13,7 +13,6 @@ return array
             'database'   => 'judge',
             'username'   => 'root',
             'password'   => '873525',
-
             'persistent' => FALSE,
         ),
         'table_prefix' => '',
