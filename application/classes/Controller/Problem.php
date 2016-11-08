@@ -20,8 +20,14 @@ class Controller_Problem extends Controller_Base
         $title = __('haha');
         $this->template_data['title'] = $title;
 
+        $current_user = $this->get_current_user();
 
-         $current_user = $this->get_current_user();
+        $stage = Arr::get($_GET,'stage');
+
+        if($stage == null){
+
+
+
          $current_user_group = $current_user->group_id;
          $current_user_stage = $current_user->stage;
 
@@ -65,6 +71,30 @@ class Controller_Problem extends Controller_Base
          }else{
             $this->flash_error("this group no confige !");
          }
+
+
+     }else {
+
+         # code...
+         $current_problem = Model_UsersProblem::find_current_problem($current_user->user_id, $stage);
+
+         if(count($current_problem) > 0)
+         {
+
+            $all_stage_problem = array();
+
+            foreach ($current_problem as $key) {
+                # code...
+                array_push($all_stage_problem,Model_Problem::find_by_id($key));
+            }
+            $this->template_data['num'] = $all_stage_problem;
+
+         }else {
+             # code...
+             $this->flash_error("this user not up this stage  !");
+         }
+
+     }
 
     }
 
