@@ -283,9 +283,12 @@ return array(
 
     'admin.user.list.user_list'                             => '用户列表',
     'admin.user.list.user_id'                               => '用户名',
+    'admin.user.list.stage'                                 => '用户阶段',
     'admin.user.list.nick'                                  => '签名',
     'admin.user.list.solved'                                => '解决',
     'admin.user.list.submit'                                => '提交',
+    'admin.user.list.reg_time'                              => '注册时间',
+    'admin.user.list.accesstime'                            => '最近登录时间',
     'admin.user.list.ratio'                                 => '比率',
     'admin.user.list.op'                                    => '操作',
     'admin.user.list.edit'                                  => '修改',
