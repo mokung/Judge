@@ -2,6 +2,60 @@
 
 class Controller_Admin_Invite extends Controller_Admin_Base
 {
+
+    /*
+
+    generate invitation code and save to database
+
+
+    */
+    public function action_code()
+    {
+
+
+        $user = $this->get_current_user();
+        $this->template_data['user'] = $user;
+
+
+
+        $this->view = 'admin/index/index';
+        $title = "code";
+        $this->template_data['title'] = $title;
+
+
+        $group = Arr::get($_GET,'id');
+        $type = Arr::get($_GET,'type');
+        $limit = Arr::get($_GET,'num');
+
+            //generate hashcode(invitationcode) by date
+        $incode = Model_InvitationCode::generateRandomString(6);
+
+
+//test
+        $this->template_data['code'] = $incode;
+        $this->template_data['group_id'] = Arr::get($_GET,'id');
+        $this->template_data['type'] = Arr::get($_GET,  'type');
+        $this->template_data['limit'] = Arr::get($_GET,'num');
+
+
+        //save new invitation code to database --> invitation
+        $code = new Model_InvitationCode;
+
+        $code->group_id = $group;
+        $code->invited_code = $incode;
+        $code->type = $type;
+        $code->num = $limit;
+        $code->createtime = date('Y-m-d H:i:s');
+
+        $code->save();
+
+        $this->action_list();
+
+
+    }
+
+
+
      public function action_new()
     {
         $this->view = 'Invitationcode/test';
@@ -74,7 +128,7 @@ class Controller_Admin_Invite extends Controller_Admin_Base
 
         $this->template_data['pages'] = ceil(intval(Model_InvitationCode::count($filter)) / OJ::per_page);
         $this->template_data['problem_list'] = $problem_list;
-        $this->template_data['title'] = __('admin.problem.list.problem_list');
+        $this->template_data['title'] = __('user.register.invitation');
     }
 
     public function action_show()

@@ -10,7 +10,21 @@
         </div>
     </div>
     <div class="row col-sm-offset-2">
-        <div class="form-group col-sm-6">
+        <div class="form-group col-sm-4">
+            <label class="control-label col-sm-4" for="level"><?php echo(__('admin.problem.edit.difficulty')); ?></label>
+            <div class="col-sm-8">
+                <div class="input-group">
+                    <select type="text" class="form-control" name="level" id="level">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                    </select><span class="input-group-addon"><?php echo(__('admin.problem.edit.level')); ?></span>
+                </div>
+            </div>
+        </div>
+        <div class="form-group col-sm-4">
             <label class="control-label col-sm-4" for="time_limit"><?php echo(__('admin.problem.edit.time_limit')); ?></label>
             <div class="col-sm-8">
                 <div class="input-group">
@@ -18,7 +32,7 @@
                 </div>
             </div>
         </div>
-        <div class="form-group col-sm-6">
+        <div class="form-group col-sm-4">
             <label class="control-label col-sm-4" for="memory_limit"><?php echo(__('admin.problem.edit.memory_limit')); ?></label>
             <div class="col-sm-8">
                 <div class="input-group">

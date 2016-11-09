@@ -47,7 +47,7 @@ class Controller_Admin_Groups extends Controller_Admin_Base{
 
       $groups = Model_Groups::find($filter, $page, OJ::per_page, $orderby);
       $total = Model_Groups::count($filter);
-      $this->template_data['title'] = __('user.list.user_rank');
+      $this->template_data['title'] = __('admin.group.list.group_list');
       $this->template_data['groups'] = $groups;
       $this->template_data['page'] = $page;
       $this->template_data['total'] = $total;

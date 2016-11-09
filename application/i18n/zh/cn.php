@@ -228,6 +228,12 @@ return array(
     'mail.view.sender'                                      => '发件人：',
     'mail.view.time'                                        => '时间：',
 
+    'leader.index.index.configure'                          => '阶段配置',
+    'leader.index.index.create_stage'                       => '创建阶段',
+    'leader.index.index.stagenum'                           => '阶段数量',
+    'leader.index.index.difficulty'                         => '难度',
+    'leader.index.index.score'                              => '分数',
+
     'admin.index.sidebar.home'                              => '首页',
     'admin.index.index.dashboard'                           => '总览',
     'admin.index.index.rejudge'                             => '重测',
@@ -259,8 +265,10 @@ return array(
     'admin.problem.edit.output_data'                        => '输出数据',
     'admin.problem.edit.delete'                             => '删除',
     'admin.problem.edit.title'                              => '标题',
+    'admin.problem.edit.difficulty'                         => '难度：',
     'admin.problem.edit.time_limit'                         => '时间：',
     'admin.problem.edit.memory_limit'                       => '内存：',
+    'admin.problem.edit.level'                              => '级',
     'admin.problem.edit.second'                             => '秒',
     'admin.problem.edit.MB'                                 => '兆',
     'admin.problem.edit.spj'                                => '自定评测',
@@ -280,6 +288,7 @@ return array(
     'admin.gorups.list.timecreated'                         => '创建时间',
     'admin.gorups.list.leader'                              => '管理员',
 
+    'admin.group.new_group'                                 => '新建组',
     'admin.user.sidebar.new'                                => '创建用户',
 
     'admin.user.list.user_list'                             => '用户列表',
@@ -293,6 +302,11 @@ return array(
     'admin.user.list.ratio'                                 => '比率',
     'admin.user.list.op'                                    => '操作',
     'admin.user.list.edit'                                  => '修改',
+    'admin.group.list.group_list'                            => '组列表',
+    'admin.group.list.group_name'                            => '组名称',
+    'admin.group.list.group_leader'                          => '管理员',
+    'admin.group.list.group_time'                            => '创建时间',
+    'admin.group.list.group_member'                          => '用户数量',
 
     'admin.user.edit.edit_:user'                            => '修改 :user',
     'admin.user.edit.basic'                                 => '基础信息',

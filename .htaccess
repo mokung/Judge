@@ -6,7 +6,7 @@ RewriteEngine On
 # Installation directory
 #RewriteBase /~Desmond/judge/
 
-RewriteBase /Judge/
+RewriteBase /judge/
 
 
 
