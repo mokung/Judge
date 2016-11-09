@@ -109,7 +109,7 @@ $http_code = $response->status();
 // {
 //     if (Kohana::$environment !== Kohana::DEVELOPMENT)
 //     {
-// //        $view = View::factory('error');
+//        // $view = View::factory('error');
 //         $response->body("出错了，请联Desmond#gmail");
 //     }
 // }

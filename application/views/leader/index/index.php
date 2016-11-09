@@ -1,34 +1,46 @@
 <div class="dashboard-widget row">
-    <form role="form" action="<?php e::url('/leader/index/rejudge');?>" method="post" class="form-horizontal col-sm-4">
-    <fieldset>
-        <legend><?php echo(__('leader.index.index.configure')); ?></legend>
-        <div class="form-group">
-            <label class="control-label col-sm-6" for="stagenum"><?php echo(__('leader.index.index.stagenum')); ?></label>
-            <div class="col-sm-6">
-                <select class="form-control" name="stagenum" id="stagenum">
-                    <option value="5">5</option>
-                    <option value="6">6</option>
-                    <option value="7">7</option>
-                    <option value="8">8</option>
-                    <option value="9">9</option>
-                    <option value="10">10</option>
-                </select>
-            </div>
-        </div>
-        <div class="form-group">
-            <label class="control-label col-sm-6" for="typeid"><?php echo(__('admin.index.index.id')); ?></label>
-            <div class="col-sm-6">
-                <input type="text" class="form-control" name="typeid" id="typeid"/>
-            </div>
-        </div>
-        <div class="form-group">
-            <div class="col-sm-offset-6 col-sm-8">
-                <button type="submit" class="btn btn-primary"><?php echo(__('admin.index.index.submit')); ?></button>
-            </div>
-        </div>
-    </fieldset>
-    </form>
+    <div class="col-md-offset-3 col-md-6">
+        <div class="panel panel-default">
+            <div class="panel-heading text-center"><?php echo(__('leader.index.index.invitation')); ?></div>
+            <div class="panel-body">
+                <form role="form" class="form-horizontal col-sm-12" action="<?php e::url('/admin/index/code');?>">
+                    <input type="hidden" name="type" id="type" value="1">
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-8">
+                            <input type="number" class="form-control" name="num" value=“1” placeholder="请输入生效次数">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-8">
+                            <button id="lead_in_sub" type="submit" class="btn btn-primary col-sm-12">生成邀请码</button>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="alert alert-info col-sm-offset-2 col-sm-8" role="alert">
+                            <?php if(isset( $code ))
+                                echo $code;
+                                else
+                                    echo "此处生成邀请码";
+                            ?>
 
 
-    
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 </div>
+<script type="text/javascript">
+    $('#lead_in_sub').click(function(){
+        var is_num = /(^[1-9]\d*$)/;
+        var form = $(this).parents("form").get(0),
+            num = form.num.value;
+        if(num!=""||!is_num.test(num)){
+            alert("输入信息有误！");
+            return false;
+        }
+        return true;
+
+    });
+</script>

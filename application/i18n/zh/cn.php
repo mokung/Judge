@@ -496,6 +496,8 @@ return array(
     '1 hour|%d hours'                                       => '1 小时|%d 小时',
     '1 min|%d mins'                                         => '1 分钟|%d 分钟',
     '1 sec|%d secs'                                         => '1 秒|%d 秒',
-    'Just now'                                              => '不久'
+    'Just now'                                              => '不久',
+
+    'leader.index.index.invitation'                         => '邀请码',
 
 );
