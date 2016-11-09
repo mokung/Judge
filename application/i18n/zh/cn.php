@@ -282,13 +282,21 @@ return array(
     'admin.problem.edit.save'                               => '保存修改',
     'admin.problem.edit.cancel'                             => '取消',
 
+
+    'admin.gorups.list.group_id'                            => '组名',
+    'admin.gorups.list.member'                              => '成员数量',
+    'admin.gorups.list.timecreated'                         => '创建时间',
+
     'admin.user.sidebar.new'                                => '创建用户',
 
     'admin.user.list.user_list'                             => '用户列表',
     'admin.user.list.user_id'                               => '用户名',
+    'admin.user.list.stage'                                 => '用户阶段',
     'admin.user.list.nick'                                  => '签名',
     'admin.user.list.solved'                                => '解决',
     'admin.user.list.submit'                                => '提交',
+    'admin.user.list.reg_time'                              => '注册时间',
+    'admin.user.list.accesstime'                            => '最近登录时间',
     'admin.user.list.ratio'                                 => '比率',
     'admin.user.list.op'                                    => '操作',
     'admin.user.list.edit'                                  => '修改',
@@ -409,6 +417,7 @@ return array(
     'common.login_error'                                    => '用户名或密码错误，请重试',
 
     'common.group_exist'                                    => '组已存在',
+    'common.group_not_exist'                                => '组不存在',
     'common.captcha_error'                                  => '验证码错误',
     'common.news_not_found'                                 => '未找到新闻',
     'common.mail_not_found'                                 => '未找到邮件',

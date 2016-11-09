@@ -1,9 +1,9 @@
 /*
  * Copyright 2008 sempr <iamsempr@gmail.com>
  *
- * Refacted and modified by zhblue<newsclan@gmail.com> 
+ * Refacted and modified by zhblue<newsclan@gmail.com>
  * Bug report email newsclan@gmail.com
- * 
+ *
  * This file is part of HUSTOJ.
  *
  * HUSTOJ is free software; you can redistribute it and/or modify
@@ -549,29 +549,37 @@ printf("%d child process\n",pid);
 int main(int argc, char** argv) {
 	DEBUG = (argc > 2);
 	ONCE = (argc > 3);
+
+
+
 	if (argc > 1)
 		strcpy(oj_home, argv[1]);
 	else
-		strcpy(oj_home, "/home/OnlineJudge");
+		strcpy(oj_home, "/var/www/html/judge");
 	chdir(oj_home);    // change the dir 系统调用 同linux cd命令
-     
+
 	sprintf(lock_file,"%s/etc/judge.pid",oj_home);
 	if (!DEBUG){
 		daemon_init();
 	}
+		printf("rrrrrrrrrrrrrrr\n");
 	if ( already_running()) {
+
+			printf("dddddddddddd\n");
 		syslog(LOG_ERR | LOG_DAEMON,
 				"This daemon program is already running!\n");
 		printf("%s already has one judged on it!\n",oj_home);
 		return 1;
 	}
+
+		printf("fffffffffffffffffff\n");
 //	struct timespec final_sleep;
 //	final_sleep.tv_sec=0;
 //	final_sleep.tv_nsec=500000000;
 	init_mysql_conf();	// set the database info
 	signal(SIGQUIT, call_for_exit);
 	/**
-	signal()函数(它自己是带两个参数,一个为整型,一个为函数指针的函数), 
+	signal()函数(它自己是带两个参数,一个为整型,一个为函数指针的函数),
 	而这个signal()函数的返回值也为一个函数指针,这个函数指针指向一个带一个整型参数,
 	并且返回值为void的一个函数
 	*/

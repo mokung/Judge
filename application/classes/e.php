@@ -297,7 +297,7 @@ class e
     }
 
     /**
-     * get website description 
+     * get website description
      *
      * @return string
      */
@@ -316,7 +316,7 @@ class e
         return e::get_base_config('keyword', '');
     }
 
-    public static function pass_status(Model_Problem $problem)
+    public static function  pass_status(Model_Problem $problem)
     {
         /* @var Model_User $cu */
         $cu = Auth::instance()->get_user();

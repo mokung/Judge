@@ -1,125 +1,98 @@
 <?php defined('SYSPATH') or die('No direct script access.');
 
-class Controller_Leader_Invite extends Controller_Leader_Base
+class Controller_Situation extends Controller_Base
 {
 
-    /*
-
-    generate invitation code and save to database
 
 
-    */
-   public function action_code()
+//run per one day
+    public function action_inject()
     {
+// $this->view = 'situation/list';
+        $this->view = 'situation/test';
 
+        //get message from solution
+        // $result = Model_Situation::oneday_message_from_solution();
 
-        $user = $this->get_current_user();
-        $this->template_data['user'] = $user;
+        $order_by = array(
+                'in_date' => Model_Base::ORDER_DESC
+            );
 
+        $result = Model_Situation::search(date("Y-m-d"),'in_date',$order_by,$show_all=true);
 
+         $this->template_data['oneday'] = $result;
 
-        $this->view = 'admin/invite/list';
-        $title = "code";
+         $title = __('ddd');
         $this->template_data['title'] = $title;
 
+        //process date --> from solution
+        //get user_id , during_time
 
-        $group = Arr::get($_GET,'id');
-        $type = Arr::get($_GET,'type');
-        $limit = Arr::get($_GET,'num');
+        $oneday_user_id = Model_Situation::get_oneday_userid($result);
 
-            //generate hashcode(invitationcode) by date
-        $incode = Model_InvitationCode::generateRandomString(6);
+        $this->template_data['oneday_user_id'] = $oneday_user_id;
 
+        foreach ($oneday_user_id as $key => $value) {
 
-//test
-        $this->template_data['code'] = $incode;
-        $this->template_data['group_id'] = Arr::get($_GET,'id');
-        $this->template_data['type'] = Arr::get($_GET,  'type');
-        $this->template_data['limit'] = Arr::get($_GET,'num');
+            $oneday_user_detail = Model_Situation::get_oneday_userdetail($key);
 
+            $situation = new Model_Situation;
+            # code...
+            $situation->user_id = $key;
+            $situation->date = date('Y-m-d H:i:s');
+            $situation->group_id = $oneday_user_detail->group_id;
+            $situation->submited = $oneday_user_detail->submit;
+            $situation->score = $oneday_user_detail->score;
+            $situation->staged = $oneday_user_detail->staged;
+            $situation->during_time = (json_encode($value));
+            // $situation->during_time = unserialize($situation->during_time);
+            $situation->defunct = "N";
 
-        //save new invitation code to database --> invitation
-        $code = new Model_InvitationCode;
-
-        $code->group_id = $group;
-        $code->invited_code = $incode;
-        $code->type = $type;
-        $code->num = $limit;
-        $code->createtime = date('Y-m-d H:i:s');
-
-        $code->save();
-
-        $this->action_list();
-
-
-    }
-
-
-     public function action_new()
-    {
-        $this->view = 'Invitationcode/test';
-        $code = new Model_InvitationCode;
-        $this->template_data['problem'] = $problem;
-        $this->template_data['title'] = __('admin.problem.edit.new_problem');
-
-
-
-    }
-
-
-
- public function action_edit($pid = null)
-    {
-        if ( ! $pid )
-            $pid = $this->request->param('id', null);
-
-        if ( $pid )
-        {
-            $problem = Model_Problem::find_by_id($pid);
-            if ( ! $problem )
-                throw new Exception_Page(__('common.problem_not_found'));
-        } else {
-            $problem = new Model_Problem;
+            $situation->save();
         }
 
-        if ( $this->request->is_post() )
-        {
-            $post = $this->cleaned_post();
-            $problem->update($post);
 
-            $problem->spj = Model_Problem::JUDGE_NORMAL;
-            if (array_key_exists('spj', $post))
-                $problem->spj = Model_Problem::JUDGE_SPECIAL;
-            $problem->save();
-        }
-        $this->template_data['title'] =
-            __('admin.problem.edit.edit_:id_:name',
-                array(':id' => $problem['problem_id'],
-                      ':name' => $problem['title']));
-        $this->template_data['problem'] = $problem;
+
     }
 
 
 
     public function action_index()
     {
-        $this->view = 'leader/invite/list';
+        $this->view = 'situation/list';
         $this->action_list();
+        // $this->action_inject();
     }
 
     public function action_list()
     {
-        $page = $this->request->param('id', 1);
+        $default_page = Session::instance()->get('volume', 1);
+        // get user last volume
+        $current_user = $this->get_current_user();
+        if ( $current_user )
+        {
+            $default_page = $current_user->get_last_volume();
+        }
 
-        $filter = array();
-        $orderby = array(
-            Model_InvitationCode::$primary_key => Model_Base::ORDER_DESC
-        );
-        $problem_list = Model_InvitationCode::find($filter, $page, OJ::per_page, $orderby);
+        $page = $this->request->param('id', $default_page);
+        // save current volume
+        Session::instance()->set('volume', $page);
 
-        $this->template_data['pages'] = ceil(intval(Model_InvitationCode::count($filter)) / OJ::per_page);
-        $this->template_data['problem_list'] = $problem_list;
-        $this->template_data['title'] = __('user.register.invitation');
+        $total_volumes = Model_Situation::number_of_volume();
+
+
+        $page = e::adjust_scope($page, $total_volumes);
+
+        $this->template_data['problemlist'] = Model_Situation::situation_for_volume($page);
+
+        $title = __('problem.list.problem_set_:id', array(':id' => $page));
+        $this->template_data['title'] = $title;
+
+        $this->template_data['page'] = $page;
+        $this->template_data['pages'] = $total_volumes;
+
+        $test = "33333";
+        $this->template_data['test'] = $test;
     }
 
     public function action_show()

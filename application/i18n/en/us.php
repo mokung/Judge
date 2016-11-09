@@ -277,13 +277,22 @@ return array(
     'admin.problem.edit.save'                      => 'Save changes',
     'admin.problem.edit.cancel'                    => 'Cancel',
 
+
+    'admin.gorups.list.group_id'                   => 'Group ID',
+    'admin.gorups.list.member'                     => 'Member Number',
+    'admin.gorups.list.timecreated'                => 'Time Created',
+
+
     'admin.user.sidebar.new'                       => 'New',
 
     'admin.user.list.user_list'                    => 'User List',
     'admin.user.list.user_id'                      => 'User ID',
     'admin.user.list.nick'                         => 'Nick',
+    'admin.user.list.stage'                        => 'Stage',
     'admin.user.list.solved'                       => 'Solved',
     'admin.user.list.submit'                       => 'Submit',
+    'admin.user.list.reg_time'                     => 'Register Time',
+    'admin.user.list.accesstime'                   => 'Access Time',
     'admin.user.list.ratio'                        => 'Ratio',
     'admin.user.list.op'                           => 'OP',
     'admin.user.list.edit'                         => 'Edit',
@@ -397,6 +406,7 @@ return array(
     'common.user_not_found'                        => 'User not found',
     'common.user_exist'                            => 'User exist',
     'common.group_exist'                            => 'Group exist',
+    'common.group_not_exist'                            => 'Group not exist',
 
 
     'common.login_error'                           => 'Wrong username or password, please try again',
@@ -431,5 +441,8 @@ return array(
     'N'                                            => 'N',
     'administrator'                                => 'Administrator',
     'source_browser'                               => 'Source Browser',
+
+    'leader.config.group'                          => 'group config'
+
 
 );

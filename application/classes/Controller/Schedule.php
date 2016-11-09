@@ -56,7 +56,7 @@ class Controller_Schedule extends Controller_Base
             $situation->group_id = $oneday_user_detail->group_id;
             $situation->submited = $oneday_user_detail->submit;
             $situation->score = $oneday_user_detail->score;
-            $situation->staged = $oneday_user_detail->staged;
+            $situation->staged = $oneday_user_detail->stage;
             $situation->during_time = (json_encode($value));
             // $situation->during_time = unserialize($situation->during_time);
             $situation->defunct = "N";
