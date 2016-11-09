@@ -278,6 +278,7 @@ return array(
     'admin.gorups.list.group_id'                            => '组名',
     'admin.gorups.list.member'                              => '成员数量',
     'admin.gorups.list.timecreated'                         => '创建时间',
+    'admin.gorups.list.leader'                              => '管理员',
 
     'admin.user.sidebar.new'                                => '创建用户',
 

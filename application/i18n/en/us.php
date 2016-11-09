@@ -278,6 +278,7 @@ return array(
 
     'admin.gorups.list.group_id'                   => 'Group ID',
     'admin.gorups.list.member'                     => 'Member Number',
+    'admin.gorups.list.leader'                     => 'Group Leader',
     'admin.gorups.list.timecreated'                => 'Time Created',
 
 
