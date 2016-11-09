@@ -52,7 +52,7 @@ class Controller_Admin_User extends Controller_Admin_Base{
 
         $this->template_data['total'] = Model_User::count();
         $this->template_data['user_list'] = $user_list;
-        $this->template_data['title']  = __('admin.user.list.group_list');
+        $this->template_data['title']  = __('admin.user.list.user_list');
     }
 
     public function action_edit()
