@@ -287,6 +287,7 @@ return array(
     'admin.gorups.list.member'                              => '成员数量',
     'admin.gorups.list.timecreated'                         => '创建时间',
 
+    'admin.group.new_group'                                 => '新建组',
     'admin.user.sidebar.new'                                => '创建用户',
 
     'admin.user.list.user_list'                             => '用户列表',
