@@ -408,7 +408,8 @@ return array(
     'common.user_not_found'                        => 'User not found',
     'common.user_exist'                            => 'User exist',
     'common.group_exist'                            => 'Group exist',
-    'common.group_not_exist'                            => 'Group not exist',
+    'common.groupname_null'                            => 'Group name is null',
+    'common.group_not_exist'                        => 'Group not exist',
 
 
     'common.login_error'                           => 'Wrong username or password, please try again',

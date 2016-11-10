@@ -20,17 +20,23 @@ class Controller_Admin_Groups extends Controller_Admin_Base{
 //新建组
 	public function action_create(){
 
-			$group_id  = $_GET['id'];
-      $group = Model_Groups::find_by_id($group_id);
+			$group_id = $_GET['id'];
+      if ($group_id) {
+        $group = Model_Groups::find_by_id($group_id);
+              if (!$group) {
+                $group =  new Model_Groups;
+                $group->group_id = $group_id;
+                
+                $group->save();
 
-      if (!$group) {
-          $group =  new Model_Groups;
-          $group->group_id = $group_id;
-          $group->save();
+            }else{
+              $this->flash_error(array(__('common.group_exist')));
+            }
 
       }else{
-        $this->flash_error(array(__('common.group_exist')));
+        $this->flash_error(array(__('common.groupname_null')));
       }
+      
       $this->redirect('admin/groups/');
 
 	}

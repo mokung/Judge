@@ -280,7 +280,8 @@ return array(
     'admin.problem.edit.sample_output'                      => '样例输出',
     'admin.problem.edit.hint'                               => '提示',
     'admin.problem.edit.source'                             => '来源',
-    'admin.problem.edit.save'                               => '保存修改',
+    'admin.problem.edit.save'                               => '
+    保存修改',
     'admin.problem.edit.cancel'                             => '取消',
 
 
@@ -420,6 +421,7 @@ return array(
     'common.login_error'                                    => '用户名或密码错误，请重试',
 
     'common.group_exist'                                    => '组已存在',
+    'common.groupname_null'                                 => '组名为空',
     'common.group_not_exist'                                => '组不存在',
     'common.captcha_error'                                  => '验证码错误',
     'common.news_not_found'                                 => '未找到新闻',
