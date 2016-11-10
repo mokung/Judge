@@ -7,14 +7,18 @@ class Controller_User extends Controller_Base
     {
         // initial
         $page = $this->request->param('id', 1);
+        
+        $user = $this->get_current_user();
 
         $orderby = array(
             //'solved' => Model_Base::ORDER_DESC,
             'score' => Model_Base::ORDER_DESC,
         );
 
-        $filter = array();
-        // user order by resolved problems
+        $filter = array(
+            'group_id' => $user['group_id'],
+            );
+        //user order by resolved problems
         $users = Model_User::find($filter, $page, OJ::per_page, $orderby);
         
         // views
