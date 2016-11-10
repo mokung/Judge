@@ -47,26 +47,26 @@ class Controller_Admin_Index extends Controller_Admin_Base
         $user_list = Model_User::get_all_users();
         foreach($user_list as $u){
            if($u->is_admin()){//管理员不参与评比
-		$u->score = 0;
-		$u->save();
-		continue;
-	   }
+        $u->score = 0;
+        $u->save();
+        continue;
+       }
            $solutions = $u->ids_of_problem_accept();
-	   $point = 0;
+       $point = 0;
            foreach($solutions as $s){
-		if($s->problem_id<1000){
-		    $point += 1;
-		    continue;
+        if($s->problem_id<1000){
+            $point += 1;
+            continue;
                 }
                 if($s->problem_id<10000){
-		    $point += 10;
+            $point += 10;
                     continue;
-		}
+        }
 
-		if($s->problem_id<100000){
-		    $point += 40;
+        if($s->problem_id<100000){
+            $point += 40;
                     continue;
-		}
+        }
            }
            $u->score = $point - $u->punish;
            $u->save();
@@ -77,7 +77,9 @@ class Controller_Admin_Index extends Controller_Admin_Base
     }
 
 
+
     /*
+
 
     generate invitation code and save to database
 

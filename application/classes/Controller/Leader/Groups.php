@@ -13,7 +13,7 @@ class Controller_Leader_Groups extends Controller_Leader_Base{
 
     public function action_list()
     {
-        $this->view = 'leader/groupconfig/list';
+        $this->view = 'leader/groups/list';
         $this->template_data['title'] = __('user.register.user_register');
 
 
@@ -38,9 +38,9 @@ class Controller_Leader_Groups extends Controller_Leader_Base{
 
         $this->template_data['group_id'] = $current_user_groupid;
         $this->template_data['stagenum'] = $configDate->stage_num;
-        $this->template_data['stagelevel'] = unserialize($configDate->stage_level);
-        $this->template_data['levelscore'] = unserialize($configDate->level_score);
-        $this->template_data['levelnum'] = unserialize($configDate->pass_num);
+        $this->template_data['stagelevel'] = json_decode($configDate->stage_level);
+        $this->template_data['levelscore'] = json_decode($configDate->level_score);
+        $this->template_data['levelnum'] = json_decode($configDate->pass_num);
 
       }
 
@@ -52,7 +52,7 @@ class Controller_Leader_Groups extends Controller_Leader_Base{
     public function action_config()
     {
 
-      $this->view = 'leader/groupconfig/test';
+      $this->view = 'leader/groups/test';
 
       $current_user = $this->get_current_user();
 
@@ -84,21 +84,21 @@ class Controller_Leader_Groups extends Controller_Leader_Base{
 
                 $this->template_data['stagenum'] = $stagenum;
 
-                $stagelevel = array(1=>"1",2=>"2",3=>"3",4=>"5",5=>"5");
+                $stagelevel = array(1=>1,2=>2,3=>3,4=>5,5=>5);
 
                 $this->template_data['stagelevel'] = $stagelevel;
 
-                $passnum = array(1=>"18",2=>"20",3=>"30",4=>"2",5=>"2");
-                $levelscore = array(1=>"1",2=>"5",3=>"10",4=>"20",5=>"30");
-                $shownum = array(1=>"20",2=>"23",3=>"35",4=>"3",5=>"2");
+                $passnum = array(1=>8,2=>7,3=>5,4=>6,5=>8);
+                $levelscore = array(1=>1,2=>5,3=>10,4=>20,5=>30);
+                $shownum = array(1=>10,2=>10,3=>10,4=>10,5=>10);
 
                $config = new Model_GroupConfig;
                $config->group_id = $current_user_groupid;
                $config->stage_num = $stagenum;
-               $config->stage_level = serialize($stagelevel);
-               $config->pass_num = serialize($passnum);
-               $config->level_score = serialize($levelscore);
-               $config->show_num = serialize($shownum);
+               $config->stage_level = json_encode($stagelevel);
+               $config->pass_num = json_encode($passnum);
+               $config->level_score = json_encode($levelscore);
+               $config->show_num = json_encode($shownum);
 
 
                $config->save();

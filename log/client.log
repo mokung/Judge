@@ -3205,3 +3205,77 @@ result=6
 compile error
 compile error
 <<4done!>>
+Judging solution 17177
+<<=sid=17177===clientid=0==>>
+
+compile error
+<<1done!>>
+Judging solution 17178
+<<=sid=17178===clientid=0==>>
+
+init_call_counter:3
+result=6
+<<1done!>>
+Judging solution 17179
+<<=sid=17179===clientid=0==>>
+
+compile error
+<<1done!>>
+Judging solution 17180
+<<=sid=17180===clientid=0==>>
+
+compile error
+<<1done!>>
+Judging solution 17181
+<<=sid=17181===clientid=0==>>
+
+compile error
+<<1done!>>
+Judging solution 17182
+<<=sid=17182===clientid=0==>>
+
+compile error
+<<1done!>>
+Judging solution 17183
+<<=sid=17183===clientid=0==>>
+
+init_call_counter:1
+[ERROR] A Not allowed system call: runid:17183 CALLID:4
+ TO FIX THIS , ask admin to add the CALLID into corresponding LANG_XXV[] located at okcalls32/64.h ,
+and recompile judge_client. 
+if you are admin and you don't know what to do ,
+ tech support can be found on http://hustoj.taobao.com
+
+result=10
+<<1done!>>
+Judging solution 17184
+<<=sid=17184===clientid=0==>>
+
+init_call_counter:3
+init_call_counter:3
+init_call_counter:3
+init_call_counter:3
+init_call_counter:3
+init_call_counter:3
+init_call_counter:3
+init_call_counter:3
+init_call_counter:3
+init_call_counter:3
+result=4
+<<1done!>>
+Judging solution 17185
+<<=sid=17185===clientid=0==>>
+
+compile error
+<<1done!>>
+Judging solution 17186
+<<=sid=17186===clientid=0==>>
+
+No such dir:/home/judge/data/4!
+
+<<1done!>>
+Judging solution 17187
+<<=sid=17187===clientid=0==>>
+
+compile error
+<<1done!>>

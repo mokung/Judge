@@ -37,7 +37,8 @@ class Controller_Admin_Groups extends Controller_Admin_Base{
 
 //组列表
   public function action_list(){
-      $page = $this->request->param('id', 1);
+      // $page = $this->request->param('page', 1);
+    $page = $this->get_query('page', 1);
       $orderby = array(
             //'solved' => Model_Base::ORDER_DESC,
             'group_id' => Model_Base::ORDER_ASC,

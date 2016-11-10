@@ -31,4 +31,4 @@
     <?php endforeach; ?>
     </tbody>
 </table>
-<?php echo(View::factory('block/pager', array('base_url' => '/leader/user', 'total' => $total)));?>
+<?php echo(View::factory('block/pager', array('base_url' => '/leader/user', 'total' => $total_page)));?>
