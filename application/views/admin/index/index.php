@@ -95,6 +95,16 @@
                         </form>
                     </div>
                     <div class="tab-pane" id="list_in">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>邀请码</th>
+                                    <th>所在组</th>
+                                    <th>有效次数</th>
+                                    <th>创建时间</th>
+                                </tr>
+                            </thead>
+                        </table>
                     </div>
                 </div>
             </div>

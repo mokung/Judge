@@ -254,6 +254,7 @@ return array(
     'admin.problem.list.defunct'                            => '禁用',
     'admin.problem.list.op'                                 => '操作',
     'admin.problem.list.edit'                               => '修改',
+    'admin.problem.list.level'                              => '难度',
     'admin.problem.list.sure_to_change_defunct?'            => '您确定要修改题目的禁用状态吗？',
 
     'admin.problem.edit.new_problem'                        => '创建题目',
