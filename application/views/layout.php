@@ -46,9 +46,19 @@
             <?php echo($body); ?>
         </div>
     </div>
+<?php else: if (OJ::is_backendl()):?>
+    <div class="row">
+        <?php echo View::factory('leader/'. strtolower(Request::current()->controller()).'/sidebar');?>
+        <div class="col-md-12">
+            <h3><?php echo $title;?></h3>
+            <?php echo View::factory('block/message');?>
+            <?php echo($body); ?>
+        </div>
+    </div>
 <?php else:?>
     <?php echo View::factory('block/message');?>
     <?php echo($body); ?>
+<?php endif;?>
 <?php endif;?>
 </div>
 <?php echo(View::factory('footer')); ?>

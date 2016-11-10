@@ -1,4 +1,4 @@
-<!-- <ul class="pagination problem-pagination">
+<ul class="pagination problem-pagination">
     <?php for($i = 1; $i <= $pages; $i++): ?>
         <li<?php if($i == Request::$current->param('id')):?> class="active"<?php endif;?>><a href="<?php e::url("/admin/invite/index/{$i}");?>"><?php echo($i);?></a></li>
     <?php endfor;?>
@@ -6,11 +6,11 @@
 <table class="table table-striped">
     <thead>
     <tr>
-        <th><?php echo(__('group_id')); ?></th>
-        <th><?php echo(__('invitation_code')); ?></th>
-        <th><?php echo(__('type')); ?></th>
-        <th><?php echo(__('num')); ?></th>
-        <th><?php echo(__('createtime')); ?></th>
+        <th>组ID</th>
+        <th>邀请码</th>
+        <th>类型</th>
+        <th>剩余次数</th>
+        <th>创建时间</th>
         <th><?php echo($pages); ?></th>
     </tr>
     </thead>
@@ -64,4 +64,3 @@
         }
     });
 </script>
- -->

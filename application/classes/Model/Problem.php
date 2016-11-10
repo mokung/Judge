@@ -9,6 +9,7 @@ class Model_Problem extends Model_Base
 {
     static $cols = array(
         'problem_id',
+        'level',
         'title',
         'description',
         'input',
@@ -35,6 +36,7 @@ class Model_Problem extends Model_Base
     const JUDGE_NORMAL  = 0;
 
     public $problem_id;
+    public $level;
     public $title;
     public $description;
     public $input;

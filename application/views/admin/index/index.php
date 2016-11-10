@@ -39,7 +39,6 @@
                 </form>
             </div>
         </div>
-
     </div>
     <div class="col-md-6">
         <div class="panel panel-default">
@@ -83,8 +82,6 @@
                                 else
                                     echo "此处生成邀请码";
                             ?>
-
-
                         </div>
                     </div>
                 </form>

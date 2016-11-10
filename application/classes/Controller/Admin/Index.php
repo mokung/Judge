@@ -75,7 +75,11 @@ class Controller_Admin_Index extends Controller_Admin_Base
         $this->redirect('/admin/');
 
     }
-/*
+
+
+
+    /*
+
 
     generate invitation code and save to database
 

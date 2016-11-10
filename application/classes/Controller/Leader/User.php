@@ -20,7 +20,8 @@ class Controller_Leader_User extends Controller_Leader_Base{
 
     	$user_list = Model_User::find($filter, $page);
 
-        $this->template_data['total'] = Model_User::count();
+        $total = $this->template_data['total'] = Model_User::count();
+        $this->template_data['total_page'] = ceil($total / OJ::per_page);
         $this->template_data['user_list'] = $user_list;
         $this->template_data['title']  = __('admin.user.list.user_list');
     }

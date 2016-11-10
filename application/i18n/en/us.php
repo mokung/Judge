@@ -260,8 +260,10 @@ return array(
     'admin.problem.edit.output_data'               => 'Output Data',
     'admin.problem.edit.delete'                    => 'delete',
     'admin.problem.edit.title'                     => 'Title',
+    'admin.problem.edit.difficulty'                => 'Difficulty: ',
     'admin.problem.edit.time_limit'                => 'Time Limit: ',
     'admin.problem.edit.memory_limit'              => 'Memory Limit: ',
+    'admin.problem.edit.level'                     => 'level',
     'admin.problem.edit.second'                    => 's',
     'admin.problem.edit.MB'                        => 'MB',
     'admin.problem.edit.spj'                       => 'Special Judge',
@@ -278,6 +280,7 @@ return array(
 
     'admin.gorups.list.group_id'                   => 'Group ID',
     'admin.gorups.list.member'                     => 'Member Number',
+    'admin.gorups.list.leader'                     => 'Group Leader',
     'admin.gorups.list.timecreated'                => 'Time Created',
 
 
@@ -440,7 +443,8 @@ return array(
     'administrator'                                => 'Administrator',
     'source_browser'                               => 'Source Browser',
 
-    'leader.config.group'                          => 'group config'
+    'leader.config.group'                          => 'group config',
+    'leader.index.index.invitation'                => 'Invitation',
 
 
 );
