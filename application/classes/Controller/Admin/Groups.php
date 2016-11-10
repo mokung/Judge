@@ -2,6 +2,8 @@
 
 /*
 作者：wenkang
+create group
+group list
 */
 
 
@@ -22,15 +24,13 @@ class Controller_Admin_Groups extends Controller_Admin_Base{
       $group = Model_Groups::find_by_id($group_id);
 
       if (!$group) {
-           $group =  new Model_Groups;
+          $group =  new Model_Groups;
           $group->group_id = $group_id;
           $group->save();
-
 
       }else{
         $this->flash_error(array(__('common.group_exist')));
       }
-			
       $this->redirect('admin/groups/');
 
 	}
