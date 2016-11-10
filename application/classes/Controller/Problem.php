@@ -14,7 +14,7 @@ class Controller_Problem extends Controller_Base
     function : stage problem list
     date : 2016.11.5 09:57
      */
-    public function action_list()
+    public function action_listuser()
     {
         $this->view = 'problem/userlist';
         $title = __('haha');
@@ -38,9 +38,9 @@ class Controller_Problem extends Controller_Base
          if($current_user_group_config){
 
             $stage_num = $current_user_group_config->stage_num;
-            $stage_level = unserialize($current_user_group_config->stage_level);
-            $pass_num = unserialize($current_user_group_config->pass_num);
-            $show_num = unserialize($current_user_group_config->show_num);
+            $stage_level = json_decode($current_user_group_config->stage_level,true);
+            $pass_num = json_decode($current_user_group_config->pass_num,true);
+            $show_num = json_decode($current_user_group_config->show_num,true);
 
             $current_problem_level = $stage_level[$current_user_stage];
             $current_show_num = $show_num[$current_user_stage];
@@ -115,7 +115,7 @@ class Controller_Problem extends Controller_Base
         $num = count($all_leve_problem);
         $this->template_data['num'] = $num;
 
-        $stage_level = unserialize($current_user_group_config->stage_level);
+        $stage_level = json_decode($current_user_group_config->stage_level,true);
 
 
         $diff = array();
@@ -197,41 +197,88 @@ class Controller_Problem extends Controller_Base
    date : 2016.11.8 08:50
    */
 
-  public function next_stage()
+  public function action_nextstage()
   {
     $current_user = $this->get_current_user();
     $current_user_group = $current_user->group_id;
     $current_user_stage = $current_user->stage;
+    $current_user_group_config = Model_GroupConfig::find_by_id($current_user_group);
+
+    //this tage pass problem numbers
+    $pass_numbers = 0;
+    $current_problem = Model_UsersProblem::find_current_problem($current_user->user_id, $current_user_stage);
+
+    $all_stage_problem = Model_UsersProblem::find_current_problemlist($current_problem);
+
+    foreach ($all_stage_problem as $key) {
+        # code...
+        if(e::pass_status($key)=='passed'){
+            $pass_numbers++;
+        }
+        $this->template_data['num1'] = e::pass_status($key);
+    }
+
+    $current_stage_pass_num = json_decode($current_user_group_config->pass_num,true)[$current_user_stage];
+
+
+    if($current_user_stage < $current_user_group_config->stage_num && $pass_numbers >=  $current_stage_pass_num)
+    {
+        $current_user->stage = $current_user_stage+1;
+        $current_user->save();
+
+    }else{
+
+    }
+
+    if($pass_numbers < $current_stage_pass_num){
+        $this->flash_error("you just passed $pass_numbers  ! you should passed $current_stage_pass_num");
+    }
+
+
+    $this->action_list();
 
     //count this user this stage pass number
   }
 
-    // public function action_list()
-    // {
-    //     $default_page = Session::instance()->get('volume', 1);
-    //     // get user last volume
-    //     $current_user = $this->get_current_user();
-    //     if ( $current_user )
-    //     {
-    //         $default_page = $current_user->get_last_volume();
-    //     }
+    public function action_list()
+    {
 
-    //     $page = $this->request->param('id', $default_page);
-    //     // save current volume
-    //     Session::instance()->set('volume', $page);
+        $current_user = $this->get_current_user();
+        if($current_user == null || Model_Privilege::permission_of_user($current_user->user_id) )
+        {
 
-    //     $total_volumes = Model_Problem::number_of_volume();
 
-    //     $page = e::adjust_scope($page, $total_volumes);
+        $this->view = 'problem/list';
+        $default_page = Session::instance()->get('volume', 1);
+        // get user last volume
 
-    //     $this->template_data['problemlist'] = Model_Problem::problems_for_volume($page);
+        if ( $current_user )
+        {
+            $default_page = $current_user->get_last_volume();
+        }
 
-    //     $title = __('problem.list.problem_set_:id', array(':id' => $page));
-    //     $this->template_data['title'] = $title;
+        $page = $this->request->param('id', $default_page);
+        // save current volume
+        Session::instance()->set('volume', $page);
 
-    //     $this->template_data['page'] = $page;
-    //     $this->template_data['pages'] = $total_volumes;
-    // }
+        $total_volumes = Model_Problem::number_of_volume();
+
+        $page = e::adjust_scope($page, $total_volumes);
+
+        $this->template_data['problemlist'] = Model_Problem::problems_for_volume($page);
+
+        $title = __('problem.list.problem_set_:id', array(':id' => $page));
+        $this->template_data['title'] = $title;
+
+        $this->template_data['page'] = $page;
+        $this->template_data['pages'] = $total_volumes;
+
+    }else {
+        # code...
+        $this->action_listuser();
+
+    }
+    }
 
     public function action_show()
     {

@@ -47,26 +47,26 @@ class Controller_Admin_Index extends Controller_Admin_Base
         $user_list = Model_User::get_all_users();
         foreach($user_list as $u){
            if($u->is_admin()){//管理员不参与评比
-		$u->score = 0;
-		$u->save();
-		continue;
-	   }
+        $u->score = 0;
+        $u->save();
+        continue;
+       }
            $solutions = $u->ids_of_problem_accept();
-	   $point = 0;
+       $point = 0;
            foreach($solutions as $s){
-		if($s->problem_id<1000){
-		    $point += 1;
-		    continue;
+        if($s->problem_id<1000){
+            $point += 1;
+            continue;
                 }
                 if($s->problem_id<10000){
-		    $point += 10;
+            $point += 10;
                     continue;
-		}
+        }
 
-		if($s->problem_id<100000){
-		    $point += 40;
+        if($s->problem_id<100000){
+            $point += 40;
                     continue;
-		}
+        }
            }
            $u->score = $point - $u->punish;
            $u->save();
@@ -75,63 +75,7 @@ class Controller_Admin_Index extends Controller_Admin_Base
         $this->redirect('/admin/');
 
     }
-
-     /*
-
-    generate invitation code and save to database
-
-
-    */
-    public function action_code()
-    {
-
-
-        $user = $this->get_current_user();
-        $this->template_data['user'] = $user;
-
-
-
-        $this->view = 'admin/invite/list';
-        $title = "code";
-        $this->template_data['title'] = $title;
-
-
-        $group = Arr::get($_GET,'id');
-        $type = Arr::get($_GET,'type');
-        $limit = Arr::get($_GET,'num');
-
-            //generate hashcode(invitationcode) by date
-        $incode = Model_InvitationCode::generateRandomString(6);
-
-
-//test
-        $this->template_data['code'] = $incode;
-        $this->template_data['group_id'] = Arr::get($_GET,'id');
-        $this->template_data['type'] = Arr::get($_GET,  'type');
-        $this->template_data['limit'] = Arr::get($_GET,'num');
-
-
-        //save new invitation code to database --> invitation
-        $code = new Model_InvitationCode;
-
-        $code->group_id = $group;
-        $code->invited_code = $incode;
-        $code->type = $type;
-        $code->num = $limit;
-        $code->createtime = date('Y-m-d H:i:s');
-
-        $code->save();
-
-        $this->action_list();
-
-
-    }
-
-
-
-
-
-    /*
+/*
 
     generate invitation code and save to database
 

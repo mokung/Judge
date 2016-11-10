@@ -12,7 +12,7 @@ return array
             'hostname'   => '127.0.0.1',
             'database'   => 'judge',
             'username'   => 'root',
-            'password'   => '873525',
+            'password'   => '#mJl&dcs.6(O',
             'persistent' => FALSE,
         ),
         'table_prefix' => '',

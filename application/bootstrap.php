@@ -165,18 +165,6 @@ Route::set('del_problem_data', 'admin/problem/deldata/<id>/<filename>.<ext>', ar
 
 
 
-
-    Route::set(
-    'addscore', 'admin/user/addscore(/<id>(/<overflow>))',
-    array(
-         'overflow' => '.*?'
-    ))->defaults(array(
-         'directory'  => 'admin',
-         'controller' => 'user',
-         'action'     => 'addscore'
-    )
-);
-
 Route::set('admin', 'admin(/<controller>(/<action>(/<id>)))')
     ->defaults(array(
         'directory'  => 'admin',
