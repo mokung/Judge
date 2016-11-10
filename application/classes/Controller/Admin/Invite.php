@@ -113,7 +113,8 @@ class Controller_Admin_Invite extends Controller_Admin_Base
     public function action_index()
     {
         $this->view = 'admin/invite/list';
-        $this->action_list();
+        $this->template_data['title'] = __('user.register.invitation');
+        // $this->action_list();
     }
 
     public function action_list()
