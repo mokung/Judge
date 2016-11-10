@@ -10,7 +10,7 @@ class Controller_Admin_Index extends Controller_Admin_Base
 
         $all_group_id = Model_Groups::find_all_groupid();
 
-        $this->template_data['all_group_id'] = $all_group_id[1];
+        $this->template_data['all_group_id'] = $all_group_id;
 
 
     }
@@ -138,7 +138,9 @@ class Controller_Admin_Index extends Controller_Admin_Base
         }else{
             $this->flash_error(array(__('common.group_not_exist')));
         }
+        $all_group_id = Model_Groups::find_all_groupid();
 
+        $this->template_data['all_group_id'] = $all_group_id;
 
     }
 

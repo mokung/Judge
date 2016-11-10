@@ -13,7 +13,7 @@ class Controller_Leader_Groups extends Controller_Leader_Base{
 
     public function action_list()
     {
-        $this->view = 'leader/groupconfig/list';
+        $this->view = 'leader/groups/list';
         $this->template_data['title'] = __('user.register.user_register');
 
 
@@ -52,7 +52,7 @@ class Controller_Leader_Groups extends Controller_Leader_Base{
     public function action_config()
     {
 
-      $this->view = 'leader/groupconfig/test';
+      $this->view = 'leader/groups/test';
 
       $current_user = $this->get_current_user();
 
