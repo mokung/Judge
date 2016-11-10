@@ -47,6 +47,7 @@ class Controller_Admin_Problem extends Controller_Admin_Base {
 
     public function action_defunct($pid = null)
     {
+        $this->view = 'admin/problem/defunc';
         if ( ! $pid )
             $pid = $this->request->param('id', null);
 

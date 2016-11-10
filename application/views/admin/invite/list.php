@@ -1,4 +1,4 @@
-<!-- <ul class="pagination problem-pagination">
+<ul class="pagination problem-pagination">
     <?php for($i = 1; $i <= $pages; $i++): ?>
         <li<?php if($i == Request::$current->param('id')):?> class="active"<?php endif;?>><a href="<?php e::url("/admin/invite/index/{$i}");?>"><?php echo($i);?></a></li>
     <?php endfor;?>
@@ -64,4 +64,3 @@
         }
     });
 </script>
- -->

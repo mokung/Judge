@@ -3,6 +3,9 @@
         <li<?php if($i == Request::$current->param('id')):?> class="active"<?php endif;?>><a href="<?php e::url("/leader/problem/list/{$i}");?>"><?php echo($i);?></a></li>
     <?php endfor;?>
 </ul>
+<ul class="new-problem">
+    <a href="<?php e::url("/leader/problem/new");?>" class="btn btn-primary"><?php echo(__('admin.problem.sidebar.new')); ?></a>   
+</ul>
 <table class="table table-striped">
     <thead>
     <tr>
