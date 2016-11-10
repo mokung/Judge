@@ -16,7 +16,7 @@
         <tbody>
         <?php foreach($groups as $u):?>
             <tr>
-                <td><?php echo HTML::anchor("{$u['group_id']}", $u['group_id']); ?></td>
+                <td><?php echo HTML::anchor("/admin/user/list/{$u['group_id']}", $u['group_id']); ?></td>
                 <td><?php echo $u['time_created']; ?></td>
                 <td><?php echo $u['member']; ?></td>
             </tr>
