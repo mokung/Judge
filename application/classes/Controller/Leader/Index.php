@@ -68,4 +68,58 @@ class Controller_Leader_Index extends Controller_Leader_Base{
 
     }
 
+        /*
+
+        generate invitation code and save to database
+
+
+        */
+       public function action_code()
+        {
+
+
+            $user = $this->get_current_user();
+            $this->template_data['user'] = $user;
+
+            $current_group = $user->group_id;
+            $need_type = 1;
+
+
+
+            $this->view = 'leader/index/index';
+            $title = "code";
+            $this->template_data['title'] = $title;
+
+
+            // $group = Arr::get($_GET,'id');
+            // $type = Arr::get($_GET,'type');
+            $limit = Arr::get($_GET,'num');
+
+                //generate hashcode(invitationcode) by date
+            $incode = Model_InvitationCode::generateRandomString(6);
+
+
+    //test
+            $this->template_data['code'] = $incode;
+            $this->template_data['group_id'] = $current_group;
+            $this->template_data['type'] = $need_type;
+            $this->template_data['limit'] = $limit;
+
+
+            //save new invitation code to database --> invitation
+            $code = new Model_InvitationCode;
+
+            $code->group_id = $current_group;
+            $code->invited_code = $incode;
+            $code->type = $need_type;
+            $code->num = $limit;
+            $code->createtime = date('Y-m-d H:i:s');
+
+            $code->save();
+
+            // $this->action_list();
+
+
+        }
+
 }

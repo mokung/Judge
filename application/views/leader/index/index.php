@@ -3,7 +3,7 @@
         <div class="panel panel-default">
             <div class="panel-heading text-center"><?php echo(__('leader.index.index.invitation')); ?></div>
             <div class="panel-body">
-                <form role="form" class="form-horizontal col-sm-12" action="<?php e::url('/admin/index/code');?>">
+                <form role="form" class="form-horizontal col-sm-12" action="<?php e::url('/leader/index/code');?>">
                     <input type="hidden" name="type" id="type" value="1">
                     <div class="form-group">
                         <div class="col-sm-offset-2 col-sm-8">
@@ -17,8 +17,9 @@
                     </div>
                     <div class="form-group">
                         <div class="alert alert-info col-sm-offset-2 col-sm-8" role="alert">
-                            <?php if(isset( $code ))
-                                echo $code;
+
+                            <?php if(isset( $incode ))
+                                echo $incode;
                                 else
                                     echo "此处生成邀请码";
                             ?>
