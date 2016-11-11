@@ -245,6 +245,7 @@ return array(
     'admin.problem.list.problem_list'              => 'Problem List',
     'admin.problem.list.problem_id'                => 'ID',
     'admin.problem.list.title'                     => 'Title',
+    'admin.problem.list.difficulty'                => 'Difficulty',
     'admin.problem.list.created'                   => 'Time Created',
     'admin.problem.list.defunct'                   => 'Defunct',
     'admin.problem.list.op'                        => 'OP',
