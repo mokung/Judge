@@ -39,7 +39,6 @@ class Controller_Solution extends Controller_Base
         $cid = $this->get_query('cid', null);
         $language = $this->get_query('language', null);
         $result = $this->get_query('result', null);
-
         $per_page = OJ::per_page;
 
         $filter = array(

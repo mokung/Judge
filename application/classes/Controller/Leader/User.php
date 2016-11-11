@@ -8,6 +8,10 @@ class Controller_Leader_User extends Controller_Leader_Base{
         $this->action_list();
     }
 
+
+/*
+user list of leader's group
+*/
     public function action_list()
     {
         $page = $this->get_query('page', 1);

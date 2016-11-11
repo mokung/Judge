@@ -75,8 +75,13 @@ class Controller_Admin_User extends Controller_Admin_Base{
     public function action_list()
     {
         $page = $this->get_query('page', 1);
+        $group = $this->get_query('id',null);
 
-    	$user_list = Model_User::find(array(), $page);
+        $filter = array(
+            'group_id' => $group,
+            );
+        $filter = $this->clear_data($filter,  array(-1, '', null));
+    	$user_list = Model_User::find($filter, $page);
 
         $this->template_data['total'] = Model_User::count();
         $this->template_data['user_list'] = $user_list;
