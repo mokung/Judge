@@ -244,8 +244,8 @@ class Controller_Problem extends Controller_Base
     {
 
         $current_user = $this->get_current_user();
-        if($current_user == null || Model_Privilege::permission_of_user($current_user->user_id) )
-        {
+        // if($current_user == null || Model_Privilege::permission_of_user($current_user->user_id) )
+        // {
 
 
         $this->view = 'problem/list';
@@ -273,11 +273,11 @@ class Controller_Problem extends Controller_Base
         $this->template_data['page'] = $page;
         $this->template_data['pages'] = $total_volumes;
 
-    }else {
-        # code...
-        $this->action_listuser();
+    // }else {
+    //     # code...
+    //     $this->action_listuser();
 
-    }
+    // }
     }
 
     public function action_show()
