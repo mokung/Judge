@@ -33,7 +33,7 @@ class Controller_Solution extends Controller_Base
         // init
         $page = $this->get_query('page', 1);
         if ($page < 1) $page = 1;
-
+        $user = $this->get_current_user();
         $pid = $this->get_query('pid', null);
         $uid = $this->get_query('uid', null);
         $cid = $this->get_query('cid', null);
@@ -47,6 +47,7 @@ class Controller_Solution extends Controller_Base
             'contest_id' => $cid,
             'language' => $language,
             'result' => $result,
+            'group_id' => $user['group_id'],
         );
 
         $filter = $this->clear_data($filter,  array(-1, '', null));
