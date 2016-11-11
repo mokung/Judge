@@ -1,46 +1,84 @@
 <div class="dashboard-widget row">
     <div class="col-md-offset-3 col-md-6">
         <div class="panel panel-default">
-            <div class="panel-heading text-center"><?php echo(__('leader.index.index.invitation')); ?></div>
+            <div class="panel-heading" style="padding:0;border:0;">
+                <ul class="nav nav-tabs" id="myTab">
+                  <li class="active text-center" style="width:50%;"><a href="#new_in" style="border-left:0;border-top:0;margin:0">生成邀请码</a></li>
+                  <li class="text-center" style="width:50%;"><a href="#list_in" style="border-right:0;border-top:0;margin:0">已有邀请码</a></li>
+                </ul>
+            </div>
             <div class="panel-body">
-                <form role="form" class="form-horizontal col-sm-12" action="<?php e::url('/admin/index/code');?>">
-                    <input type="hidden" name="type" id="type" value="1">
-                    <div class="form-group">
-                        <div class="col-sm-offset-2 col-sm-8">
-                            <input type="number" class="form-control" name="num" value=“1” placeholder="请输入生效次数">
-                        </div>
+                <div class="tab-content" style="min-height:200px;">
+                    <div class="tab-pane active" id="new_in" >
+                        <form role="form" class="form-horizontal col-sm-12" action="<?php e::url('/leader/invite/code');?>">
+                            <div class="form-group">
+                                <div class="col-sm-offset-2 col-sm-8">
+                                    <input type="number" class="form-control" name="num" placeholder="请输入生效次数">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-offset-2 col-sm-8">
+                                    <button id="lea_in_su" type="submit" class="btn btn-primary col-sm-12">生成邀请码</button>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="alert alert-info col-sm-offset-2 col-sm-8" role="alert">
+                                    <?php if(isset( $code ))
+                                        echo $code;
+                                        else
+                                            echo "此处生成邀请码";
+                                    ?>
+                                </div>
+                            </div>
+                        </form>
                     </div>
-                    <div class="form-group">
-                        <div class="col-sm-offset-2 col-sm-8">
-                            <button id="lead_in_sub" type="submit" class="btn btn-primary col-sm-12">生成邀请码</button>
-                        </div>
+                    <div class="tab-pane" id="list_in">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>邀请码</th>
+                                    <th>所在组</th>
+                                    <th>有效次数</th>
+                                    <th>创建时间</th>
+                                </tr>
+                            </thead>
+                        </table>
                     </div>
-                    <div class="form-group">
-                        <div class="alert alert-info col-sm-offset-2 col-sm-8" role="alert">
-                            <?php if(isset( $code ))
-                                echo $code;
-                                else
-                                    echo "此处生成邀请码";
-                            ?>
-
-
-                        </div>
-                    </div>
-                </form>
+                </div>
             </div>
         </div>
     </div>
 </div>
 <script type="text/javascript">
-    $('#lead_in_sub').click(function(){
+    $('#lea_in_su').click(function(){
         var is_num = /(^[1-9]\d*$)/;
         var form = $(this).parents("form").get(0),
             num = form.num.value;
-        if(num!=""||!is_num.test(num)){
+        if(num=="" || !is_num.test(num)){
             alert("输入信息有误！");
             return false;
         }
         return true;
+    });
 
+    $('#myTab a').click(function (e) {
+        var href = $(this).attr("href");
+        e.preventDefault();
+        // 显示生成邀请码页面，并初始化表单
+        if(href=='#new_in'){
+            $(href).find('form').get(0).reset();
+        }else{
+            console.log(213);
+            //显示有效的邀请码列表
+            $.ajax({
+                url:'admin/invite/list',
+                type:'post',
+                dataType:'json',
+                success:function(data){
+                    console.log(data);
+                }
+            });
+        }
+        $(this).tab('show');
     });
 </script>
