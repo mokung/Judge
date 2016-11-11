@@ -1,9 +1,9 @@
 <!-- <div class="dashboard-widget row"> -->
   
-<!--   <form action="<?php e::url("/admin/groups/create"); ?>" role="form" method="get" class="form-horizontal col-sm-6 col-sm-offset-2">
+ <form action="<?php e::url("/admin/groups/create"); ?>" role="form" method="get" class="form-horizontal col-sm-6 col-sm-offset-2">
   Group Name: <input type="text" name="id"><br>
   <input type="submit">
-  </form> -->
+  </form> 
   <!-- <div class="col-md-12"> -->
       <table class="table table-striped">
       <thead>
@@ -16,7 +16,7 @@
         <tbody>
         <?php foreach($groups as $u):?>
             <tr>
-                <td><?php echo HTML::anchor("{$u['group_id']}", $u['group_id']); ?></td>
+                <td><?php echo HTML::anchor("/admin/user/list?id={$u['group_id']}", $u['group_id']); ?></td>
                 <td><?php echo $u['time_created']; ?></td>
                 <td><?php echo $u['member']; ?></td>
             </tr>

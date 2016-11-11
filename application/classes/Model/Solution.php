@@ -46,6 +46,7 @@ class Model_Solution extends Model_Base
         'solution_id',
         'problem_id',
         'user_id',
+        'group_id',
         'time',
         'memory',
         'in_date',
@@ -63,6 +64,7 @@ class Model_Solution extends Model_Base
     public $solution_id;
     public $problem_id;
     public $user_id;
+    public $group_id;
     public $time;
     public $memory;
     public $in_date;
@@ -146,6 +148,7 @@ class Model_Solution extends Model_Base
     {
         $solution = new Model_Solution();
         $solution->user_id = $user->user_id;
+        $solution->group_id = $user->group_id;
         $solution->problem_id = $problem->problem_id;
         $solution->language = $language;
         $solution->ip = Request::$client_ip;

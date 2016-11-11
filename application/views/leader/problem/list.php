@@ -11,7 +11,7 @@
     <tr>
         <th><?php echo(__('admin.problem.list.problem_id')); ?></th>
         <th><?php echo(__('admin.problem.list.title')); ?></th>
-        <th><?php echo(__('admin.problem.list.difficulty')); ?></th>
+        <th><?php echo(__('admin.problem.list.level')); ?></th>
         <th><?php echo(__('admin.problem.list.created')); ?></th>
         <th><?php echo(__('admin.problem.list.defunct')); ?></th>
         <th><?php echo(__('admin.problem.list.op')); ?></th>
@@ -24,7 +24,6 @@
 <td><?php echo $p->level;?></td>
 <td><?php echo($p->in_date);?></td>
 <td><a id="defunct-<?php echo($p->problem_id);?>" class="dp btn" data-value="<?php echo $p->problem_id;?>"><?php echo(__($p->defunct));?></a></td>
-<!--<td><a class="edit-link" href="<?php e::url("/leader/problem/defunct/{$p->problem_id}");?>"><?php echo(__($p->defunct));?></a></td>-->
 <td><a class="edit-link" href="<?php e::url("/leader/problem/edit/{$p->problem_id}");?>"><?php echo(__('admin.problem.list.edit')); ?></a></td>
 <?php endforeach;?>
 </table>
@@ -49,16 +48,14 @@
     });
     $('a.dp').click(function(){
         var problem_id = $(this).attr('data-value');
-        console.log(problem_id);
         var user_ok = confirm('<?php echo(__('admin.problem.list.sure_to_change_defunct?')); ?>');
         if (user_ok)
         {
-            var url = '/leader/problem/defunct';
+           var url = '<?php e::url("/leader/problem/defunct");?>';
             $.getJSON(url, {'problem_id': problem_id}, function(response){
-
-                console.log(response);
+                var result = response.result == 'Y' ? '<?php echo(__('Y')); ?>':'<?php echo(__('N')); ?>';
                 var elem = $('#defunct-' + problem_id);
-                elem.html(response.result);
+                elem.html(result);
 
                 check_defunct(problem_id);
             })

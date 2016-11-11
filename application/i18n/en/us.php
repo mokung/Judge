@@ -250,6 +250,7 @@ return array(
     'admin.problem.list.defunct'                   => 'Defunct',
     'admin.problem.list.op'                        => 'OP',
     'admin.problem.list.edit'                      => 'Edit',
+    'admin.problem.list.level'                     => 'Level',
     'admin.problem.list.sure_to_change_defunct?'   => "Are you sure to change the defunct type?",
 
     'admin.problem.edit.new_problem'               => 'New Problem',
@@ -408,7 +409,8 @@ return array(
     'common.user_not_found'                        => 'User not found',
     'common.user_exist'                            => 'User exist',
     'common.group_exist'                            => 'Group exist',
-    'common.group_not_exist'                            => 'Group not exist',
+    'common.groupname_null'                            => 'Group name is null',
+    'common.group_not_exist'                        => 'Group not exist',
 
 
     'common.login_error'                           => 'Wrong username or password, please try again',

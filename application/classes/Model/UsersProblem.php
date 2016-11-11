@@ -63,6 +63,26 @@ class Model_UsersProblem extends Model_Base
         return $result;
     }
 
+
+    public static function find_current_problemlist($current_problem)
+    {
+        $all_stage_problem = array();
+
+        foreach ($current_problem as $key) {
+
+            array_push($all_stage_problem,Model_Problem::find_by_id($key));
+
+        }
+
+        return $all_stage_problem;
+    }
+
+
+
+
+
+
+
     /**
      * 保存当前实例到数据库
      *
