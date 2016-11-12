@@ -477,7 +477,7 @@ class Model_User extends Model_Base
         {
             return true;
         }
-        if ( $this->is_admin() OR $this->has_permission(Model_Privilege::PERM_SOURCEVIEW) )
+        if ( $this->is_admin() OR $this->is_leader() OR $this->has_permission(Model_Privilege::PERM_SOURCEVIEW) )
             return true;
         return false;
     }

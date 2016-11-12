@@ -3,8 +3,10 @@
 class Controller_User extends Controller_Base
 {
 
+
     public function action_list()
     {
+        $this->current_user = $this->check_login();
         // initial
         $page = $this->request->param('id', 1);
         

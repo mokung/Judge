@@ -5,6 +5,7 @@ class Controller_Situation extends Controller_Base
 
 
 
+
 //run per one day
     public function action_inject()
     {
