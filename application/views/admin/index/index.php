@@ -86,7 +86,7 @@
                             <div class="form-group">
                                 <div class="alert alert-info col-sm-offset-2 col-sm-8" role="alert">
                                     <?php if(isset( $code ))
-                                        echo $code;
+                                        print_r ($code);
                                         else
                                             echo "此处生成邀请码";
                                     ?>
@@ -96,14 +96,18 @@
                     </div>
                     <div class="tab-pane" id="list_in">
                         <table class="table table-striped">
-                            <thead>
                                 <tr>
                                     <th>邀请码</th>
                                     <th>所在组</th>
                                     <th>有效次数</th>
                                     <th>创建时间</th>
                                 </tr>
-                            </thead>
+
+                                <tr>
+                                <!-- circle allcode to show all -->
+                                    <td><?php print_r($allcode[1]["code"]);?></td>
+                                </tr>
+
                         </table>
                     </div>
                 </div>

@@ -4,9 +4,9 @@
     <?php endfor;?>
 </ul>
 <ul class="new-problem">
-    <a href="<?php e::url("/admin/problem/new");?>" class="btn btn-primary"><?php echo(__('admin.problem.sidebar.new')); ?></a>   
+    <a href="<?php e::url("/admin/problem/new");?>" class="btn btn-primary"><?php echo(__('admin.problem.sidebar.new')); ?></a>
 </ul>
- 
+
 <table class="table table-striped">
     <thead>
     <tr>

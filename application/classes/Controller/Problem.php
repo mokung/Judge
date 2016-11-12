@@ -162,8 +162,14 @@ class Controller_Problem extends Controller_Base
 
         } else{
                 // $problemlist = Model_UsersProblem::UniqueRandomNumbersWithinRange(0,$num-1,$current_show_num);
-
+            try{
                 $problemlist = array_rand($left_level_problem,$current_show_num);
+            }catch(Exception $e){
+                 $this->flash_error("your problime is insufficient, please add problem or change your group_config");
+                 $this->view = 'problem/userlist_insufficient';
+
+                 return 0;
+            }
 
             array_multisort($problemlist);
             $this->template_data['num'] = $problemlist;
@@ -244,8 +250,8 @@ class Controller_Problem extends Controller_Base
     {
 
         $current_user = $this->get_current_user();
-        // if($current_user == null || Model_Privilege::permission_of_user($current_user->user_id) )
-        // {
+        if($current_user == null || Model_Privilege::permission_of_user($current_user->user_id) )
+        {
 
 
         $this->view = 'problem/list';
@@ -273,11 +279,11 @@ class Controller_Problem extends Controller_Base
         $this->template_data['page'] = $page;
         $this->template_data['pages'] = $total_volumes;
 
-    // }else {
-    //     # code...
-    //     $this->action_listuser();
+    }else {
+        # code...
+        $this->action_listuser();
 
-    // }
+    }
     }
 
     public function action_show()

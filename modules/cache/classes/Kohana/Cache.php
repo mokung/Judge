@@ -300,5 +300,61 @@ abstract class Kohana_Cache {
 		// Change slashes and spaces to underscores
 		return str_replace(array('/', '\\', ' '), '_', $id);
 	}
+
+	/**
+	 * @ param string $server
+	 * @ param int $port
+	 * @ param int $limit
+	 * @ return array
+	 */
+	public static function  getMemcacheKeys ($memcache, $limit = 10000)
+	{
+	    $keysFound = array();
+
+	    // $options = $this->_options;
+	    // $server = $options['servers'][0];
+	    // $memcache = new Memcache;
+	    // $memcache->connect($server, $port = 11211, 5);
+
+	    $slabs = $memcache->getExtendedStats('slabs');
+	    foreach ($slabs as $serverSlabs) {
+	        foreach ($serverSlabs as $slabId => $slabMeta) {
+	            try {
+	                $cacheDump = $memcache->getExtendedStats('cachedump', (int) $slabId, 1000);
+	            } catch (Exception $e) {
+	                continue;
+	            }
+
+	            if (!is_array($cacheDump)) {
+	                continue;
+	            }
+
+	            foreach ($cacheDump as $dump) {
+
+	                if (!is_array($dump)) {
+	                    continue;
+	                }
+
+	                foreach ($dump as $key => $value) {
+	                    $keysFound[] = $key;
+
+	                    if (count($keysFound) == $limit) {
+	                        return $keysFound;
+	                    }
+	                }
+	            }
+	        }
+	    }
+
+	    return $keysFound;
+	}
+
+	public static function initialMemcache()
+	{
+		$mycache = new Memcache;
+		$mycache->connect('127.0.0.1', 11211);
+
+		require $mycache;
+	}
 }
 // End Kohana_Cache
