@@ -2,6 +2,15 @@
 
 class Controller_Problem extends Controller_Base
 {
+
+
+    public function before()
+    {
+        parent::before();
+
+        $this->current_user = $this->check_login();
+    }
+    
     public function action_index()
     {
         $this->view = 'problem/userlist';
