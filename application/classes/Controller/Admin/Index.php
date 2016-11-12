@@ -11,7 +11,7 @@ class Controller_Admin_Index extends Controller_Admin_Base
 
         $mycache = new Memcache;
         $mycache->connect('127.0.0.1', 11211);
-        $allcode = Cache::getMemcacheKeys($mycache);
+        $allcode = Model_InvitationCode::getMemcacheKeys($mycache);
 
         //process : get detail data from memocache by all key
         $current_user_code = array();
@@ -222,7 +222,7 @@ class Controller_Admin_Index extends Controller_Admin_Base
                 // $this->action_list();
 
 
-                $allcode = Cache::getMemcacheKeys($mycache);
+                $allcode = Model_InvitationCode::getMemcacheKeys($mycache);
 
                 $current_user_code = array();
 

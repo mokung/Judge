@@ -179,7 +179,7 @@ class Controller_Leader_Index extends Controller_Leader_Base{
                 // $this->action_list();
 
 
-                $allcode = Cache::getMemcacheKeys($mycache);
+                $allcode = Model_InvitationCode::getMemcacheKeys($mycache);
 
                 $current_user_code = array();
 

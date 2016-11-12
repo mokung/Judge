@@ -51,7 +51,7 @@ public static function generateRandomString($length = 6) {
 
     public static function get_Group_id($invitation)
     {
-       
+
         $filter = array(
             'invited_code' => $invitation,
         );
@@ -69,7 +69,7 @@ public static function generateRandomString($length = 6) {
         return $query->execute();
 
     }
- 
+
       public function save()
     {
         // prepare data
@@ -101,7 +101,7 @@ public static function generateRandomString($length = 6) {
             return $affect_row;
         }
     }
-   
+
     protected function initial_data()
     {
        $this->new_mail = self::MAIL_NEW;
@@ -112,4 +112,54 @@ public static function generateRandomString($length = 6) {
 
     public function validate()
     {}
+
+    /**
+     * @ param string $server
+     * @ param int $port
+     * @ param int $limit
+     * @ return array
+     */
+    public static function  getMemcacheKeys ($memcache, $limit = 10000)
+    {
+        $keysFound = array();
+
+        // $options = $this->_options;
+        // $server = $options['servers'][0];
+        // $memcache = new Memcache;
+        // $memcache->connect($server, $port = 11211, 5);
+
+        $slabs = $memcache->getExtendedStats('slabs');
+        foreach ($slabs as $serverSlabs) {
+            foreach ($serverSlabs as $slabId => $slabMeta) {
+                try {
+                    $cacheDump = $memcache->getExtendedStats('cachedump', (int) $slabId, 1000);
+                } catch (Exception $e) {
+                    continue;
+                }
+
+                if (!is_array($cacheDump)) {
+                    continue;
+                }
+
+                foreach ($cacheDump as $dump) {
+
+                    if (!is_array($dump)) {
+                        continue;
+                    }
+
+                    foreach ($dump as $key => $value) {
+                        $keysFound[] = $key;
+
+                        if (count($keysFound) == $limit) {
+                            return $keysFound;
+                        }
+                    }
+                }
+            }
+        }
+
+        return $keysFound;
+    }
+
+
 }

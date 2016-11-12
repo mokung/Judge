@@ -25,11 +25,11 @@
 <td><?php echo $p->level;?></td>
 <td><?php echo($p->in_date);?></td>
 <td><a id="defunct-<?php echo($p->problem_id);?>" class="dp btn" data-value="<?php echo $p->problem_id;?>"><?php echo(__($p->defunct));?></a></td>
-<!-- <<td><a class="edit-link" href="<?php e::url("/admin/problem/defunct/{$p->problem_id}");?>"><?php echo(__($p->defunct));?></a></td> -->
+
 <td><a class="edit-link" href="<?php e::url("/admin/problem/edit/{$p->problem_id}");?>"><?php echo(__('admin.problem.list.edit')); ?></a></td>
 <?php endforeach;?>
 </table>
-<script type="text/javascript">
+<script type="text/javascript">http://localhost/info.php
     function check_defunct(problem_id)
     {
         var elem = $('#defunct-' + problem_id);
