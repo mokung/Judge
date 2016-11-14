@@ -91,20 +91,9 @@ class Controller_Admin_Invite extends Controller_Admin_Base
            $mycache->connect('127.0.0.1', 11211);
 
        $this->template_data['allcode'] =json_encode($allcode);
-       success:function($allcode);
+       $this->response->body(json_encode($allcode));
 
 
-        // $page = $this->request->param('id', 1);
-
-        // $filter = array();
-        // $orderby = array(
-        //     Model_InvitationCode::$primary_key => Model_Base::ORDER_DESC
-        // );
-        // $problem_list = Model_InvitationCode::find($filter, $page, OJ::per_page, $orderby);
-
-        // $this->template_data['pages'] = ceil(intval(Model_InvitationCode::count($filter)) / OJ::per_page);
-        // $this->template_data['problem_list'] = $problem_list;
-        // $this->template_data['title'] = __('user.register.invitation');
     }
 
     public function action_show()
