@@ -10,7 +10,7 @@ class Controller_Problem extends Controller_Base
 
         $this->current_user = $this->check_login();
     }
-    
+
     public function action_index()
     {
         $this->view = 'problem/userlist';
@@ -165,8 +165,10 @@ class Controller_Problem extends Controller_Base
 
         if($num < $current_show_num)    // if all this level problem number < need to show number
         {
+            $this->flash_error("your problime is insufficient, please add problem or change your group_config");
+            $this->view = 'problem/userlist_insufficient';
 
-
+            return 0;
 
 
         } else{
@@ -174,9 +176,9 @@ class Controller_Problem extends Controller_Base
             try{
                 $problemlist = array_rand($left_level_problem,$current_show_num);
             }catch(Exception $e){
+
                  $this->flash_error("your problime is insufficient, please add problem or change your group_config");
                  $this->view = 'problem/userlist_insufficient';
-
                  return 0;
             }
 
@@ -203,6 +205,7 @@ class Controller_Problem extends Controller_Base
 
 
         $this->template_data['num'] = $problem_id_array;
+
 
    }
 
@@ -233,7 +236,10 @@ class Controller_Problem extends Controller_Base
         $this->template_data['num1'] = e::pass_status($key);
     }
 
-    $current_stage_pass_num = json_decode($current_user_group_config->pass_num,true)[$current_user_stage];
+
+
+    $ccc = json_decode($current_user_group_config->pass_num,true);
+    $current_stage_pass_num = $ccc[$current_user_stage];
 
 
     if($current_user_stage < $current_user_group_config->stage_num && $pass_numbers >=  $current_stage_pass_num)

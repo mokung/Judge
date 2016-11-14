@@ -9,7 +9,7 @@ class Controller_User extends Controller_Base
         $this->current_user = $this->check_login();
         // initial
         $page = $this->request->param('id', 1);
-        
+
         $user = $this->get_current_user();
 
         $orderby = array(
@@ -22,7 +22,7 @@ class Controller_User extends Controller_Base
             );
         //user order by resolved problems
         $users = Model_User::find($filter, $page, OJ::per_page, $orderby);
-        
+
         // views
         $total = Model_User::count($filter);
         $this->template_data['title'] = __('user.list.user_rank');
@@ -134,7 +134,7 @@ class Controller_User extends Controller_Base
                 }else if ( ! $user )
                 {
                     $user = new Model_User;
-                    
+
                     //邀请码使用次数减一
 
                     if ($invitation['num']==1) {
@@ -143,7 +143,7 @@ class Controller_User extends Controller_Base
                     }else{
                         $invite =$invitation;
                         $invite->num = $invitation['num']-1;
-                        $invite->save(); 
+                        $invite->save();
 
                     }
 
@@ -267,7 +267,7 @@ class Controller_User extends Controller_Base
     public function action_logout()
     {
         Auth::instance()->logout();
-        
+
         $this->go_home();
     }
 
