@@ -217,7 +217,9 @@ class Controller_Admin_Index extends Controller_Admin_Base
                 $data = array('code' => $incode, 'group_id' => $group, 'type' => $type, 'num' => $limit, 'time' => $time, 'cereatetime' =>date("Y-m-d H:i:s") );
 
                 // Save the data to cache, with an id of test_id and a lifetime of 10 minutes
+
                $mycache->set($memkey, $data, 0, $time);
+
 
                 // $this->action_list();
 
@@ -235,7 +237,14 @@ class Controller_Admin_Index extends Controller_Admin_Base
                     $this->template_data['code'] =$current_user_code;
                     }
 
+
+                    $mycache = new Memcache;
+                    $mycache->connect('127.0.0.1', 11211);
+
                 $this->template_data['code'] =$allcode;
+
+                // $mycache->get("7RHQTQ")
+
 
 
 

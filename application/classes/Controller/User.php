@@ -9,7 +9,7 @@ class Controller_User extends Controller_Base
         $this->current_user = $this->check_login();
         // initial
         $page = $this->request->param('id', 1);
-        
+
         $user = $this->get_current_user();
 
         $orderby = array(
@@ -22,7 +22,7 @@ class Controller_User extends Controller_Base
             );
         //user order by resolved problems
         $users = Model_User::find($filter, $page, OJ::per_page, $orderby);
-        
+
         // views
         $total = Model_User::count($filter);
         $this->template_data['title'] = __('user.list.user_rank');
@@ -129,6 +129,7 @@ class Controller_User extends Controller_Base
                               ->rule('invitation', 'min_length', array(':value', 6))
                               ->rule('invitation', 'max_length', array(':value', 6));
 
+
             if ($post->check()) {
                 
                
@@ -193,7 +194,9 @@ class Controller_User extends Controller_Base
                             $this->flash_error(array(__('common.user_exist')));
                         }
 
+
                     }else{
+
                         $this->flash_error(array(__('common.code_not_found')));
                     }
               
@@ -292,7 +295,7 @@ class Controller_User extends Controller_Base
     public function action_logout()
     {
         Auth::instance()->logout();
-        
+
         $this->go_home();
     }
 

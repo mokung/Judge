@@ -104,8 +104,8 @@
                                 </tr>
 
                                 <tr>
-                                <!-- circle allcode to show all -->
-                                    <td><?php print_r($allcode[1]["code"]);?></td>
+                                <!-- circle allcode to show all -->\
+
                                 </tr>
 
                         </table>
@@ -135,7 +135,7 @@
         if(href=='#new_in'){
             $(href).find('form').get(0).reset();
         }else{
-            console.log(213);
+            console.log(223);
             //显示有效的邀请码列表
             $.ajax({
                 url:'admin/invite/list',
