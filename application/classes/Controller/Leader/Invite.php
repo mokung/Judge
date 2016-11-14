@@ -9,50 +9,86 @@ class Controller_Leader_Invite extends Controller_Leader_Base
 
 
     */
-   public function action_code()
-    {
+    public function action_code()
+        {
+
+            $user = $this->get_current_user();
+            $this->template_data['user'] = $user;
+
+            $this->view = 'leader/index/index';
+            $title = "code";
+            $this->template_data['title'] = $title;
+
+            // $group = Arr::get($_GET,'id');
+            $group = $user->group_id;
+            // $type = Arr::get($_GET,'type');
+            $type = 1;  //for leader type is 1
+
+            $limit = Arr::get($_GET,'num');
+            $time = Arr::get($_GET,'time');
+
+            // $time = $time*60;   //change miniutes to second
+
+            $group_id = Model_Groups::find_by_id($group);
+
+            if ($group_id) {
+
+                      //generate hashcode(invitationcode) by date
+                $incode = Model_InvitationCode::generateRandomString(6);
 
 
-        $user = $this->get_current_user();
-        $this->template_data['user'] = $user;
+                 //test
+                $this->template_data['code'] = $incode;
+                // $this->template_data['group_id'] = Arr::get($_GET,'id');
+                // $this->template_data['type'] = Arr::get($_GET,  'type');
+                // $this->template_data['limit'] = Arr::get($_GET,'num');
+                // $this->template_data['time'] = Arr::get($_GET,'time');
+
+                $mycache = new Memcache;
+                $mycache->connect('127.0.0.1', 11211);
+
+                //memcache key
+                $memkey = $user->user_id.$incode;
+
+                //memcache value
+                $data = array('code' => $incode, 'group_id' => $group, 'type' => $type, 'num' => $limit, 'time' => $time, 'cereatetime' =>date("Y-m-d H:i:s")  );
+
+                // Save the data to cache, with an id of test_id and a lifetime of 10 minutes
+                $mycache->set($memkey, $data, 0, $time);
+
+                // $this->action_list();
+
+
+                $allcode = Model_InvitationCode::getMemcacheKeys($mycache);
+
+                $current_user_code = array();
+
+                foreach ($allcode as $key) {
+                    if(strpos($key,$user->user_id) == 0)
+                    {
+                        array_push($current_user_code, $key);
+                    }
+
+                    $this->template_data['code'] =$current_user_code;
+                }
+
+                $this->template_data['code'] =$incode;
 
 
 
-        $this->view = 'admin/invite/list';
-        $title = "code";
-        $this->template_data['title'] = $title;
 
+            }else{
+                $this->flash_error(array(__('common.group_not_exist')));
+            }
 
-        $group = Arr::get($_GET,'id');
-        $type = Arr::get($_GET,'type');
-        $limit = Arr::get($_GET,'num');
+            $all_group_id = Model_Groups::find_all_groupid();
 
-            //generate hashcode(invitationcode) by date
-        $incode = Model_InvitationCode::generateRandomString(6);
+            $this->template_data['all_group_id'] = $all_group_id;
 
+            // $this->action_index();
 
-//test
-        $this->template_data['code'] = $incode;
-        $this->template_data['group_id'] = Arr::get($_GET,'id');
-        $this->template_data['type'] = Arr::get($_GET,  'type');
-        $this->template_data['limit'] = Arr::get($_GET,'num');
+        }
 
-
-        //save new invitation code to database --> invitation
-        $code = new Model_InvitationCode;
-
-        $code->group_id = $group;
-        $code->invited_code = $incode;
-        $code->type = $type;
-        $code->num = $limit;
-        $code->createtime = date('Y-m-d H:i:s');
-
-        $code->save();
-
-        $this->action_list();
-
-
-    }
 
 
      public function action_new()
@@ -107,20 +143,54 @@ class Controller_Leader_Invite extends Controller_Leader_Base
         $this->action_list();
     }
 
+    // public function action_list()
+    // {
+    //     $page = $this->request->param('id', 1);
+
+    //     $filter = array();
+    //     $orderby = array(
+    //         Model_InvitationCode::$primary_key => Model_Base::ORDER_DESC
+    //     );
+    //     $problem_list = Model_InvitationCode::find($filter, $page, OJ::per_page, $orderby);
+
+    //     $this->template_data['pages'] = ceil(intval(Model_InvitationCode::count($filter)) / OJ::per_page);
+    //     $this->template_data['problem_list'] = $problem_list;
+    //     $this->template_data['title'] = __('user.register.invitation');
+    // }
+
     public function action_list()
     {
-        $page = $this->request->param('id', 1);
+        $user = $this->get_current_user();
 
-        $filter = array();
-        $orderby = array(
-            Model_InvitationCode::$primary_key => Model_Base::ORDER_DESC
-        );
-        $problem_list = Model_InvitationCode::find($filter, $page, OJ::per_page, $orderby);
+       $mycache = new Memcache;
+       $mycache->connect('127.0.0.1', 11211);
 
-        $this->template_data['pages'] = ceil(intval(Model_InvitationCode::count($filter)) / OJ::per_page);
-        $this->template_data['problem_list'] = $problem_list;
-        $this->template_data['title'] = __('user.register.invitation');
+
+       $allcode = Model_InvitationCode::getMemcacheKeys($mycache);
+
+       $current_user_code = array();
+
+       foreach ($allcode as $key) {
+           if(strpos($key,$user->user_id) !== false)
+            {
+                $mycache = new Memcache;
+                $mycache->connect('127.0.0.1', 11211);
+               array_push($current_user_code, json_encode($mycache->get($key)));
+            }
+
+        }
+
+           $mycache = new Memcache;
+           $mycache->connect('127.0.0.1', 11211);
+
+           // $this->template_data['code'] = $current_user_code;
+           // $this->template_data['title'] = 'code';
+
+       $this->response->body(json_encode($current_user_code));
+
+
     }
+
 
     public function action_show()
     {

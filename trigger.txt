@@ -4,17 +4,20 @@ DELIMITER |
 create trigger updatescore after update
 on solution for each row
 begin
- 	declare lv varchar(48);
-    declare gid varchar(48);
-   declare lvsc int;
-   declare jsonkey varchar(48);
-   
-  if new.result=4 THEN
-  select groud_id into gid from users where user_id=new.user_id;
+  declare lv varchar(48);
+  declare lvsc int;
+  declare jsonkey varchar(48);
+  if new.result=4 and NOT EXISTS(select rightstr from privilege where user_id=new.user_id) THEN
   select level into lv from problem where problem_id=new.problem_id;
   SET jsonkey = CONCAT('$."',lv,'"');
-  select JSON_EXTRACT(level_score, jsonkey) into lvsc from group_config where group_id= gid;
+  select JSON_EXTRACT(level_score, jsonkey) into lvsc from group_config where group_id= new.group_id;
   UPDATE users SET users.score = users.score+lvsc WHERE user_id = new.user_id; 
   end IF;
 end|
 DELIMITER ;
+
+//用户注册后更新组成员数
+
+create trigger updatemember after insert
+on users for each row
+  UPDATE groups SET groups.member = groups.member+1 WHERE group_id = new.group_id; 

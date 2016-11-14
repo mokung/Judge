@@ -8,6 +8,7 @@ group list
 
 
 class Controller_Admin_Groups extends Controller_Admin_Base{
+
  public function action_index()
     {
     	$this->template_data['title'] = __('New group');
@@ -26,7 +27,7 @@ class Controller_Admin_Groups extends Controller_Admin_Base{
               if (!$group) {
                 $group =  new Model_Groups;
                 $group->group_id = $group_id;
-                
+
                 $group->save();
 
             }else{
@@ -36,7 +37,7 @@ class Controller_Admin_Groups extends Controller_Admin_Base{
       }else{
         $this->flash_error(array(__('common.groupname_null')));
       }
-      
+
       $this->redirect('admin/groups/');
 
 	}
@@ -76,5 +77,5 @@ class Controller_Admin_Groups extends Controller_Admin_Base{
         $this->action_index();
     }
 
-	
+
 }

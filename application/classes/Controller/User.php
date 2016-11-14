@@ -3,11 +3,13 @@
 class Controller_User extends Controller_Base
 {
 
+
     public function action_list()
     {
+        $this->current_user = $this->check_login();
         // initial
         $page = $this->request->param('id', 1);
-        
+
         $user = $this->get_current_user();
 
         $orderby = array(
@@ -20,7 +22,7 @@ class Controller_User extends Controller_Base
             );
         //user order by resolved problems
         $users = Model_User::find($filter, $page, OJ::per_page, $orderby);
-        
+
         // views
         $total = Model_User::count($filter);
         $this->template_data['title'] = __('user.list.user_rank');
@@ -105,7 +107,10 @@ class Controller_User extends Controller_Base
     }
 
     public function action_register()
+
     {
+
+
         if ( $this->request->is_post() and $this->check_captcha() )
         {
             // TODO: cleaned_post() caused password 'fo<ob>ar' problem
@@ -121,56 +126,81 @@ class Controller_User extends Controller_Base
                               ->rule('email', 'not_empty')
                               ->rule('email', 'max_length', array(':value', 30))
                               ->rule('email', 'email')
-                              ->rule('invitation', 'not_empty');
+                              ->rule('invitation', 'min_length', array(':value', 6))
+                              ->rule('invitation', 'max_length', array(':value', 6));
+
+
             if ($post->check()) {
-                $user = Model_User::find_by_id($post['username']);
-                $invitation = Model_InvitationCode::get_Group_id($post['invitation']);
+                
+               
+                    $mycache = new Memcache;
+                    $mycache ->connect('127.0.0.1',11211);
+                    $allcode = Model_InvitationCode::getMemcacheKeys($mycache);
 
-                if($invitation==null){
-                    $this->flash_error(array(__('common.code_not_found')));
+                    $user_group_id = null;
+                    $code_type = null;
+                    foreach ($allcode as $key) {
+                        if(strpos($key,$post['invitation']) == true)
+                        {
+                         $mycache = new Memcache;
+                         $mycache ->connect('127.0.0.1',11211);
+                          $invitation = $mycache->get($key);
+                          $user_group_id=$invitation['group_id'];
+                          $code_type = $invitation['type'];
+                          if ($invitation['num']==1) {
+                                $mycache->delete($key);
+                            }else{
 
-                }else if ( ! $user )
-                {
-                    $user = new Model_User;
-                    
-                    //邀请码使用次数减一
+                                //邀请码使用次数减一
 
-                    if ($invitation['num']==1) {
+                                $invitation["num"]=$invitation['num']-1;
+                                $now = date('Y-m-d H:i:s');
+                                $time = $invitation["time"]-(strtotime($now)- strtotime($invitation['cereatetime']));
+                                $mycache->set($key,$invitation,0,$time);
+                            }
 
-                       Model_InvitationCode::invitation_del($invitation['invited_code']);
+                          break;
+                          }
+                      }
+
+                    if ($user_group_id!=null) {
+                            
+                        $user = Model_User::find_by_id($post['username']);
+
+                        if ( ! $user )
+                            {
+                             
+                            $user = new Model_User;
+                         
+                            $user->update($post->data());
+                            $user->group_id = $user_group_id;
+                            $user->user_id = $post['username'];
+                            $user->update_password($post['password']);
+                            $user->save(true);
+
+
+                            if ($invitation['type']==2) {
+                                $privilege = new Model_Privilege;
+                                $privilege->user_id=$post['username'];
+                                $privilege->group_id=$user_group_id;
+                                $privilege->rightstr=Model_Privilege::PERM_LEADER;
+                                $privilege->save();
+
+                            }
+
+                            Auth::instance()->login($post['username'], $post['password'], true);
+                            $this->go_home();
+                        } else {
+                            $this->flash_error(array(__('common.user_exist')));
+                        }
+
+
                     }else{
-                        $invite =$invitation;
-                        $invite->num = $invitation['num']-1;
-                        $invite->save(); 
 
+                        $this->flash_error(array(__('common.code_not_found')));
                     }
+              
 
-
-                    $user->update($post->data());
-                    $user->group_id = $invitation['group_id'];
-                    $user->user_id = $post['username'];
-                    $user->update_password($post['password']);
-                    $user->save(true);
-
-
-                    if ($invitation['type']==2) {
-                        $privilege = new Model_Privilege;
-                        $privilege->user_id=$post['username'];
-                        $privilege->group_id=$invitation['group_id'];
-                        $privilege->rightstr=Model_Privilege::PERM_LEADER;
-                        $privilege->save();
-
-                    }
-
-                    $group = Model_Groups::find_by_id($invitation['group_id']);
-                    $group->member=$group['member']+1;
-                    $group->save();
-
-                    Auth::instance()->login($post['username'], $post['password'], true);
-                    $this->go_home();
-                } else {
-                    $this->flash_error(array(__('common.user_exist')));
-                }
             }
             $errors = $post->errors("User");
             $this->flash_error($errors);
@@ -265,7 +295,7 @@ class Controller_User extends Controller_Base
     public function action_logout()
     {
         Auth::instance()->logout();
-        
+
         $this->go_home();
     }
 

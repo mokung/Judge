@@ -1,10 +1,7 @@
-<!-- <div class="dashboard-widget row"> -->
-  
- <form action="<?php e::url("/admin/groups/create"); ?>" role="form" method="get" class="form-horizontal col-sm-6 col-sm-offset-2">
-  Group Name: <input type="text" name="id"><br>
-  <input type="submit">
-  </form> 
-  <!-- <div class="col-md-12"> -->
+<div class="dashboard-widget row">
+
+
+  <div class="col-md-12">
       <table class="table table-striped">
       <thead>
         <tr>
@@ -23,6 +20,6 @@
         <?php endforeach; ?>
         </tbody>
     </table>
-  <!-- </div> -->
-<!-- </div> -->
-<?php echo(View::factory('block/pager', array('base_url' => '/admin/groups', 'total' => $total_page)));?>
+    <?php echo(View::factory('block/pager', array('base_url' => '/admin/groups', 'total' => $total_page)));?>
+  </div>
+</div>

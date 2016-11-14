@@ -300,5 +300,7 @@ abstract class Kohana_Cache {
 		// Change slashes and spaces to underscores
 		return str_replace(array('/', '\\', ' '), '_', $id);
 	}
+
+
 }
 // End Kohana_Cache

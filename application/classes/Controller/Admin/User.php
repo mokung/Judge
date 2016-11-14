@@ -3,6 +3,34 @@
 class Controller_Admin_User extends Controller_Admin_Base{
 
 
+
+    /*
+    author : zhang zexiang
+    function :everyday submited numbers graph
+    date : 2016.11.10
+     */
+    public function action_submited()
+    {
+        $this->view = 'admin/situation/testSubmited';
+        $user = Arr::get($_GET,'user');
+        $date = Arr::get($_GET,'date');
+
+        $this->template_data['user'] = $user;
+        $this->template_data['date'] = $date;
+
+         $title = __('ddd');
+        $this->template_data['title'] = $title;
+
+        $order_by = array(
+                'date' => Model_Base::ORDER_ASC
+            );
+
+        $result = Model_Situation::search($date,'date',$order_by,$show_all=true, 'user_id', $user);
+    }
+
+
+
+
     //run per one day
     public function action_addscore()
     {

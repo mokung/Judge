@@ -16,6 +16,11 @@ class Controller_Base extends Controller
         }
         $this->init();
         I18n::setup();
+        $user = $this->get_current_user();
+        if (!$user) {
+            
+        }
+
     }
     /**
      * initialize controller
