@@ -504,5 +504,12 @@ return array(
     'Just now'                                              => '不久',
 
     'leader.index.index.invitation'                         => '邀请码',
+    'leader.group.configure'                                => '组配置',
+    'leader.group.modify_config'                            => '修改组配置',
+    'leader.group.configure.stage'                          => '阶段',
+    'leader.group.configure.difficulty'                     => '难度',
+    'leader.group.configure.score'                          => '分数',
+    'leader.group.configure.problem_num'                    => '题目数量',
+    'leader.group.configure.problem_passed'                 => '通过题数',
 
 );

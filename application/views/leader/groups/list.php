@@ -1,58 +1,42 @@
-<h2 class="page-title"><?php echo(__('user.register.user_register')); ?></h2>
-<form role="form" class="form-horizontal col-sm-6 col-sm-offset-2" action="<?php e::url('/leader/groups/config');?>" method="POST">
-    <div class="form-group">
-        <label for="username" class="col-sm-5 control-label"><?php echo(__('group_id')); ?></label>
-        <div class="col-sm-7">
-            <input class="form-control" id="username" name="username" type="text" placeholder="<?php echo  ($group_id); ?>"/></div>
-        </div>
+<?php if($showconfigure): ?>
+<div class="row">
+<div class="col-md-8">
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th><?php echo(__('leader.group.configure.stage')); ?></th>
+        <th><?php echo(__('leader.group.configure.difficulty')); ?></th>
+        <th><?php echo(__('leader.group.configure.problem_num')); ?></th>
+        <th><?php echo(__('leader.group.configure.problem_passed')); ?></th>
+    </tr>
+    </thead>
+    <?php for($i = 1; $i <= $stagenum; $i ++){?>
+    <tr>
+        <td><?php echo $i; ?></td>
+        <td><?php echo $stagelevel->$i;?></td>
+        <td><?php echo $shownum->$i;?></td>
+        <td><?php echo $passnum->$i;?></td>
+    </tr>
+    <?php }?>
+</table></div>
+<div class="col-md-4">
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th><?php echo(__('leader.group.configure.difficulty')); ?></th>
+        <th><?php echo(__('leader.group.configure.score')); ?></th>
+    </tr>
+    </thead>
+    <?php for($i = 1; $i <= $levelnum; $i ++){?>
+    <tr>
+        <td><?php echo $i; ?></td>
+        <td><?php echo $levelscore->$i;?></td>
+    </tr>
+    <?php }?>
+</table>
+    
+</div>
 
-    <div class="form-group">
-        <label class="col-sm-5 control-label" for="nick"><?php echo(__('stagenum')); ?></label>
-        <div class="col-sm-7">
-            <input class="form-control" name="stagenum" id="nick" type="text" placeholder="<?php echo ("levelnum"); ?>"/>
-        </div>
-    </div>
-    <div class="form-group">
-        <label class="col-sm-5 control-label" for="password"><?php echo(__('user.register.password')); ?></label>
-        <div class="col-sm-7">
-            <input class="form-control" id="password" name="password" type="password" placeholder="<?php echo(__('user.register.min_6')); ?>"/>
-        </div>
-    </div>
-    <div class="form-group">
-        <label class="col-sm-5 control-label" for="confirm"><?php echo(__('user.register.confirm')); ?></label>
-        <div class="col-sm-7">
-            <input class="form-control" id="confirm" name="confirm" type="password" placeholder="<?php echo(__('user.register.required')); ?>"/>
-        </div>
-    </div>
-    <div class="form-group">
-        <label class="col-sm-5 control-label" for="school"><?php echo(__('user.register.school')); ?></label>
-        <div class="col-sm-7">
-            <input class="form-control" name="school" id="school" type="text" placeholder="<?php echo(__('user.register.max_30')); ?>"/>
-        </div>
-    </div>
-    <div class="form-group">
-        <label class="col-sm-5 control-label" for="email"><?php echo(__('user.register.email')); ?></label>
-        <div class="col-sm-7">
-            <input class="form-control" name="email" id="email" type="text" placeholder="<?php echo(__('user.register.1_to_30')); ?>"/>
-        </div>
-    </div>
-    <div class="form-group">
-        <label class="col-sm-5 control-label" for="invitation"><?php echo(__('user.register.invitation')); ?></label>
-        <div class="col-sm-7">
-            <input class="form-control" name="invitation" id="invitation" type="text" placeholder="<?php echo(__('user.register.required')); ?>"/>
-        </div>
-    </div>
-    <?php if ( $mode = OJ::is_captcha_enabled() ):?>
-    <div class="form-group">
-        <label class="col-sm-5 control-label"><?php echo(__('user.register.captcha')); ?></label>
-        <div class="col-sm-7">
-        <?php echo View::factory('captcha/'. $mode);?>
-        </div>
-    </div>
-    <?php endif;?>
-    <div class="form-group">
-        <div class="col-sm-offset-5 col-sm-7">
-            <input type="submit" class="btn btn-primary col-sm-8" value="<?php echo(__('user.register.register')); ?>"/>
-        </div>
-    </div>
-</form>
+</div>
+<?php endif; ?>
+    

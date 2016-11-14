@@ -14,8 +14,8 @@ class Controller_Leader_Groups extends Controller_Leader_Base{
     public function action_list()
     {
         $this->view = 'leader/groups/list';
-        $this->template_data['title'] = __('user.register.user_register');
-
+        $this->template_data['title'] = __('leader.group.configure');
+        $this->template_data['levelnum'] = 5;   //难度个数
 
         $current_user = $this->get_current_user();
 
@@ -33,6 +33,7 @@ class Controller_Leader_Groups extends Controller_Leader_Base{
 
           $this->flash_error("has not configed");
           $this->template_data['group_id'] = $current_user_groupid;
+          $this->template_data['showconfigure'] = false;
 
         }else{
 
@@ -40,7 +41,8 @@ class Controller_Leader_Groups extends Controller_Leader_Base{
         $this->template_data['stagenum'] = $configDate->stage_num;
         $this->template_data['stagelevel'] = json_decode($configDate->stage_level);
         $this->template_data['levelscore'] = json_decode($configDate->level_score);
-        $this->template_data['levelnum'] = json_decode($configDate->pass_num);
+        $this->template_data['shownum'] = json_decode($configDate->show_num);
+        $this->template_data['passnum'] = json_decode($configDate->pass_num);
 
       }
 
@@ -52,7 +54,8 @@ class Controller_Leader_Groups extends Controller_Leader_Base{
     public function action_config()
     {
 
-      $this->view = 'leader/groups/test';
+      $this->view = 'leader/groups/config';
+      $this->template_data['levelnum'] = 5;   //难度个数
 
       $current_user = $this->get_current_user();
 
@@ -80,25 +83,35 @@ class Controller_Leader_Groups extends Controller_Leader_Base{
 
             if ($post->check()) {
 
-                $stagenum = $post['stagenum'];
+                $data = $_POST['data'];
+                if(ini_get("magic_quotes_gpc")=="1"){
+                    $data = stripslashes($data);
+                }
+                $res = json_decode($data);
+                $this->template_data['data'] = $data;
+                // $stagenum = $data['stagenum'];
 
-                $this->template_data['stagenum'] = $stagenum;
+                // $this->template_data['stagenum'] = $stagenum;
 
-                $stagelevel = array(1=>1,2=>2,3=>3,4=>5,5=>5);
+                // $stagelevel = array(1=>1,2=>2,3=>3,4=>5,5=>5);
+                // $passnum = array(1=>8,2=>7,3=>5,4=>6,5=>8);
+                // $levelscore = array(1=>1,2=>5,3=>10,4=>20,5=>30);
+                // $shownum = array(1=>10,2=>10,3=>10,4=>10,5=>10);
+                // $stagelevel = $data['stagelevel'];
+                // $passnum = $data['passnum'];
+                // $shownum = $data['shownum'];
+                // $levelscore = $data['levelscore'];
 
-                $this->template_data['stagelevel'] = $stagelevel;
+                // $this->template_data['stagelevel'] = $stagelevel;
 
-                $passnum = array(1=>8,2=>7,3=>5,4=>6,5=>8);
-                $levelscore = array(1=>1,2=>5,3=>10,4=>20,5=>30);
-                $shownum = array(1=>10,2=>10,3=>10,4=>10,5=>10);
 
                $config = new Model_GroupConfig;
                $config->group_id = $current_user_groupid;
-               $config->stage_num = $stagenum;
-               $config->stage_level = json_encode($stagelevel);
-               $config->pass_num = json_encode($passnum);
-               $config->level_score = json_encode($levelscore);
-               $config->show_num = json_encode($shownum);
+               $config->stage_num = $res->stagenum;
+               $config->stage_level = $res->stagelevel;
+               $config->pass_num = $res->passnum;
+               $config->level_score = $res->levelscore;
+               $config->show_num = $res->shownum;
 
 
                $config->save();
@@ -119,7 +132,7 @@ class Controller_Leader_Groups extends Controller_Leader_Base{
         $this->action_list();
       }
 
-        $this->template_data['title'] = __('leader.config.group');
+        $this->template_data['title'] = __('leader.group.configure');
         // $this->action_list();
     }
 
