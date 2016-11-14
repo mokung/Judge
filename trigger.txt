@@ -15,3 +15,9 @@ begin
   end IF;
 end|
 DELIMITER ;
+
+//用户注册后更新组成员数
+
+create trigger updatemember after insert
+on users for each row
+  UPDATE groups SET groups.member = groups.member+1 WHERE group_id = new.group_id; 
