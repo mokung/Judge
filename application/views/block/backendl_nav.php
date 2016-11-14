@@ -10,4 +10,4 @@
     <li <?php if (Request::$current->controller() == 'Setting'):?>class="active" <?php endif;?>><a href="<?php e::url('leader/setting');?>"><?php echo(__('top_backend.configure')); ?></a></li>
      <li <?php if (Request::$current->controller() == 'Invite'):?>class="active" <?php endif;?>><a href="<?php e::url('/leader/Invite/index');?>">邀请码</a></li>
 
-</ul>              
+</ul>

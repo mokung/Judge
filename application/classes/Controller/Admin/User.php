@@ -35,7 +35,7 @@ class Controller_Admin_User extends Controller_Admin_Base{
     public function action_addscore()
     {
 // $this->view = 'situation/list';
-        $this->view = 'admin/situation/test';
+        $this->view = 'admin/user/list';
 
 
         $user = Arr::get($_GET,'user');

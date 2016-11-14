@@ -72,7 +72,7 @@ class Controller_Leader_Invite extends Controller_Leader_Base
                     $this->template_data['code'] =$current_user_code;
                 }
 
-                $this->template_data['code'] =$allcode;
+                $this->template_data['code'] =$incode;
 
 
 
