@@ -71,6 +71,8 @@ class Controller_Admin_Invite extends Controller_Admin_Base
     public function action_list()
     {
 
+        $user = $this->get_current_user();
+
        $mycache = new Memcache;
        $mycache->connect('127.0.0.1', 11211);
 
@@ -80,9 +82,11 @@ class Controller_Admin_Invite extends Controller_Admin_Base
        $current_user_code = array();
 
        foreach ($allcode as $key) {
-           if(strpos($key,$user->user_id) == 0)
+           if(strpos($key,$user->user_id) !== false)
             {
-               array_push($current_user_code, $key);
+                $mycache = new Memcache;
+                $mycache->connect('127.0.0.1', 11211);
+               array_push($current_user_code, json_encode($mycache->get($key)));
             }
 
         }
@@ -90,8 +94,7 @@ class Controller_Admin_Invite extends Controller_Admin_Base
            $mycache = new Memcache;
            $mycache->connect('127.0.0.1', 11211);
 
-       $this->template_data['allcode'] =json_encode($allcode);
-       $this->response->body(json_encode($allcode));
+       $this->response->body(json_encode($current_user_code));
 
 
     }

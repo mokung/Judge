@@ -24,7 +24,7 @@
                             <div class="form-group">
                                 <div class="alert alert-info col-sm-offset-2 col-sm-8" role="alert">
                                     <?php if(isset( $code ))
-                                        echo $code;
+                                        print_r($code);
                                         else
                                             echo "此处生成邀请码";
                                     ?>
@@ -50,11 +50,12 @@
     </div>
 </div>
 <script type="text/javascript">
-    $('#lea_in_su').click(function(){
+    $('#adm_in_su').click(function(){
         var is_num = /(^[1-9]\d*$)/;
         var form = $(this).parents("form").get(0),
-            num = form.num.value;
-        if(num=="" || !is_num.test(num)){
+            num = form.num.value,
+            group_id = form.id.value;
+        if(group_id=='' || num=="" || !is_num.test(num)){
             alert("输入信息有误！");
             return false;
         }
@@ -68,10 +69,10 @@
         if(href=='#new_in'){
             $(href).find('form').get(0).reset();
         }else{
-            console.log(213);
+            console.log(223);
             //显示有效的邀请码列表
             $.ajax({
-                url:'admin/invite/list',
+                url: '<?php e::url('/leader/invite/list/');?>',
                 type:'post',
                 dataType:'json',
                 success:function(data){

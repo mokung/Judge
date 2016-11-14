@@ -103,10 +103,7 @@
                                     <th>创建时间</th>
                                 </tr>
 
-                                <tr>
-                                <!-- circle allcode to show all -->\
 
-                                </tr>
 
                         </table>
                     </div>
@@ -138,7 +135,7 @@
             console.log(223);
             //显示有效的邀请码列表
             $.ajax({
-                url:'admin/invite/list',
+                url: '<?php e::url('/admin/invite/list/');?>',
                 type:'post',
                 dataType:'json',
                 success:function(data){
