@@ -10,7 +10,7 @@
             <div class="panel-body">
                 <div class="tab-content" style="min-height:200px;">
                     <div class="tab-pane active" id="new_in" >
-                        <form role="form" class="form-horizontal col-sm-12" action="<?php e::url('/leader/index/code');?>">
+                        <form role="form" class="form-horizontal col-sm-12" action="<?php e::url('/leader/invite/code');?>">
                             <div class="form-group">
                                 <div class="col-sm-offset-2 col-sm-8">
                                     <input type="number" class="form-control" name="num" placeholder="请输入生效次数">
@@ -29,7 +29,7 @@
                             <div class="form-group">
                                 <div class="alert alert-info col-sm-offset-2 col-sm-8" role="alert">
                                     <?php if(isset( $code ))
-                                        echo $code;
+                                        print_r($code);
                                         else
                                             echo "此处生成邀请码";
                                     ?>
@@ -47,6 +47,7 @@
                                     <th>创建时间</th>
                                 </tr>
                             </thead>
+                            <tbody></tbody>
                         </table>
                     </div>
                 </div>
@@ -74,14 +75,23 @@
         if(href=='#new_in'){
             $(href).find('form').get(0).reset();
         }else{
-            console.log(213);
             //显示有效的邀请码列表
             $.ajax({
-                url:'leader/invite/list',
+                url: '<?php e::url("/leader/invite/list/");?>',
                 type:'post',
                 dataType:'json',
                 success:function(data){
-                    console.log(data);
+                    $(href).find('tbody').empty();
+                    $.each(data, function(index, value) {
+                        var value_j = $.parseJSON(value);
+                        var tr = '<tr>'+
+                                 '<td>'+value_j.code+'</td>'+
+                                 '<td>'+value_j.group_id+'</td>'+
+                                 '<td>'+value_j.num+'</td>'+
+                                 '<td>'+value_j.cereatetime+'</td>'+
+                                 '</tr>';
+                        $(href).find('tbody').append(tr);
+                    });
                 }
             });
         }

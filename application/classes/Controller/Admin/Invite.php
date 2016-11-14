@@ -68,7 +68,7 @@ class Controller_Admin_Invite extends Controller_Admin_Base
         // $this->action_list();
     }
 
-     public function action_list()
+      public function action_list()
     {
 
         $user = $this->get_current_user();

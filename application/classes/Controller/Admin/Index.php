@@ -224,29 +224,26 @@ class Controller_Admin_Index extends Controller_Admin_Base
                 // $this->action_list();
 
 
-                $allcode = Model_InvitationCode::getMemcacheKeys($mycache);
+                // $allcode = Model_InvitationCode::getMemcacheKeys($mycache);
 
-                $current_user_code = array();
+                // $current_user_code = array();
 
-                foreach ($allcode as $key) {
-                    if(strpos($key,$user->user_id) == 0)
-                    {
-                        array_push($current_user_code, $key);
-                    }
+                // foreach ($allcode as $key) {
+                //     if(strpos($key,$user->user_id) !== false)
+                //     {
+                //         array_push($current_user_code, $key);
+                //     }
 
-                    $this->template_data['code'] =$current_user_code;
-                    }
+                //     $this->template_data['code'] =$current_user_code;
+                //     }
 
 
-                    $mycache = new Memcache;
-                    $mycache->connect('127.0.0.1', 11211);
+                //     $mycache = new Memcache;
+                //     $mycache->connect('127.0.0.1', 11211);
 
                 $this->template_data['code'] =$incode;
 
                 // $mycache->get("7RHQTQ")
-
-
-
 
             }else{
                 $this->flash_error(array(__('common.group_not_exist')));

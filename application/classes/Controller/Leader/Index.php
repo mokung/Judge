@@ -122,9 +122,7 @@ class Controller_Leader_Index extends Controller_Leader_Base{
 
     //     }
     //
-         public function action_code()
-        {
-
+        public function action_code(){
 
             $user = $this->get_current_user();
             $this->template_data['user'] = $user;
@@ -192,7 +190,7 @@ class Controller_Leader_Index extends Controller_Leader_Base{
                     $this->template_data['code'] =$current_user_code;
                     }
 
-                $this->template_data['code'] =$incode;
+                $this->template_data['code'] =$allcode;
 
 
 
