@@ -241,7 +241,7 @@ class Controller_Admin_Index extends Controller_Admin_Base
                     $mycache = new Memcache;
                     $mycache->connect('127.0.0.1', 11211);
 
-                $this->template_data['code'] =$allcode;
+                $this->template_data['code'] =$incode;
 
                 // $mycache->get("7RHQTQ")
 

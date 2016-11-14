@@ -131,7 +131,7 @@ class Controller_Leader_Index extends Controller_Leader_Base{
 
 
 
-            $this->view = 'admin/index/index';
+            $this->view = 'leader/index/index';
             $title = "code";
             $this->template_data['title'] = $title;
 

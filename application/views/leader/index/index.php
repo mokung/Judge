@@ -10,10 +10,15 @@
             <div class="panel-body">
                 <div class="tab-content" style="min-height:200px;">
                     <div class="tab-pane active" id="new_in" >
-                        <form role="form" class="form-horizontal col-sm-12" action="<?php e::url('/leader/invite/code');?>">
+                        <form role="form" class="form-horizontal col-sm-12" action="<?php e::url('/leader/index/code');?>">
                             <div class="form-group">
                                 <div class="col-sm-offset-2 col-sm-8">
                                     <input type="number" class="form-control" name="num" placeholder="请输入生效次数">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-offset-2 col-sm-8">
+                                    <input type="number" class="form-control" name="time" placeholder="请输入有效时间">
                                 </div>
                             </div>
                             <div class="form-group">
@@ -53,8 +58,9 @@
     $('#lea_in_su').click(function(){
         var is_num = /(^[1-9]\d*$)/;
         var form = $(this).parents("form").get(0),
+            time = form.time.value,
             num = form.num.value;
-        if(num=="" || !is_num.test(num)){
+        if(num=="" || !is_num.test(num)|| time=="" || !is_num.test(time)){
             alert("输入信息有误！");
             return false;
         }
@@ -71,7 +77,7 @@
             console.log(213);
             //显示有效的邀请码列表
             $.ajax({
-                url:'admin/invite/list',
+                url:'leader/invite/list',
                 type:'post',
                 dataType:'json',
                 success:function(data){
