@@ -22,6 +22,10 @@
 </thead>
 <tbody>
 
+        <th><?php echo $group_config_stages; ?></th>
+        <th><?php print_r ($rrr); ?></th>
+
+
 
 
 
