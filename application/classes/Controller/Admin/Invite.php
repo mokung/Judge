@@ -68,7 +68,7 @@ class Controller_Admin_Invite extends Controller_Admin_Base
         // $this->action_list();
     }
 
-    public function action_list()
+      public function action_list()
     {
 
         $user = $this->get_current_user();
@@ -94,6 +94,7 @@ class Controller_Admin_Invite extends Controller_Admin_Base
            $mycache = new Memcache;
            $mycache->connect('127.0.0.1', 11211);
 
+       // $this->template_data['allcode'] =json_encode($allcode);
        $this->response->body(json_encode($current_user_code));
 
 

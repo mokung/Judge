@@ -23,8 +23,6 @@
 <tbody>
 
 
-<td class="pid "><?php  print_r($user); ?></td>
-<td class="pid "><?php  print_r($date); ?></td>
 
 
 </tbody>

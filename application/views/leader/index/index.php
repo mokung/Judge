@@ -18,6 +18,11 @@
                             </div>
                             <div class="form-group">
                                 <div class="col-sm-offset-2 col-sm-8">
+                                    <input type="number" class="form-control" name="time" placeholder="请输入有效时间">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-offset-2 col-sm-8">
                                     <button id="lea_in_su" type="submit" class="btn btn-primary col-sm-12">生成邀请码</button>
                                 </div>
                             </div>
@@ -42,6 +47,7 @@
                                     <th>创建时间</th>
                                 </tr>
                             </thead>
+                            <tbody></tbody>
                         </table>
                     </div>
                 </div>
@@ -50,12 +56,12 @@
     </div>
 </div>
 <script type="text/javascript">
-    $('#adm_in_su').click(function(){
+    $('#lea_in_su').click(function(){
         var is_num = /(^[1-9]\d*$)/;
         var form = $(this).parents("form").get(0),
-            num = form.num.value,
-            group_id = form.id.value;
-        if(group_id=='' || num=="" || !is_num.test(num)){
+            time = form.time.value,
+            num = form.num.value;
+        if(num=="" || !is_num.test(num)|| time=="" || !is_num.test(time)){
             alert("输入信息有误！");
             return false;
         }
@@ -69,14 +75,23 @@
         if(href=='#new_in'){
             $(href).find('form').get(0).reset();
         }else{
-            console.log(223);
             //显示有效的邀请码列表
             $.ajax({
-                url: '<?php e::url('/leader/invite/list/');?>',
+                url: '<?php e::url("/leader/invite/list/");?>',
                 type:'post',
                 dataType:'json',
                 success:function(data){
-                    console.log(data);
+                    $(href).find('tbody').empty();
+                    $.each(data, function(index, value) {
+                        var value_j = $.parseJSON(value);
+                        var tr = '<tr>'+
+                                 '<td>'+value_j.code+'</td>'+
+                                 '<td>'+value_j.group_id+'</td>'+
+                                 '<td>'+value_j.num+'</td>'+
+                                 '<td>'+value_j.cereatetime+'</td>'+
+                                 '</tr>';
+                        $(href).find('tbody').append(tr);
+                    });
                 }
             });
         }

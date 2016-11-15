@@ -19,5 +19,5 @@ return array(
     'captcha_public_key'  => 'YOUR-RECAPTCHA-PUBLIC-KEY',
     'captcha_private_key' => 'YOUR-RECAPTCHA-PRIVATE-KEY',
 
-    'data_dir'            => '/Judge/data',
+    'data_dir'            => '/judge/data',
 );

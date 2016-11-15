@@ -1,3 +1,1 @@
-<ul class="nav nav-pills nav-stacked"> -->
-     <li><a href="<?php e::url('/admin');?>"><?php echo(__('admin.index.sidebar.home')); ?></a></li>
- </ul>
+<a href="<?php e::url('leader/groups/config');?>" class="side-bar btn btn-primary"><?php echo(__('leader.group.modify_config')); ?></a>

@@ -26,6 +26,19 @@ class Controller_Admin_User extends Controller_Admin_Base{
             );
 
         $result = Model_Situation::search($date,'date',$order_by,$show_all=true, 'user_id', $user);
+
+        $this->template_data['result'] = $result;
+
+        $alldata = array();
+
+        foreach ($result as $key) {
+            # code...
+            array_push($alldata, json_encode(array("data"=>$key->date,"submited"=>$key->submited,"during_time"=>$key->during_time)));
+        }
+
+        $this->response->body(json_encode($alldata));
+
+
     }
 
 
@@ -35,7 +48,7 @@ class Controller_Admin_User extends Controller_Admin_Base{
     public function action_addscore()
     {
 // $this->view = 'situation/list';
-        $this->view = 'admin/user/list';
+        $this->view = 'admin/situation/testSubmited';
 
 
         $user = Arr::get($_GET,'user');
@@ -56,11 +69,16 @@ class Controller_Admin_User extends Controller_Admin_Base{
 
         $result = Model_Situation::search($date,'date',$order_by,$show_all=true, 'user_id', $user);
 
-         $this->template_data['oneday'] = $result;
+        $this->template_data['result'] = $result;
 
+        $alldata = array();
 
-         $title = __('ddd');
-        $this->template_data['title'] = $title;
+        foreach ($result as $key) {
+            # code...
+            array_push($alldata, json_encode(array("data"=>$key->date,"score"=>$key->score)));
+        }
+
+        $this->response->body(json_encode($alldata));
 
     }
 

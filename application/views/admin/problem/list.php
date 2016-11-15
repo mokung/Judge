@@ -12,6 +12,7 @@
     <tr>
         <th><?php echo(__('admin.problem.list.problem_id')); ?></th>
         <th><?php echo(__('admin.problem.list.title')); ?></th>
+        <th><?php echo(__('admin.problem.list.difficulty')); ?></th>
         <th><?php echo(__('admin.problem.list.level')); ?></th>
         <th><?php echo(__('admin.problem.list.created')); ?></th>
         <th><?php echo(__('admin.problem.list.defunct')); ?></th>

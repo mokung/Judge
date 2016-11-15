@@ -76,6 +76,7 @@ class Controller_Leader_Invite extends Controller_Leader_Base
 
 
 
+
             }else{
                 $this->flash_error(array(__('common.group_not_exist')));
             }
@@ -182,7 +183,8 @@ class Controller_Leader_Invite extends Controller_Leader_Base
            $mycache = new Memcache;
            $mycache->connect('127.0.0.1', 11211);
 
-           $this->template_data['allcode'] = $allcode;
+           // $this->template_data['code'] = $current_user_code;
+           // $this->template_data['title'] = 'code';
 
        $this->response->body(json_encode($current_user_code));
 

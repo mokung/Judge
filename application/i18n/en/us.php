@@ -245,6 +245,7 @@ return array(
     'admin.problem.list.problem_list'              => 'Problem List',
     'admin.problem.list.problem_id'                => 'ID',
     'admin.problem.list.title'                     => 'Title',
+    'admin.problem.list.difficulty'                => 'Difficulty',
     'admin.problem.list.created'                   => 'Time Created',
     'admin.problem.list.defunct'                   => 'Defunct',
     'admin.problem.list.op'                        => 'OP',
@@ -445,8 +446,14 @@ return array(
     'administrator'                                => 'Administrator',
     'source_browser'                               => 'Source Browser',
 
-    'leader.config.group'                          => 'group config',
+    'leader.group.configure'                       => 'Group Configure',
+    'leader.group.modify_config'                   => 'Modify Configure',
     'leader.index.index.invitation'                => 'Invitation',
+    'leader.group.configure.stage'                 => 'Stage',
+    'leader.group.configure.difficulty'            => 'Difficulty',
+    'leader.group.configure.score'                 => 'Score',
+    'leader.group.configure.problem_num'           => 'Total Problem',
+    'leader.group.configure.problem_passed'        => 'Passed Problem',
 
 
 );

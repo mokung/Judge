@@ -250,6 +250,7 @@ return array(
     'admin.problem.list.problem_list'                       => '题目列表',
     'admin.problem.list.problem_id'                         => '题号',
     'admin.problem.list.title'                              => '标题',
+    'admin.problem.list.difficulty'                         => '难度',
     'admin.problem.list.created'                            => '创建时间',
     'admin.problem.list.defunct'                            => '禁用',
     'admin.problem.list.op'                                 => '操作',
@@ -503,5 +504,12 @@ return array(
     'Just now'                                              => '不久',
 
     'leader.index.index.invitation'                         => '邀请码',
+    'leader.group.configure'                                => '组配置',
+    'leader.group.modify_config'                            => '修改组配置',
+    'leader.group.configure.stage'                          => '阶段',
+    'leader.group.configure.difficulty'                     => '难度',
+    'leader.group.configure.score'                          => '分数',
+    'leader.group.configure.problem_num'                    => '题目数量',
+    'leader.group.configure.problem_passed'                 => '通过题数',
 
 );
