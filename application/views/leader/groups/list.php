@@ -26,7 +26,7 @@
         <th><?php echo(__('leader.group.configure.score')); ?></th>
     </tr>
     </thead>
-    <?php for($i = 1; $i <= $levelnum; $i ++){?>
+    <?php for($i = 1; $i <= $levelnum; $i ++){ ?>
     <tr>
         <td><?php echo $i; ?></td>
         <td><?php echo $levelscore->$i;?></td>

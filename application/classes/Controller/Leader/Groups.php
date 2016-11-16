@@ -15,7 +15,7 @@ class Controller_Leader_Groups extends Controller_Leader_Base{
     {
         $this->view = 'leader/groups/list';
         $this->template_data['title'] = __('leader.group.configure');
-        $this->template_data['levelnum'] = 0;   //难度个数
+        $this->template_data['levelnum'] = 5;   //难度个数
 
         $current_user = $this->get_current_user();
 

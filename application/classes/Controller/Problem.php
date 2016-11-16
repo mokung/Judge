@@ -28,11 +28,12 @@ class Controller_Problem extends Controller_Base
         $this->view = 'problem/userlist';
         $title = __('haha');
         $this->template_data['title'] = $title;
-
         $current_user = $this->get_current_user();
 
         $stage = Arr::get($_GET,'stage');
 
+        $this->template_data['stages'] = $current_user->stage;
+        $this->template_data['stage'] = $stage;
         if($stage == null){
 
 
@@ -55,6 +56,7 @@ class Controller_Problem extends Controller_Base
             $current_show_num = $show_num[$current_user_stage];
 
             $this->template_data['current_problem_level'] = $current_problem_level;
+            $this->template_data['stage'] = $current_user_stage;
 
             $current_problem = Model_UsersProblem::find_current_problem($current_user->user_id, $current_user_stage);
 
@@ -217,6 +219,7 @@ class Controller_Problem extends Controller_Base
 
   public function action_nextstage()
   {
+    // $this->view = 'problem/next';
     $current_user = $this->get_current_user();
     $current_user_group = $current_user->group_id;
     $current_user_stage = $current_user->stage;

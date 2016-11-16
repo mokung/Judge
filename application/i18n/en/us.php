@@ -43,6 +43,7 @@ return array(
     'problem.list.id'                              => 'ID',
     'problem.list.title'                           => 'Title',
     'problem.list.ratio_ac_submit'                 => 'Ratio(AC/Submit)',
+    'problem.list.level'                           => 'level',
     'problem.searchform.search_text'               => 'Search Text',
     'problem.searchform.search'                    => 'Search',
     'problem.searchform.type'                      => 'Type',
