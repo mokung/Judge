@@ -124,7 +124,7 @@ class Controller_Problem extends Controller_Base
 
 
         $num = count($all_leve_problem);
-        $this->template_data['num'] = $num;
+        // $this->template_data['num'] = $num;
 
         $stage_level = json_decode($current_user_group_config->stage_level,true);
 
@@ -185,7 +185,7 @@ class Controller_Problem extends Controller_Base
             }
 
             array_multisort($problemlist);
-            $this->template_data['num'] = $problemlist;
+            // $this->template_data['num'] = $problemlist;
         }
 
         $problem_array = array();
@@ -194,7 +194,7 @@ class Controller_Problem extends Controller_Base
         foreach ($problemlist as $key) {
             # code...
             array_push($problem_array, $all_leve_problem[$key]);
-            array_push($problem_id_array, $all_leve_problem[$key]['problem_id']);
+            array_push($problem_id_array, $all_leve_problem[$key]);
 
             $users_problem = new Model_UsersProblem;
             $users_problem->user_id = $current_user->user_id;
@@ -206,7 +206,7 @@ class Controller_Problem extends Controller_Base
         }
 
 
-        $this->template_data['num'] = $problem_id_array;
+        // $this->template_data['num1'] = $problem_id_array;
 
 
    }

@@ -15,7 +15,7 @@
 <tbody>
 <?php foreach($num as $problem): ?>
     <tr>
-        <td class="pid <?php echo e::pass_status($problem);?>"><?php echo($problem->problem_id); ?></td>
+        <td class="pid  <?php echo e::pass_status($problem);?>"><?php echo($problem->problem_id); ?></td>
         <td class="ptitle"><?php echo HTML::anchor("/problem/show/{$problem->problem_id}", $problem->title);?></td>
         <td><?php echo($problem->accepted); ?>/<?php echo($problem->submit); ?></td>
         <td><?php echo($problem->level); ?></td>
