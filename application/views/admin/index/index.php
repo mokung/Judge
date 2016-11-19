@@ -140,7 +140,7 @@
         }else{
             //显示有效的邀请码列表
             $.ajax({
-                url: '<?php e::url('/admin/invite/list/');?>',
+                url: '<?php e::url('/admin/index/list/');?>',
                 type:'post',
                 dataType:'json',
                 success:function(data){
