@@ -10,7 +10,7 @@
             <div class="panel-body">
                 <div class="tab-content" style="min-height:200px;">
                     <div class="tab-pane active" id="new_in" >
-                        <form role="form" class="form-horizontal col-sm-12" action="<?php e::url('/leader/invite/code');?>">
+                        <form role="form" class="form-horizontal col-sm-12" action="<?php e::url('/leader/index/code');?>">
                             <div class="form-group">
                                 <div class="col-sm-offset-2 col-sm-8">
                                     <input type="number" class="form-control" name="num" placeholder="请输入生效次数">
@@ -77,7 +77,7 @@
         }else{
             //显示有效的邀请码列表
             $.ajax({
-                url: '<?php e::url("/leader/invite/list/");?>',
+                url: '<?php e::url("/leader/index/list/");?>',
                 type:'post',
                 dataType:'json',
                 success:function(data){
