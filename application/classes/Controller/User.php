@@ -131,44 +131,50 @@ class Controller_User extends Controller_Base
 
 
             if ($post->check()) {
-                
-               
-                    $mycache = new Memcache;
-                    $mycache ->connect('127.0.0.1',11211);
-                    $allcode = Model_InvitationCode::getMemcacheKeys($mycache);
 
-                    $user_group_id = null;
-                    $code_type = null;
-                    foreach ($allcode as $key) {
-                        if(strpos($key,$post['invitation']) == true)
-                        {
-                         $mycache = new Memcache;
-                         $mycache ->connect('127.0.0.1',11211);
-                          $invitation = $mycache->get($key);
-                          $user_group_id=$invitation['group_id'];
-                          $code_type = $invitation['type'];
-                          if ($invitation['num']==1) {
-                                $mycache->delete($key);
-                            }else{
-
-                                //邀请码使用次数减一
-
-                                $invitation["num"]=$invitation['num']-1;
-                                $now = date('Y-m-d H:i:s');
-                                $time = $invitation["time"]-(strtotime($now)- strtotime($invitation['cereatetime']));
-                                $mycache->set($key,$invitation,0,$time);
-                            }
-
-                          break;
-                          }
-                      }
-
-                    if ($user_group_id!=null) {
+                    
                             
                         $user = Model_User::find_by_id($post['username']);
 
                         if ( ! $user )
                             {
+                            try {
+                                $mycache = new Memcache;
+                                $mycache ->connect('127.0.0.1',11211);
+                                $allcode = Model_InvitationCode::getMemcacheKeys($mycache);
+
+                                $user_group_id = null;
+                                $code_type = null;
+                                foreach ($allcode as $key) {
+                                    if(strpos($key,$post['invitation']) == true)
+                                    {
+                                        $mycache = new Memcache;
+                                        $mycache ->connect('127.0.0.1',11211);
+                                        $invitation = $mycache->get($key);
+                                        $user_group_id=$invitation['group_id'];
+                                        $code_type = $invitation['type'];
+                                      if ($invitation['num']==1) {
+                                            $mycache->delete($key);
+                                        }else{
+
+                                        //邀请码使用次数减一
+
+                                            $invitation["num"]=$invitation['num']-1;
+                                            $now = date('Y-m-d H:i:s');
+                                            $time = $invitation["time"]-(strtotime($now)- strtotime($invitation['cereatetime']));
+                                            $mycache->set($key,$invitation,0,$time);
+                                        }
+
+                                      break;
+                                    }
+                                } 
+                              } catch (Exception $e) {
+                                    
+                              }
+                                                
+
+                        if ($user_group_id!=null) {
+                                    
                              
                             $user = new Model_User;
                          
@@ -191,13 +197,12 @@ class Controller_User extends Controller_Base
                             Auth::instance()->login($post['username'], $post['password'], true);
                             $this->go_home();
                         } else {
-                            $this->flash_error(array(__('common.user_exist')));
+                            $this->flash_error(array(__('common.code_not_found')));
                         }
-
-
                     }else{
+                         $this->flash_error(array(__('common.user_exist')));
 
-                        $this->flash_error(array(__('common.code_not_found')));
+                       
                     }
               
 
@@ -242,6 +247,12 @@ class Controller_User extends Controller_Base
             // go back url
             $ss = Session::instance();
             $url = $ss->get_once('return_url');
+
+            // if ($this->check_admin()) {
+            //     $this->$this->redirect($url);
+            // }
+
+
             if ( ! $url )
             {
                $this->go_home();

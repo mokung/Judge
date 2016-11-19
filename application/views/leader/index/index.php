@@ -18,7 +18,7 @@
                             </div>
                             <div class="form-group">
                                 <div class="col-sm-offset-2 col-sm-8">
-                                    <input type="number" class="form-control" name="time" placeholder="请输入有效时间">
+                                    <input type="number" class="form-control" name="time" placeholder="请输入有效时间(分钟)">
                                 </div>
                             </div>
                             <div class="form-group">
