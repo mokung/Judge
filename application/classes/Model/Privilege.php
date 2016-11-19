@@ -35,6 +35,18 @@ class Model_Privilege extends Model_Save
         return $result;
     }
 
+
+    public static function permission_of_user_id()
+    {
+
+        $query = DB::select()->from(static::$table);
+        $result = $query->as_object(get_called_class())->execute();
+
+        return $result->as_array();
+    }
+
+
+
     public static function permission_list()
     {
         $cls = new ReflectionClass(get_called_class());
@@ -91,7 +103,7 @@ class Model_Privilege extends Model_Save
         $query = DB::delete(static::$table)
             ->where('user_id', '=', $this->user_id)
             ->and_where('rightstr', '=', $this->rightstr);
-        
+
         return $query->execute();
     }
 

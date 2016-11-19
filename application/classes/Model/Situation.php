@@ -129,7 +129,7 @@ class Model_Situation extends Model_Base
 
         }
 
-        return $user_id_date;
+        return array($user_id_date,$user_id_array);
     }
 
 

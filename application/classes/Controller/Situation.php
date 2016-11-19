@@ -29,7 +29,10 @@ class Controller_Situation extends Controller_Base
         //process date --> from solution
         //get user_id , during_time
 
-        $oneday_user_id = Model_Situation::get_oneday_userid($result);
+        $rr = Model_Situation::get_oneday_userid($result);
+
+        $oneday_user_id = $rr[0];
+        $all_user_id = $rr[1];
 
         $this->template_data['oneday_user_id'] = $oneday_user_id;
 
@@ -50,6 +53,29 @@ class Controller_Situation extends Controller_Base
             $situation->defunct = "N";
 
             $situation->save();
+        }
+
+
+        $do_nothing_user_id = array_diff($all_user_id,$oneday_user_id);
+
+        foreach ($do_nothing_user_id as $key => $value) {
+            # code...
+            $oneday_user_detail = Model_Situation::get_oneday_userdetail($key);
+
+            $situation = new Model_Situation;
+            # code...
+            $situation->user_id = $key;
+            $situation->date = date('Y-m-d H:i:s');
+            $situation->group_id = $oneday_user_detail->group_id;
+            $situation->submited = 0;
+            $situation->score = 0;
+            $situation->staged = $oneday_user_detail->staged;
+            $situation->during_time = null;
+            // $situation->during_time = unserialize($situation->during_time);
+            $situation->defunct = "N";
+
+            $situation->save();
+
         }
 
 

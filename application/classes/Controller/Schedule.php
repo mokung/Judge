@@ -41,9 +41,22 @@ class Controller_Schedule extends Controller_Base
         //process date --> from solution
         //get user_id , during_time
 
-        $oneday_user_id = Model_Situation::get_oneday_userid($result);
+        $rr = Model_Situation::get_oneday_userid($result);
 
-        $this->template_data['oneday_user_id'] = $oneday_user_id;
+        $oneday_user_id = $rr[0];
+        $all_user_id_array = $rr[1];    //all user_id commit on that day
+
+        //put the root and leader to this array
+
+        $all_privilege = Model_Privilege::permission_of_user_id();
+
+        foreach ($all_privilege as $key) {
+            # code...
+            array_push($all_user_id_array, $key['user_id']);
+        }
+
+
+        $this->template_data['oneday_user_id'] = $all_privilege;
 
         foreach ($oneday_user_id as $key => $value) {
 
@@ -62,6 +75,40 @@ class Controller_Schedule extends Controller_Base
             $situation->defunct = "N";
 
             $situation->save();
+        }
+
+        $all_user_id = Model_User::get_all_users();
+
+        $all_userid_array = array();
+
+        foreach ($all_user_id as $key) {
+            # code...
+            array_push($all_userid_array, $key['user_id']);
+        }
+
+        $do_nothing_user_id = array_diff($all_userid_array,$all_user_id_array);
+
+        $this->template_data['oneday_user_id'] = $do_nothing_user_id;
+
+
+        foreach ($do_nothing_user_id as $key) {
+            # code...
+            $oneday_user_detail = Model_Situation::get_oneday_userdetail($key);
+
+            $situation = new Model_Situation;
+            # code...
+            $situation->user_id = $key;
+            $situation->date = date('Y-m-d H:i:s');
+            $situation->group_id = $oneday_user_detail->group_id;
+            $situation->submited = 0;
+            $situation->score = 0;
+            $situation->staged = $oneday_user_detail->stage;
+            $situation->during_time = json_encode(array());
+            // $situation->during_time = unserialize($situation->during_time);
+            $situation->defunct = "N";
+
+            $situation->save();
+
         }
     }
 

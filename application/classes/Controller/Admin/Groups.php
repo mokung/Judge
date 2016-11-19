@@ -95,13 +95,22 @@ class Controller_Admin_Groups extends Controller_Admin_Base{
       $this->template_data['id'] = $group_id;
       $this->template_data['date'] = $date;
 
+       $title = __('ddd');
+      $this->template_data['title'] = $title;
+
       $group_config = Model_GroupConfig::find_by_id($group_id);
+
+
+      if($group_id==null || $group_config==null){
+        return 0;
+      }
+
+
       $group_config_stages = $group_config->stage_num;
 
       $this->template_data['group_config_stages'] = $group_config_stages;
 
-       $title = __('ddd');
-      $this->template_data['title'] = $title;
+
 
       $order_by = array(
               'date' => Model_Base::ORDER_ASC

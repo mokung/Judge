@@ -105,8 +105,20 @@ class Model_User extends Model_Base
     public static function get_all_users(){
         $query = DB::select()->from(static::$table);
         $result = $query->as_object(get_called_class())->execute();
-        
+
         return $result->as_array();
+    }
+
+    /**
+     *
+     *  get all users id
+     *  @return all user_id
+     */
+    public static function get_all_user_id(){
+        $query = DB::select('user_id')->from(static::$table);
+        $result = $query->execute();
+
+        return $result;
     }
 
     /**
@@ -148,7 +160,7 @@ class Model_User extends Model_Base
     {
         return Model_Solution::number_of_solution_accept_for_user($this->user_id);
     }
-    
+
     public function ids_of_problem_accept()
     {
         return  Model_Solution::ids_of_problem_accept_for_user($this->user_id);
