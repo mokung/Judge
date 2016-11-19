@@ -1,6 +1,12 @@
 <h2 class="page-title"><?php echo(__('user.register.user_register')); ?></h2>
 <form role="form" class="form-horizontal col-sm-6 col-sm-offset-2" action="<?php e::url('/user/register');?>" method="POST">
     <div class="form-group">
+        <label class="col-sm-5 control-label" for="invitation"><?php echo(__('user.register.invitation')); ?></label>
+        <div class="col-sm-7">
+            <input class="form-control" name="invitation" id="invitation" type="text" placeholder="<?php echo(__('user.register.required')); ?>"/>
+        </div>
+    </div>
+    <div class="form-group">
         <label for="username" class="col-sm-5 control-label"><?php echo(__('user.register.username')); ?></label>
         <div class="col-sm-7">
             <input class="form-control" id="username" name="username" type="text" placeholder="<?php echo(__('user.register.3_to_15')); ?>"/></div>
@@ -33,12 +39,6 @@
         <label class="col-sm-5 control-label" for="email"><?php echo(__('user.register.email')); ?></label>
         <div class="col-sm-7">
             <input class="form-control" name="email" id="email" type="text" placeholder="<?php echo(__('user.register.1_to_30')); ?>"/>
-        </div>
-    </div>
-    <div class="form-group">
-        <label class="col-sm-5 control-label" for="invitation"><?php echo(__('user.register.invitation')); ?></label>
-        <div class="col-sm-7">
-            <input class="form-control" name="invitation" id="invitation" type="text" placeholder="<?php echo(__('user.register.required')); ?>"/>
         </div>
     </div>
     <?php if ( $mode = OJ::is_captcha_enabled() ):?>

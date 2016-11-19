@@ -5,7 +5,6 @@
     <li <?php if (Request::$current->controller() == 'Contest'):?>class="active" <?php endif;?>><a href="<?php e::url('admin/contest');?>"><?php echo(__('top_backend.contest')); ?></a></li>
     <li <?php if (Request::$current->controller() == 'News'):?>class="active" <?php endif;?>><a href="<?php e::url('admin/news');?>"><?php echo(__('top_backend.news')); ?></a></li>
     <li <?php if (Request::$current->controller() == 'Setting'):?>class="active" <?php endif;?>><a href="<?php e::url('admin/setting');?>"><?php echo(__('top_backend.configure')); ?></a></li>
-     <li <?php if (Request::$current->controller() == 'Invite'):?>class="active" <?php endif;?>><a href="<?php e::url('/admin/Invite/index');?>">邀请码</a></li>
 
 </ul>
 
