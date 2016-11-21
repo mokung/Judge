@@ -153,6 +153,8 @@ class Controller_Admin_Groups extends Controller_Admin_Base{
       }
       $alldata["stage_num"] =  $group_config_stages;
 
+      $alldata["stage_num"] =  $group_config_stages;
+
       $this->response->body(json_encode($alldata));
 
     }

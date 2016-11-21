@@ -72,7 +72,7 @@ class Controller_Schedule extends Controller_Base
             $situation->staged = $oneday_user_detail->stage;
             $situation->during_time = (json_encode($value));
             // $situation->during_time = unserialize($situation->during_time);
-            $situation->defunct = "N";
+            // $situation->defunct = "N";
 
             $situation->save();
         }
@@ -88,7 +88,7 @@ class Controller_Schedule extends Controller_Base
 
         $do_nothing_user_id = array_diff($all_userid_array,$all_user_id_array);
 
-        $this->template_data['oneday_user_id'] = $do_nothing_user_id;
+        $this->template_data['oneday_user_id'] = $oneday_user_id;
 
 
         foreach ($do_nothing_user_id as $key) {
@@ -105,7 +105,7 @@ class Controller_Schedule extends Controller_Base
             $situation->staged = $oneday_user_detail->stage;
             $situation->during_time = json_encode(array());
             // $situation->during_time = unserialize($situation->during_time);
-            $situation->defunct = "N";
+            // $situation->defunct = "N";
 
             $situation->save();
 
