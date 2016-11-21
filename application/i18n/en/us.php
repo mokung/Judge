@@ -306,6 +306,7 @@ return array(
     'admin.user.edit.contact'                      => 'Contact Information',
     'admin.user.edit.other'                        => 'Other Information',
     'admin.user.edit.username'                     => 'Username',
+    'admin.user.edit.group_id'                     => 'Group Id',
     'admin.user.edit.nick'                         => 'Nick',
     'admin.user.edit.password'                     => 'Password',
     'admin.user.edit.not_change'                   => 'Leave blank if not changing',

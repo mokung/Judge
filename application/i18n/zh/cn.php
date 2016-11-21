@@ -317,6 +317,7 @@ return array(
     'admin.user.edit.contact'                               => '联系信息',
     'admin.user.edit.other'                                 => '其他信息',
     'admin.user.edit.username'                              => '用户名',
+    'admin.user.edit.group_id'                              => '组ID',
     'admin.user.edit.nick'                                  => '签名',
     'admin.user.edit.password'                              => '密码',
     'admin.user.edit.not_change'                            => '如果您不修改密码，请将此项与下面的项留空',

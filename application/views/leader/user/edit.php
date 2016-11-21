@@ -11,6 +11,12 @@
                     </div>
                 </div>
                 <div class="form-group">
+                    <label for="group_id" class="control-label col-sm-2"><?php echo(__('admin.user.edit.group_id')); ?></label>
+                    <div class="col-sm-10">
+                        <input type="text" id="group_id" name="group_id" readonly="readonly" class="form-control disabled" value="<?php echo $user['group_id']; ?>">
+                    </div>
+                </div>
+                <div class="form-group">
                     <label for="nick" class="control-label col-sm-2"><?php echo(__('admin.user.edit.nick')); ?></label>
                     <div class="col-sm-10">
                         <input type="text" id="nick" name="nick" class="form-control" value="<?php echo $user['nick']; ?>">
