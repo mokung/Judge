@@ -12,20 +12,35 @@ abstract class Model_Save extends Model_Base
      *
      * @return int
      */
-    public function save()
+  public function save()
     {
         // prepare data
-        //        $this->data['update_at'] = PP::format_time();
+//        $this->data['update_at'] = PP::format_time();
 
         // 过滤不存在的数据
         $data = $this->raw_array();
 
-        // else save new record
-        $keys   = array_keys($data);
-        $values = array_values($data);
+        if ( isset($this->{static::$primary_key}) and $this->{static::$primary_key})
+        {
+            // if primary key exist, then update, contain primary key, haha
+            $primary_id = $this->{static::$primary_key};
+            //            unset($this->data[static::$primary_key]);
 
-        $query  = DB::insert(static::$table, $keys)->values($values);
+            $query = DB::update(static::$table)->set($data)->where(static::$primary_key, '=', $primary_id);
+            $ret   = $query->execute();
 
-        $query->execute();
+            return $ret;
+        } else
+        {
+            // else save new record
+            $keys   = array_keys($data);
+            $values = array_values($data);
+
+            list($id, $affect_row) = DB::insert(static::$table, $keys)->values($values)->execute();
+
+            $this->{static::$primary_key} = $id;
+
+            return $affect_row;
+        }
     }
 }

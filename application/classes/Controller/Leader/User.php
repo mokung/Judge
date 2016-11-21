@@ -74,4 +74,79 @@ user list of leader's group
         //TODO: use ajax
         $this->action_index();
     }
+
+    public function action_addscore()
+    {
+        // $this->view = 'admin/situation/testSubmited';
+
+
+        $user = Arr::get($_GET,'user');
+        $date = Arr::get($_GET,'date');
+
+        $this->template_data['user'] = $user;
+        $this->template_data['date'] = $date;
+
+        // $date = strtotime($date);
+
+
+        //get message from solution
+        // $result = Model_Situation::oneday_message_from_solution();
+
+        $order_by = array(
+                'date' => Model_Base::ORDER_ASC
+            );
+
+        $result = Model_Situation::search($date,'date',$order_by,$show_all=true, 'user_id', $user);
+
+        $this->template_data['result'] = $result;
+
+        $alldata = array();
+
+        foreach ($result as $key) {
+            # code...
+            array_push($alldata, json_encode(array("data"=>$key->date,"score"=>$key->score)));
+        }
+
+        $this->response->body(json_encode($alldata));
+    }
+
+    public function action_submited()
+    {
+        // $this->view = 'admin/situation/testSubmited';
+        $user = Arr::get($_GET,'user');
+        $date = Arr::get($_GET,'date');
+
+        $this->template_data['user'] = $user;
+        $this->template_data['date'] = $date;
+
+         $title = __('ddd');
+        $this->template_data['title'] = $title;
+
+        $order_by = array(
+                'date' => Model_Base::ORDER_ASC
+            );
+
+        $result = Model_Situation::search($date,'date',$order_by,$show_all=true, 'user_id', $user);
+
+        $this->template_data['result'] = $result;
+
+        $alldata = array();
+
+        foreach ($result as $key) {
+            # code...
+            array_push($alldata, json_encode(array("data"=>$key->date,"submited"=>$key->submited,"during_time"=>$key->during_time)));
+        }
+
+        $this->response->body(json_encode($alldata));
+
+
+    }
+
+    public function action_form()
+    {
+        $this->view = 'leader/user/form';
+        $user = Arr::get($_GET,'user');
+
+        $this->template_data['title']  = $user;
+    }
 }

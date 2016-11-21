@@ -206,6 +206,7 @@ class Model_User extends Model_Base
     {
         $privilege = new Model_Privilege;
         $privilege->user_id = $this->user_id;
+        $privilege->group_id = $this->group_id;
         $privilege->rightstr = $permission;
         $privilege->save();
 

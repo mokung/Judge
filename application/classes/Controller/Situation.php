@@ -6,81 +6,81 @@ class Controller_Situation extends Controller_Base
 
 
 
-//run per one day
-    public function action_inject()
-    {
-// $this->view = 'situation/list';
-        $this->view = 'situation/test';
+// //run per one day
+//     public function action_inject()
+//     {
+// // $this->view = 'situation/list';
+//         $this->view = 'situation/test';
 
-        //get message from solution
-        // $result = Model_Situation::oneday_message_from_solution();
+//         //get message from solution
+//         // $result = Model_Situation::oneday_message_from_solution();
 
-        $order_by = array(
-                'in_date' => Model_Base::ORDER_DESC
-            );
+//         $order_by = array(
+//                 'in_date' => Model_Base::ORDER_DESC
+//             );
 
-        $result = Model_Situation::search(date("Y-m-d"),'in_date',$order_by,$show_all=true);
+//         $result = Model_Situation::search(date("Y-m-d"),'in_date',$order_by,$show_all=true);
 
-         $this->template_data['oneday'] = $result;
+//          $this->template_data['oneday'] = $result;
 
-         $title = __('ddd');
-        $this->template_data['title'] = $title;
+//          $title = __('ddd');
+//         $this->template_data['title'] = $title;
 
-        //process date --> from solution
-        //get user_id , during_time
+//         //process date --> from solution
+//         //get user_id , during_time
 
-        $rr = Model_Situation::get_oneday_userid($result);
+//         $rr = Model_Situation::get_oneday_userid($result);
 
-        $oneday_user_id = $rr[0];
-        $all_user_id = $rr[1];
+//         $oneday_user_id = $rr[0];
+//         $all_user_id = $rr[1];
 
-        $this->template_data['oneday_user_id'] = $oneday_user_id;
+//         $this->template_data['oneday_user_id'] = $oneday_user_id;
 
-        foreach ($oneday_user_id as $key => $value) {
+//         foreach ($oneday_user_id as $key => $value) {
 
-            $oneday_user_detail = Model_Situation::get_oneday_userdetail($key);
+//             $oneday_user_detail = Model_Situation::get_oneday_userdetail($key);
 
-            $situation = new Model_Situation;
-            # code...
-            $situation->user_id = $key;
-            $situation->date = date('Y-m-d H:i:s');
-            $situation->group_id = $oneday_user_detail->group_id;
-            $situation->submited = $oneday_user_detail->submit;
-            $situation->score = $oneday_user_detail->score;
-            $situation->staged = $oneday_user_detail->staged;
-            $situation->during_time = (json_encode($value));
-            // $situation->during_time = unserialize($situation->during_time);
-            $situation->defunct = "N";
+//             $situation = new Model_Situation;
+//             # code...
+//             $situation->user_id = $key;
+//             $situation->date = date('Y-m-d H:i:s');
+//             $situation->group_id = $oneday_user_detail->group_id;
+//             $situation->submited = $oneday_user_detail->submit;
+//             $situation->score = $oneday_user_detail->score;
+//             $situation->staged = $oneday_user_detail->staged;
+//             $situation->during_time = (json_encode($value));
+//             // $situation->during_time = unserialize($situation->during_time);
+//             $situation->defunct = "N";
 
-            $situation->save();
-        }
-
-
-        $do_nothing_user_id = array_diff($all_user_id,$oneday_user_id);
-
-        foreach ($do_nothing_user_id as $key => $value) {
-            # code...
-            $oneday_user_detail = Model_Situation::get_oneday_userdetail($key);
-
-            $situation = new Model_Situation;
-            # code...
-            $situation->user_id = $key;
-            $situation->date = date('Y-m-d H:i:s');
-            $situation->group_id = $oneday_user_detail->group_id;
-            $situation->submited = 0;
-            $situation->score = 0;
-            $situation->staged = $oneday_user_detail->staged;
-            $situation->during_time = null;
-            // $situation->during_time = unserialize($situation->during_time);
-            $situation->defunct = "N";
-
-            $situation->save();
-
-        }
+//             $situation->save();
+//         }
 
 
+//         $do_nothing_user_id = array_diff($all_user_id,$oneday_user_id);
 
-    }
+//         foreach ($do_nothing_user_id as $key => $value) {
+//             # code...
+//             $oneday_user_detail = Model_Situation::get_oneday_userdetail($key);
+
+//             $situation = new Model_Situation;
+//             # code...
+//             $situation->user_id = $key;
+//             $situation->date = date('Y-m-d H:i:s');
+//             $situation->group_id = $oneday_user_detail->group_id;
+//             $situation->submited = 0;
+//             $situation->score = 0;
+//             $situation->staged = $oneday_user_detail->staged;
+//             $situation->during_time = null;
+//             // $situation->during_time = unserialize($situation->during_time);
+//             $situation->defunct = "N";
+
+//             $situation->save();
+
+//         }
+
+
+
+//     }
 
 
 
