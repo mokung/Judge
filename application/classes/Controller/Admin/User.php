@@ -150,4 +150,12 @@ class Controller_Admin_User extends Controller_Admin_Base{
         //TODO: use ajax
         $this->action_index();
     }
+
+    public function action_form()
+    {
+        $this->view = 'admin/user/form';
+        $user = Arr::get($_GET,'user');
+
+        $this->template_data['title']  = $user;
+    }
 }
