@@ -39,7 +39,7 @@ class Controller_Leader_Groups extends Controller_Leader_Base{
 
 
         }else{
-
+        $this->template_data['showconfigure'] = true;
         $this->template_data['group_id'] = $current_user_groupid;
         $this->template_data['stagenum'] = $configDate->stage_num;
         $this->template_data['stagelevel'] = json_decode($configDate->stage_level);
