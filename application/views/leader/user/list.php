@@ -14,7 +14,7 @@
     <tbody>
     <?php foreach($user_list as $u):?>
         <tr>
-            <td><?php echo HTML::anchor("/u/{$u['user_id']}", $u['user_id']); ?></td>
+            <td><?php echo HTML::anchor("/leader/user/form?user={$u['user_id']}", $u['user_id']); ?></td>
             <td><?php echo HTML::chars($u['stage']); ?></td>
             <td><?php echo $u['solved']; ?></td>
             <td><?php echo $u['submit']; ?></td>
