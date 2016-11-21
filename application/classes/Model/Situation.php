@@ -154,6 +154,35 @@ function : if exists this day of users_status
         return $result->as_array();
     }
 
+    /**
+         * @param       $text
+         * @param       $area
+         * @param array $orderby
+         * @param bool  $show_all
+         *
+         * @return Model_Problem[]
+         */
+        public static function search($text, $area, $orderby = array(), $show_all=false, $left, $right)
+        {
+            $term = "%{$text}%";
+            $query = DB::select()->from('users_status')
+                ->where($area, 'LIKE', $term)
+                ->where($left, '=' , $right)
+                ->limit(100);
+
+            foreach($orderby as $key => $order)
+            {
+                $query->order_by($key, $order);
+            }
+
+            if ( ! $show_all )
+                $query->where('defunct', '=', self::DEFUNCT_NO);
+
+            $ret = $query->as_object(get_called_class())->execute();
+
+            return $ret->as_array();
+        }
+
     protected function initial_data()
     {
         $this->in_date = e::format_time();
