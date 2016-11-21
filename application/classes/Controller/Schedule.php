@@ -18,12 +18,23 @@ class Controller_Schedule extends Controller_Base
 
         //get message from solution
         // $result = Model_Situation::oneday_message_from_solution();
+        //
+        $last_day_date = date('Y-m-d',strtotime("yesterday"));
+
+
+        if(Model_Situation::check_exists($last_day_date)!=null){
+             $title = __('ee');
+            $this->template_data['title'] = $title;
+            return ;
+        }
+
+        $this->template_data['last_day_date'] = $last_day_date;
 
         $order_by = array(
                 'in_date' => Model_Base::ORDER_DESC
             );
 
-        $result = Model_Situation::inject(date("Y-m-d"),'in_date',$order_by,$show_all=true);
+        $result = Model_Situation::inject($last_day_date,'in_date',$order_by,$show_all=true);
 
          $this->template_data['oneday'] = $result;
 
@@ -65,7 +76,7 @@ class Controller_Schedule extends Controller_Base
             $situation = new Model_Situation;
             # code...
             $situation->user_id = $key;
-            $situation->date = date('Y-m-d H:i:s');
+            $situation->date = $last_day_date;
             $situation->group_id = $oneday_user_detail->group_id;
             $situation->submited = $oneday_user_detail->submit;
             $situation->score = $oneday_user_detail->score;
@@ -98,7 +109,7 @@ class Controller_Schedule extends Controller_Base
             $situation = new Model_Situation;
             # code...
             $situation->user_id = $key;
-            $situation->date = date('Y-m-d H:i:s');
+            $situation->date = $last_day_date;
             $situation->group_id = $oneday_user_detail->group_id;
             $situation->submited = 0;
             $situation->score = 0;
