@@ -56,7 +56,6 @@
             show:true,
         },
         xAxis:{
-            max:10,
             name:"时间",
         },
         yAxis:{
@@ -94,11 +93,10 @@
             show:true,
         },
         xAxis:{
-            max:10,
             name:"时间",
         },
         yAxis:{
-            name:"分数",
+            name:"提交量",
         },
         series: [{
                 name: '提交总量',
