@@ -136,6 +136,82 @@ class Controller_Leader_Groups extends Controller_Leader_Base{
         $this->template_data['title'] = __('leader.group.configure');
         // $this->action_list();
     }
+        /*
+    author : zhang zexiang
+    function : group status graph
+    data : 2016.11.15
+     */
 
+    public function action_status (){
+      $leader = $this->get_current_user();
+      $group_id = $leader['group_id'];
+      $date = Arr::get($_GET,'date');
+
+      $this->template_data['id'] = $group_id;
+      $this->template_data['date'] = $date;
+
+       $title = __('ddd');
+      $this->template_data['title'] = $title;
+
+      $group_config = Model_GroupConfig::find_by_id($group_id);
+
+
+      if($group_id==null || $group_config==null){
+        return 0;
+      }
+
+
+      $group_config_stages = $group_config->stage_num;
+
+      $this->template_data['group_config_stages'] = $group_config_stages;
+
+
+
+      $order_by = array(
+              'date' => Model_Base::ORDER_ASC
+          );
+
+      $result = Model_Situation::search($date,'date',$order_by,$show_all=true, 'group_id', $group_id);
+
+      $this->template_data['result'] = $result;
+
+      $alldata = array();
+      $eachday = array();
+
+      foreach ($result as $key) {
+
+          # code...
+        $time = date("Y-m-d",strtotime($key->date));
+
+        if (array_key_exists($time, $alldata)) {
+
+          $oldstage = $alldata[$time];
+
+          if(array_key_exists($key->staged, $oldstage)){
+
+            $oldstage[$key->staged] = $oldstage[$key->staged]+1;
+
+          }else{
+
+            $oldstage[$key->staged] = 1;
+          }
+
+          ksort($oldstage);
+          $alldata[$time] = $oldstage;
+
+        }else{
+
+          $alldata[$time] = array($key->staged => 1);
+
+        }
+
+      }
+      $alldata["stage_num"] =  $group_config_stages;
+
+      $alldata["stage_num"] =  $group_config_stages;
+
+      $this->response->body(json_encode($alldata));
+
+    }
 
 }
