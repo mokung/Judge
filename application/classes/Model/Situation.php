@@ -1,4 +1,4 @@
-<?php defined('SYSPATH') or die('No direct script access.');
+ <?php defined('SYSPATH') or die('No direct script access.');
 /**
  * user model for hust online judge
  *
@@ -14,7 +14,6 @@ class Model_Situation extends Model_Base
         'score',
         'staged',
         'during_time',
-        'defunct',
 
     );
 
@@ -32,7 +31,6 @@ class Model_Situation extends Model_Base
     public $score;
     public $staged;
     public $during_time;
-    public $defunct;
 
 
 
@@ -120,7 +118,7 @@ class Model_Situation extends Model_Base
                     }else{
 
 
-                        $user_id_date += [$key => array(date('H:i',strtotime($each_line->in_date)))];
+                        $user_id_date[$key] = array(date('H:i',strtotime($each_line->in_date)));
 
                     }
                 }
