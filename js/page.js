@@ -7,5 +7,5 @@ $(function(){
             return confirm('ARE U SURE???')
         })
     });
-    $(document).on('page:restore', function() { NProgress.remove(); });
+    $(document).on('page:restore', function() { NProgress.remove(); }); 
 });
