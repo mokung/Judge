@@ -68,6 +68,17 @@ class Controller_Problem extends Controller_Base
 
                 $problemlist = $this->action_generate($current_problem_level,$current_show_num, $current_user, $current_user_group_config,$current_problem);
 
+                $current_problem = Model_UsersProblem::find_current_problem($current_user->user_id, $current_user_stage);
+
+                $all_stage_problem = array();
+
+                foreach ($current_problem as $key) {
+                    # code...
+                    array_push($all_stage_problem,Model_Problem::find_by_id($key));
+                }
+                $this->template_data['num'] = $all_stage_problem;
+
+
             }else{
 
                 $all_stage_problem = array();
@@ -106,6 +117,8 @@ class Controller_Problem extends Controller_Base
          }
 
      }
+
+
 
     }
 
@@ -206,7 +219,6 @@ class Controller_Problem extends Controller_Base
         }
 
 
-        // $this->template_data['num1'] = $problem_id_array;
 
 
    }
