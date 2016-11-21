@@ -271,7 +271,7 @@ class Controller_Problem extends Controller_Base
     }
 
 
-    $this->action_list();
+    $this->action_listuser();
 
     //count this user this stage pass number
   }

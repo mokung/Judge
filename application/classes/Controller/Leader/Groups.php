@@ -68,7 +68,7 @@ class Controller_Leader_Groups extends Controller_Leader_Base{
       $num5 = Model_Problem::count(array('level' => 5));
 
       $this->template_data['num1'] = $num5;
-      $this->flash_info(__('all problems number: 1->'.$num1.' ---- 2->'.$num2.' ---- 3->'.$num3.' ---- 4->'.$num4.' ---- 5->'.$num5));
+      // $this->flash_info(__('all problems number: 1->'.$num1.' ---- 2->'.$num2.' ---- 3->'.$num3.' ---- 4->'.$num4.' ---- 5->'.$num5));
 
       $current_user = $this->get_current_user();
 

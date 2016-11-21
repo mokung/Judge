@@ -28,12 +28,12 @@
                     </td>
                     <td><?php echo $u['reg_time']; ?></td>
                     <td><?php echo $u['accesstime']; ?></td>
-                    <td><a class="edit-link" href="<?php e::url("/admin/user/edit/{$u['user_id']}");?>"><?php echo(__('admin.user.list.edit')); ?></a></td>
+                    <td><a class="edit-link" href="<?php e::url("/leader/user/edit/{$u['user_id']}");?>"><?php echo(__('admin.user.list.edit')); ?></a></td>
                 </tr>
             <?php endforeach; ?>
             </tbody>
         </table>
-        <?php echo(View::factory('block/pager', array('base_url' => '/admin/user', 'total' => $total)));?>
+        <?php echo(View::factory('block/pager', array('base_url' => '/leader/user', 'total' => $total)));?>
     </div>
 </div>
 <div class="dashboard-widget row">

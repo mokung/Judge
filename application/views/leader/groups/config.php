@@ -7,7 +7,6 @@
         <th><?php echo(__('leader.group.configure.difficulty')); ?></th>
         <th><?php echo(__('leader.group.configure.problem_num')); ?></th>
         <th><?php echo(__('leader.group.configure.problem_passed')); ?></th>
-        <?php echo "$num1";?>
 
     </tr>
     </thead>

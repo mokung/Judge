@@ -230,6 +230,12 @@ return array(
     'mail.view.sender'                             => 'Sender: ',
     'mail.view.time'                               => 'Time: ',
 
+    'leader.index.index.configure'                 => 'Stage Configure',
+    'leader.index.index.create_stage'              => 'Create Stage',
+    'leader.index.index.stagenum'                  => 'Stage Number',
+    'leader.index.index.difficulty'                => 'Difficulty',
+    'leader.index.index.score'                     => 'Score',
+
     'admin.index.sidebar.home'                     => 'Home',
     'admin.index.index.dashboard'                  => 'Dashboard',
     'admin.index.index.rejudge'                    => 'Rejudge',
@@ -239,7 +245,7 @@ return array(
     'admin.index.index.runid'                      => 'Run ID',
     'admin.index.index.id'                         => 'ID',
     'admin.index.index.submit'                     => 'Submit',
-    'admin.index.index.invitation'                     => 'Invitation',
+    'admin.index.index.invitation'                 => 'Invitation',
 
     'admin.problem.sidebar.new'                    => 'New',
 
@@ -306,6 +312,7 @@ return array(
     'admin.user.edit.contact'                      => 'Contact Information',
     'admin.user.edit.other'                        => 'Other Information',
     'admin.user.edit.username'                     => 'Username',
+    'admin.user.edit.group_id'                     => 'Group Id',
     'admin.user.edit.nick'                         => 'Nick',
     'admin.user.edit.password'                     => 'Password',
     'admin.user.edit.not_change'                   => 'Leave blank if not changing',
