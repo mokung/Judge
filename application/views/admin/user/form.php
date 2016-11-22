@@ -136,7 +136,8 @@
     getUserSubmited();
     getUserAddScore();
     //获得用户增数据
-    function getUserAddScore(){
+    function getUserAddScore(button,flag){
+        button && $(button).unbind('click');
         $user_addscore.showLoading();
         option_addscore.title.subtext = date_addstore;
         $.ajax({
@@ -167,11 +168,17 @@
                 option_addscore.series[0].data = data_y;
                 $user_addscore.setOption(option_addscore);
                 $user_addscore.hideLoading();
+                if(flag==1){
+                    $(button).bind('click',prevMonth);
+                }else{
+                    $(button).bind('click',nextMonth);
+                }
             }
         });
     }
     //获得用户每日提交量
-    function getUserSubmited(){
+    function getUserSubmited(button,flag){
+        button && $(button).unbind('click');
         $user_submited.showLoading();
         option_submited.title.subtext = date_submited;
         $.ajax({
@@ -179,7 +186,6 @@
             type:'post',
             dataType:'json',
             success:function(data){
-                console.log(data);
                  var data_x = new Array();//时间轴坐标
                  var i,j;
                  var json = {
@@ -207,7 +213,6 @@
                     var temp = data_item.during_time.substring(1,data_item.during_time.length-1).split(',');
                     for(j=0; j<temp.length; j++){
                         var current = temp[j].substring(1,temp[j].length-1);
-                        console.log(current);
                         if(checkTime("00:00","05:00",current)){
                             json['1']++;
                         }else if(checkTime("05:00","11:00",current)){
@@ -227,6 +232,11 @@
                  option_submited.xAxis.data = data_x;
                  $user_submited.setOption(option_submited);
                  $user_submited.hideLoading();
+                 if(flag==1){
+                    $(button).bind('click',prevMonth);
+                 }else{
+                 $(button).bind('click',nextMonth);
+                 }
             }
         });
     }
@@ -237,10 +247,10 @@
         var end = end.split(':');
         var b = parseInt(begin[0]) * 60 + parseInt(begin[1]);
         var e = parseInt(end[0]) * 60 + parseInt(end[1]);
-        if (current >= b && current <= e) return true;
+        if (current >= b && current < e) return true;
         else return false;
     }
-    $('.user-left').click(function(){
+    function prevMonth(){
         if($(this).prev().attr('id')=='user-form-submited'){
             var year = parseInt(date_submited.split('-')[0]),
                 month = parseInt(date_submited.split('-')[1]);
@@ -251,7 +261,7 @@
                 month--;    
             }
             date_submited = year+'-'+((month>9)?month:('0'+month));
-            getUserSubmited();
+            getUserSubmited(this,1);
         }else{
             var year = parseInt(date_addstore.split('-')[0]),
                 month = parseInt(date_addstore.split('-')[1]);
@@ -262,10 +272,10 @@
                 month--;    
             }
             date_addstore = year+'-'+((month>9)?month:('0'+month));
-            getUserAddScore();
+            getUserAddScore(this,1);
         }
-    });
-    $('.user-right').click(function(){;
+    }
+    function nextMonth(){
         if($(this).prevAll('div').attr('id')=='user-form-submited'){
             var year = parseInt(date_submited.split('-')[0]),
                 month = parseInt(date_submited.split('-')[1]);
@@ -276,7 +286,7 @@
                 month++;    
             }
             date_submited = year+'-'+((month>9)?month:('0'+month));
-            getUserSubmited();
+            getUserSubmited(this,2);
         }else{
             var year = parseInt(date_addstore.split('-')[0]),
                 month = parseInt(date_addstore.split('-')[1]);
@@ -287,8 +297,10 @@
                 month++;    
             }
             date_addstore = year+'-'+((month>9)?month:('0'+month));
-            getUserAddScore();
+            getUserAddScore(this,2);
         }
-    });
+    }
+    $('.user-left').on('click',prevMonth);
+    $('.user-right').on('click',nextMonth);
 })();
 </script>

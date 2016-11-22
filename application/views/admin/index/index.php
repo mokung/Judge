@@ -27,18 +27,6 @@
                 </form>
             </div>
         </div>
-        <!-- <div class="panel panel-default">
-            <div class="panel-heading text-center"><?php echo(__('admin.index.index.rescore')); ?></div>
-            <div class="panel-body">
-                <form role="form" action="<?php e::url('/admin/index/rescore');?>" method="post" class="form-horizontal col-sm-12">
-                    <div class="form-group">
-                        <button type="submit" class="btn btn-info col-sm-offset-1 col-sm-10"><?php echo(__('admin.index.index.submit')); ?>
-                                <span class="glyphicon glyphicon-repeat"></span>
-                        </button>
-                    </div>
-                </form>
-            </div>
-        </div> -->
     </div>
     <div class="col-md-6">
         <div class="panel panel-default">
@@ -130,14 +118,15 @@
         }
         return true;
     });
-
-    $('#myTab a').click(function (e) {
+    function showList(e){
+        var $button = $(this);
         var href = $(this).attr("href");
         e.preventDefault();
         // 显示生成邀请码页面，并初始化表单
         if(href=='#new_in'){
             $(href).find('form').get(0).reset();
         }else{
+            $button.unbind('click');
             //显示有效的邀请码列表
             $.ajax({
                 url: '<?php e::url('/admin/index/list/');?>',
@@ -156,9 +145,11 @@
                                  '</tr>';
                         $(href).find('tbody').append(tr);
                     });
+                    $button.bind('click',showList);
                 }
             });
         }
         $(this).tab('show');
-    });
+    }
+    $('#myTab a').on('click',showList);
 </script>
