@@ -134,7 +134,7 @@
             <ul class="list-unstyled" id="in-data">
             <?php foreach($problem->in_data_files() as $f):?>
                 <li>
-                <a target="_blank" href="<?php e::url("/leader/problem/showdata/{$problem->problem_id}/{$f}");?>"><?php echo $f;?></a> | <a href="<?php e::url("/admin/problem/deldata/{$problem->problem_id}/{$f}");?>" class="make-sure">删除</a>
+                <a target="_blank" href="<?php e::url("/leader/problem/showdata/{$problem->problem_id}/{$f}");?>"><?php echo $f;?></a> | <a href="<?php e::url("/leader/problem/deldata/{$problem->problem_id}/{$f}");?>" class="make-sure">删除</a>
                 </li>
             <?php endforeach;?>
             </ul>
