@@ -37,6 +37,8 @@ class Controller_Leader_Groups extends Controller_Leader_Base{
           $this->template_data['stagenum'] = null;
           $this->template_data['levelscore'] = 0;
 
+          $this->action_config();
+
 
         }else{
         $this->template_data['showconfigure'] = true;
@@ -68,7 +70,7 @@ class Controller_Leader_Groups extends Controller_Leader_Base{
       $num5 = Model_Problem::count(array('level' => 5));
 
       $this->template_data['num1'] = $num5;
-      // $this->flash_info(__('all problems number: 1->'.$num1.' ---- 2->'.$num2.' ---- 3->'.$num3.' ---- 4->'.$num4.' ---- 5->'.$num5));
+      $this->flash_info(__('all problems number: 1->'.$num1.' ---- 2->'.$num2.' ---- 3->'.$num3.' ---- 4->'.$num4.' ---- 5->'.$num5));
 
       $current_user = $this->get_current_user();
 
@@ -125,6 +127,8 @@ class Controller_Leader_Groups extends Controller_Leader_Base{
               $errors = $post->errors("User");
               $this->flash_error($errors);
 
+              // $this->action_list();
+
 
         }
       }else  {
@@ -136,7 +140,8 @@ class Controller_Leader_Groups extends Controller_Leader_Base{
         $this->template_data['title'] = __('leader.group.configure');
         // $this->action_list();
     }
-        /*
+
+    /*
     author : zhang zexiang
     function : group status graph
     data : 2016.11.15

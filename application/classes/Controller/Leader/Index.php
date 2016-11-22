@@ -97,7 +97,14 @@ class Controller_Leader_Index extends Controller_Leader_Base{
 
             $group_id = Model_Groups::find_by_id($group);
 
+
+            // if this group not config , then don't allow to generate inveitation code
             if ($group_id) {
+
+                if(Model_GroupConfig::find_by_id($group)==null){
+                    $this->flash_info( "please config group first");
+                    return;
+                }
 
                       //generate hashcode(invitationcode) by date
                 $incode = Model_InvitationCode::generateRandomString(6);
