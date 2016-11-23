@@ -62,7 +62,7 @@ class Controller_Schedule extends Controller_Base
         $all_privilege = Model_Privilege::permission_of_user_id();
 
         foreach ($all_privilege as $key) {
-            # code...
+            
             array_push($all_user_id_array, $key['user_id']);
         }
 

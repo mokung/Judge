@@ -87,7 +87,7 @@ class Model_Privilege extends Model_Save
         }
         return $result;
     }
-
+ 
     protected function initial_data()
     {
         $this->defunct = self::DEFUNCT_NO;
