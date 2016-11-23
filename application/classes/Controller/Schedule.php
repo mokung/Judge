@@ -19,8 +19,8 @@ class Controller_Schedule extends Controller_Base
         //get message from solution
         // $result = Model_Situation::oneday_message_from_solution();
         //
-        // $last_day_date = date('Y-m-d',strtotime("yesterday"));
-        $last_day_date = date('Y-m-d');
+        $last_day_date = date('Y-m-d',strtotime("yesterday"));
+        // $last_day_date = date('Y-m-d');
 
 
         if(Model_Situation::check_exists($last_day_date)!=null){
@@ -112,7 +112,7 @@ class Controller_Schedule extends Controller_Base
             $situation->user_id = $key;
             $situation->date = $last_day_date;
             $situation->group_id = $oneday_user_detail->group_id;
-            $situation->submited = 0;
+            $situation->submited = $oneday_user_detail->submit;
             $situation->score = $oneday_user_detail->score;
             $situation->staged = $oneday_user_detail->stage;
             $situation->during_time = json_encode(array());
