@@ -82,10 +82,10 @@
         },
         xAxis:{
             max:10,
-            name:"时间",
+            name:"<?php echo __('leader.user.list.time'); ?>",
         },
         yAxis:{
-            name:"人数",
+            name:"<?php echo __('leader.user.list.member'); ?>",
         },
     };
     // 使用刚指定的配置项和数据显示图表。
@@ -106,8 +106,8 @@
                     xAxis_data = new Array(),
                     series = new Array();
                 for(i=1; i<=data.stage_num; i++){
-                    legend_data.push('阶段'+i);
-                    series_item.name = '阶段'+i;
+                    legend_data.push("<?php echo __('leader.user.list.stage'); ?>"+i);
+                    series_item.name = "<?php echo __('leader.user.list.stage'); ?>"+i;
                     series_item.type = 'bar';
                     series_item.stack = '1';
                     series_item.data = new Array();
