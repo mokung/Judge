@@ -70,7 +70,7 @@
     var $user_submited = echarts.init($('#user-form-submited').get(0));//用户每日增分量
     var option_submited = {
         title:{
-            text:"<?php echo __('leader.user.list.submit'); ?>",
+            text:"<?php echo __('leader.user.list.submit_perday'); ?>",
             show:true,
             textStyle:{
                 color:"#000",
@@ -98,7 +98,7 @@
             name:"<?php echo __('leader.user.list.time'); ?>",
         },
         yAxis:{
-            name:"<?php echo __('leader.user.list.score'); ?>",
+            name:"<?php echo __('leader.user.list.submit'); ?>",
         },
         series: [{
                 name: "<?php echo __('leader.user.list.total_submit'); ?>",
@@ -149,16 +149,19 @@
             success:function(data){
                 var data_x = new Array(),//时间轴坐标
                     data_y = new Array();//提交量坐标
-                var json={};//用来数组去重
+                var json={};
                 var i=0,
+                    len = data.length,//数据长度
                     data_item;
-                for(i=0; i<data.length; i++){
+                var data_len = $.parseJSON(data[len-1]).hasOwnProperty('lastmonth')? (len-1):len;
+                for(i=0; i<data_len; i++){
+
                     data_item = $.parseJSON(data[i]);
                     var time = data_item.data.split(' ')[0]
-                    if(!json[time]){
-                       json[time] = parseInt(data_item.score);
+                    if(i>=1){
+                        json[time] = parseInt(data_item.score) - parseInt($.parseJSON(data[i-1]).score)
                     }else{
-                        json[time] +=  parseInt(data_item.score);
+                        json[time] = (data_len == len) ? parseInt(data_item.score):(parseInt(data_item.score)-$.parseJSON(data[len-1]).lastmonth);
                     }
                 }
                 for(var cc in json){
@@ -196,10 +199,13 @@
                     '3':0,
                     '4':0
                  };//存储各个时间段的提交量
+                 var score_sum = 0;//记录当天总提交两
+                 //初始化series里的数据
                  for(i=0; i<6; i++){
                     option_submited.series[i].data = new Array();
                  }
                  for(i=0; i<data.length; i++){
+                    score_sum = 0;
                     json = {
                         '1':0,
                         '2':0,
@@ -210,7 +216,6 @@
                     data_item = $.parseJSON(data[i]);
                     var time = data_item.data.split(' ')[0];
                     data_x.push(time);
-                    option_submited.series[0].data.push(data_item.submited);
                     var temp = data_item.during_time.substring(1,data_item.during_time.length-1).split(',');
                     for(j=0; j<temp.length; j++){
                         var current = temp[j].substring(1,temp[j].length-1);
@@ -228,7 +233,9 @@
                     }
                     for(var cc in json){
                         option_submited.series[cc].data.push(json[cc]);
+                        score_sum += json[cc]
                     }
+                    option_submited.series[0].data.push(score_sum);
                  }
                  option_submited.xAxis.data = data_x;
                  $user_submited.setOption(option_submited);

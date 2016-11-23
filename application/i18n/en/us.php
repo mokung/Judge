@@ -170,6 +170,9 @@ return array(
     'user.profile.submit'                          => 'submit',
     'user.profile.problem_solved'                  => 'Problem Solved',
     'user.profile.problem_tried'                   => 'Problem Tried',
+    'user.profile.not_reach_nextstage'             => 'You cannot go to the next stage before you finish this stage!',
+    'user.profile.no_enough_problem'               => 'There are no enough problems in the next stage,please contact to your leader!',
+    'user.profile.cannot_pass'                     => 'You just passed :pass problems，you should finish :total problems',
 
     'contest.list.contest_list'                    => 'Contest List',
     'contest.list.id'                              => 'ID',
@@ -250,7 +253,7 @@ return array(
     'admin.index.type'                             => 'Type',
     'admin.index.generate_invitation'              => 'Generate Invitation',
     'admin.index.exist_invitation'                 => 'Existed Invitation',
-    'admin.index.effective_counts'                    => 'Please input the effective counts',
+    'admin.index.effective_counts'                 => 'Please input the effective counts',
     'admin.index.effective_time'                   => 'Please input the effective time (m)',
     'admin.index.generate_here'                    => 'Generate Invitation Here',
     'admin.index.group'                            => 'Group',
@@ -260,6 +263,7 @@ return array(
     'admin.index.group_leader'                     => 'Group Leader',
     'admin.index.choose_group'                     => 'Choose Group',
     'admin.index.input_error'                      => 'Input error!',
+    'admin.index.group_not_configured'             => 'This group has not been configured, please connect the group leader！',
 
     'admin.problem.sidebar.new'                    => 'New',
 
@@ -432,8 +436,9 @@ return array(
     'common.user_not_found'                        => 'User not found',
     'common.user_exist'                            => 'User exist',
     'common.group_exist'                            => 'Group exist',
-    'common.groupname_null'                            => 'Group name is null',
+    'common.groupname_null'                         => 'Group name is null',
     'common.group_not_exist'                        => 'Group not exist',
+    'common.group_noconfigure'                      => 'This Group not Configured !',
 
 
     'common.login_error'                           => 'Wrong username or password, please try again',
@@ -482,13 +487,16 @@ return array(
     'leader.group.configure.submit'                => 'Submit',
     'leader.group.configure.input_nonumber'        => 'Please Input the Correct Number',
     'leader.group.configure.least_stage'           => 'At Leat 5 Stages',
+    'leader.group.configure.no_configure'          => 'The group has not been configured！',
+    'leader.group.configure.configured'            => 'This group has been configured!',
 
     'leader.user.list.stage'                       => 'Stage',
     'leader.user.list.member'                      => 'Member',
     'leader.user.list.time'                        => 'Time',
     'leader.user.list.score'                       => 'Score',
     'leader.user.list.increase'                    => 'Increasing Score Per Day',
-    'leader.user.list.submit'                      => 'Submit Per Day',
+    'leader.user.list.submit'                      => 'Submit',
+    'leader.user.list.submit_perday'               => 'Submit Per Day',
     'leader.user.list.total_submit'                => 'Total Submit',
     'leader.user.list.increasing'                  => 'Increasing Score',
 

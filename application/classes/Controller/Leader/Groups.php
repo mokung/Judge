@@ -31,7 +31,7 @@ class Controller_Leader_Groups extends Controller_Leader_Base{
 
         if($configDate == null){
 
-          $this->flash_error("has not configed");
+          $this->flash_error(__('leader.group.configure.no_configure'));
           $this->template_data['group_id'] = $current_user_groupid;
           $this->template_data['showconfigure'] = false;
           $this->template_data['stagenum'] = null;
@@ -136,7 +136,7 @@ class Controller_Leader_Groups extends Controller_Leader_Base{
         }
       }else  {
         # code...
-        $this->flash_error("this group configed");
+        $this->flash_error(__('leader.group.configure.configured'));
         $this->action_list();
       }
 
