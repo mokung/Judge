@@ -26,7 +26,7 @@ class Controller_Problem extends Controller_Base
     public function action_listuser()
     {
         $this->view = 'problem/userlist';
-        $title = __('haha');
+        $title = __('problem.list.problem_set_:id', array(':id' => 1));
         $this->template_data['title'] = $title;
         $current_user = $this->get_current_user();
 
@@ -34,6 +34,8 @@ class Controller_Problem extends Controller_Base
 
         $this->template_data['stages'] = $current_user->stage;
         $this->template_data['stage'] = $stage;
+
+
         if($stage == null){
 
 
@@ -83,10 +85,22 @@ class Controller_Problem extends Controller_Base
 
                 $all_stage_problem = array();
 
+                if($current_show_num != $num){
+                    $supp = $current_show_num-$num;
+                    $supp_id = $this->action_supplement($supp, $current_problem, $current_problem_level,$current_show_num,$current_user);
+
+                    foreach ($supp_id as $key) {
+                        # code...
+                         array_push($all_stage_problem,Model_Problem::find_by_id($key));
+                    }
+                }
+
                 foreach ($current_problem as $key) {
                     # code...
                     array_push($all_stage_problem,Model_Problem::find_by_id($key));
                 }
+
+                array_multisort($all_stage_problem);
                 $this->template_data['num'] = $all_stage_problem;
             }
 
@@ -112,8 +126,8 @@ class Controller_Problem extends Controller_Base
             $this->template_data['num'] = $all_stage_problem;
 
          }else {
-             # code...
-             $this->flash_error("this user not up this stage  !");
+
+             $this->go_home();
          }
 
      }
@@ -163,9 +177,7 @@ class Controller_Problem extends Controller_Base
         }
 
 
-
-
-        $current_problem_array = array();
+         $current_problem_array = array();
         foreach ($all_leve_problem as $key) {
             # code...
             array_push($current_problem_array, $key['problem_id']);
@@ -199,7 +211,12 @@ class Controller_Problem extends Controller_Base
 
             array_multisort($problemlist);
             // $this->template_data['num'] = $problemlist;
-        }
+
+
+   }
+
+
+
 
         $problem_array = array();
         $problem_id_array = array();
@@ -217,9 +234,6 @@ class Controller_Problem extends Controller_Base
             $users_problem->save();
 
         }
-
-
-
 
    }
 
@@ -275,6 +289,78 @@ class Controller_Problem extends Controller_Base
 
     //count this user this stage pass number
   }
+
+
+  /*
+  author : zhang zexiang
+  funtion : supplement problem by group config when Y defunct
+  date : 2016.11.23 09:55
+
+  $supp : config show num - current num
+  */
+
+  public function action_supplement($supp, $current_problem, $current_problem_level,$current_show_num,$current_user){
+
+
+    $all_leve_problem = Model_UsersProblem::find_level_problem($current_problem_level);
+    $num = count($all_leve_problem);
+
+    $all_leve_problem_array = array();
+    foreach ($all_leve_problem as $key) {
+        # code...
+        array_push($all_leve_problem_array, $key['problem_id']);
+    }
+
+    $current_problem_array = array();
+    foreach ($current_problem as $key) {
+        # code...
+        array_push($current_problem_array, $key["problem_id"]);
+    }
+
+    $left_level_problem = array_diff($all_leve_problem_array,$current_problem_array);
+
+    $problemlist = array_rand($left_level_problem,$supp);
+
+
+    if(sizeof($problemlist)==1){
+
+        $users_problem = new Model_UsersProblem;
+        $users_problem->user_id = $current_user->user_id;
+        $users_problem->problem_id = $left_level_problem[$problemlist];
+        $users_problem->stage = $current_user->stage;
+
+        $users_problem->save();
+
+        return array($left_level_problem[$problemlist]);
+    }
+
+    $end = array();
+    foreach ($problemlist as $key) {
+        # code...
+        array_push($end, $left_level_problem[$key]);
+
+
+        $users_problem = new Model_UsersProblem;
+        $users_problem->user_id = $current_user->user_id;
+        $users_problem->problem_id = $left_level_problem[$key];
+        $users_problem->stage = $current_user->stage;
+
+        $users_problem->save();
+
+    }
+
+    return $end;
+    // return $problemlist = array_rand($left_level_problem_array,$supp);
+    //
+
+
+
+
+  }
+
+
+
+
 
     public function action_list()
     {

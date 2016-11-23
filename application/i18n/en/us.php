@@ -250,7 +250,7 @@ return array(
     'admin.index.type'                             => 'Type',
     'admin.index.generate_invitation'              => 'Generate Invitation',
     'admin.index.exist_invitation'                 => 'Existed Invitation',
-    'admin.index.effect_counts'                    => 'Please input the effective counts',
+    'admin.index.effective_counts'                    => 'Please input the effective counts',
     'admin.index.effective_time'                   => 'Please input the effective time (m)',
     'admin.index.generate_here'                    => 'Generate Invitation Here',
     'admin.index.group'                            => 'Group',
@@ -370,6 +370,7 @@ return array(
     'admin.contest.edit.add'                       => 'Add',
     'admin.contest.edit.save_changes'              => 'Save Changes',
     'admin.contest.edit.cancel'                    => 'Cancel',
+    'admin.contest.edit.add_problem_tips'          => 'please input the title of problem',
 
     'admin.contest.member.member_of_contest_:name' => 'Member of Contest :name',
     'admin.contest.member.username'                => 'Username',

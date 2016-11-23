@@ -41,7 +41,7 @@
                     <div class="tab-pane active" id="new_in" >
                         <form role="form" class="form-horizontal col-sm-12" action="<?php e::url('/admin/index/code');?>">
                             <div class="form-group">
-                                <div class="col-sm-offset-2 col-sm-6">
+                                <div class="col-sm-offset-2 col-sm-7">
                                     <label class="radio-inline pull-left">
                                         <input type="radio" name="type" id="type" value="1" checked> <?php echo __('admin.index.group_member'); ?>
                                     </label>
@@ -54,7 +54,7 @@
                                 <div class="col-sm-offset-2 col-sm-8">
                                 <!-- 此处需要组数据option遍历组名称 -->
                                     <select class="form-control" name="id" id="id">
-                                        <option><?php ehco __('admin.index.choose_group'); ?></option>
+                                        <option><?php echo __('admin.index.choose_group'); ?></option>
                                         <?php foreach($all_group_id as $g):?>
                                         <option value="<?php echo $g['group_id']; ?>"><?php echo $g['group_id']; ?></option>
                                         <?php endforeach; ?>
@@ -79,9 +79,9 @@
                             <div class="form-group">
                                 <div class="alert alert-info col-sm-offset-2 col-sm-8" role="alert">
                                     <?php if(isset( $code ))
-                                        print_r ($code);
+                                        print_r($code);
                                         else
-                                            echo "<?php echo __('admin.index.generate_here'); ?>";
+                                            echo  __('admin.index.generate_here');;
                                     ?>
                                 </div>
                             </div>
