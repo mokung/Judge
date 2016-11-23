@@ -43,39 +43,6 @@ class Controller_Leader_Problem extends Controller_Leader_Base {
                       ':name' => $problem['title']));
         $this->template_data['problem'] = $problem;
     }
-
-
-    public function action_defunct($pid = null)
-    {
-        if ( ! $pid )
-            $pid = $this->request->param('id', null);
-
-        if (! $pid )
-            $pid = $this->get_query('problem_id');
-
-        $problem = Model_Problem::find_by_id($pid);
-
-        $ret = new JPackage();
-        $ret->code = 0;
-
-        if ( $problem )
-        {
-            if ( $problem->defunct == Model_Base::DEFUNCT_NO )
-            {
-                $problem->defunct = Model_Base::DEFUNCT_YES;
-            } else {
-                $problem->defunct = Model_Base::DEFUNCT_NO;
-            }
-            $problem->save();
-            $ret->result = $problem->defunct;
-
-        } else {
-            $ret->message = __('common.problem_not_found');
-        }
-
-        $this->response->body($ret->tojson());
-    }
-
     public function action_search()
     {
         $text = trim($this->get_query('term', ''));
