@@ -116,6 +116,17 @@ user list of leader's group
             array_push($alldata, json_encode(array("lastmonth"=>$key->score)));
         }
 
+        $time=strtotime($date);
+        $last= strtotime("-1 month", $time);
+        $last_month_lastday = date("Y-m-t", $last);
+        $last_month_date = Model_Situation::search($last_month_lastday,'date',$order_by,$show_all=true, 'user_id', $user);
+
+        foreach ($last_month_date as $key ) {
+            # code...
+            array_push($alldata, json_encode(array("lastmonth"=>$key->score)));
+        }
+
+
         $this->response->body(json_encode($alldata));
     }
 

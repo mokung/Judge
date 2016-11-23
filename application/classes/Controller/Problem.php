@@ -105,7 +105,7 @@ class Controller_Problem extends Controller_Base
             }
 
          }else{
-            $this->flash_error("this group no confige !");
+            $this->flash_error(__('common.group_noconfigure'));
          }
 
 
@@ -126,6 +126,8 @@ class Controller_Problem extends Controller_Base
             $this->template_data['num'] = $all_stage_problem;
 
          }else {
+             # code...
+             $this->flash_error(__('user.profile.not_reach_nextstage'));
 
              $this->go_home();
          }
@@ -192,7 +194,7 @@ class Controller_Problem extends Controller_Base
 
         if($num < $current_show_num)    // if all this level problem number < need to show number
         {
-            $this->flash_error("your problime is insufficient, please add problem or change your group_config");
+            $this->flash_error(__('user.profile.no_enough_problem'));
             $this->view = 'problem/userlist_insufficient';
 
             return 0;
@@ -204,7 +206,7 @@ class Controller_Problem extends Controller_Base
                 $problemlist = array_rand($left_level_problem,$current_show_num);
             }catch(Exception $e){
 
-                 $this->flash_error("your problime is insufficient, please add problem or change your group_config");
+                 $this->flash_error(__('user.profile.no_enough_problem'));
                  $this->view = 'problem/userlist_insufficient';
                  return 0;
             }
@@ -281,7 +283,7 @@ class Controller_Problem extends Controller_Base
     }
 
     if($pass_numbers < $current_stage_pass_num){
-        $this->flash_error("you just passed $pass_numbers  ! you should passed $current_stage_pass_num");
+        $this->flash_error(__('user.profile.cannot_pass',array(':pass'=>$pass_numbers,':total'=>$current_stage_pass_num)));
     }
 
 

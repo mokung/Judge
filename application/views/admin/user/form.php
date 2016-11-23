@@ -70,7 +70,7 @@
     var $user_submited = echarts.init($('#user-form-submited').get(0));//用户每日增分量
     var option_submited = {
         title:{
-            text:"<?php echo __('leader.user.list.submit'); ?>",
+            text:"<?php echo __('leader.user.list.submit_perday'); ?>",
             show:true,
             textStyle:{
                 color:"#000",
@@ -98,10 +98,10 @@
             name:"<?php echo __('leader.user.list.time'); ?>",
         },
         yAxis:{
-            name:"<?php echo __('leader.user.list.score'); ?>",
+            name:"<?php echo __('leader.user.list.submit'); ?>",
         },
         series: [{
-                name: "<?php echo __('leader.user.list.total_score'); ?>",
+                name: "<?php echo __('leader.user.list.total_submit'); ?>",
                 type: 'line',
                 data:[],
             },{

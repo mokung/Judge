@@ -99,7 +99,7 @@ class Controller_Admin_Index extends Controller_Admin_Base
             if ($group_id) {
 
                 if(Model_GroupConfig::find_by_id($group)==null && $type == 1){
-                    $this->flash_info( "this group has no config ! please connect group_lead ");
+                    $this->flash_info(__('admin.index.group_not_configured'));
                     $this->action_index();
                     return;
                 }
