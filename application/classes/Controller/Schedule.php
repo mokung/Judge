@@ -19,8 +19,8 @@ class Controller_Schedule extends Controller_Base
         //get message from solution
         // $result = Model_Situation::oneday_message_from_solution();
         //
-        // $last_day_date = date('Y-m-d',strtotime("yesterday"));
-        $last_day_date = date('Y-m-d');
+        $last_day_date = date('Y-m-d',strtotime("yesterday"));
+        // $last_day_date = date('Y-m-d');
 
 
         if(Model_Situation::check_exists($last_day_date)!=null){
@@ -63,7 +63,7 @@ class Controller_Schedule extends Controller_Base
         $all_privilege = Model_Privilege::permission_of_user_id();
 
         foreach ($all_privilege as $key) {
-            
+
             array_push($all_user_id_array, $key['user_id']);
         }
 
