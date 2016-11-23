@@ -250,7 +250,7 @@ return array(
     'admin.index.type'                             => 'Type',
     'admin.index.generate_invitation'              => 'Generate Invitation',
     'admin.index.exist_invitation'                 => 'Existed Invitation',
-    'admin.index.effect_counts'                    => 'Please input the effective counts',
+    'admin.index.effective_counts'                    => 'Please input the effective counts',
     'admin.index.effective_time'                   => 'Please input the effective time (m)',
     'admin.index.generate_here'                    => 'Generate Invitation Here',
     'admin.index.group'                            => 'Group',
