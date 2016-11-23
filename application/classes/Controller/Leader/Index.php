@@ -102,7 +102,7 @@ class Controller_Leader_Index extends Controller_Leader_Base{
             if ($group_id) {
 
                 if(Model_GroupConfig::find_by_id($group)==null){
-                    $this->flash_info( "please config group first");
+                    $this->flash_info(__('leader.group.configure.no_configure'));
                     return;
                 }
 

@@ -54,7 +54,7 @@
                                 <div class="col-sm-offset-2 col-sm-8">
                                 <!-- 此处需要组数据option遍历组名称 -->
                                     <select class="form-control" name="id" id="id">
-                                        <option><?php ehco __('admin.index.choose_group'); ?></option>
+                                        <option><?php echo __('admin.index.choose_group'); ?></option>
                                         <?php foreach($all_group_id as $g):?>
                                         <option value="<?php echo $g['group_id']; ?>"><?php echo $g['group_id']; ?></option>
                                         <?php endforeach; ?>

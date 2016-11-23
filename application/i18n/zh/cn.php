@@ -169,6 +169,9 @@ return array(
     'user.profile.submit'                                   => '提交',
     'user.profile.problem_solved'                           => '解决的问题',
     'user.profile.problem_tried'                            => '尝试的问题',
+    'user.profile.not_reach_nextstage'                      => '你还没达到进入下一阶段的要求',
+    'user.profile.no_enough_problem'                        => '下一阶段题不够，请联系管理员！',
+    'user.profile.cannot_pass'                              => '你才通过了:pass题，总共需要通过:total题',
 
     'contest.list.contest_list'                             => '比赛列表',
     'contest.list.id'                                       => '编号',
@@ -259,6 +262,7 @@ return array(
     'admin.index.group_leader'                              => '组长',
     'admin.index.choose_group'                              => '选择组',
     'admin.index.input_error'                               => '输入信息有误！',
+    'admin.index.group_not_configured'                      => '改组还没有配置，不能生成邀请码，请联系该组长！',
 
     'admin.problem.sidebar.new'                             => '创建题目',
 
@@ -437,6 +441,7 @@ return array(
     'common.user_exist'                                     => '用户已存在',
     'common.login_error'                                    => '用户名或密码错误，请重试',
 
+    'common.group_noconfigure'                              => '这个组还没有配置',
     'common.group_exist'                                    => '组已存在',
     'common.groupname_null'                                 => '组名为空',
     'common.group_not_exist'                                => '组不存在',
@@ -532,13 +537,16 @@ return array(
     'leader.group.configure.submit'                         => '提 交',
     'leader.group.configure.input_nonumber'                 => '请输入正确的数字',
     'leader.group.configure.least_stage'                    => '最少需要五个阶段！',
+    'leader.group.configure.no_configure'                   => '还没有配置该组！',
+    'leader.group.configure.configured'                     => '该组已经配置过了！',
 
     'leader.user.list.stage'                                => '阶段',
     'leader.user.list.member'                               => '人数',
     'leader.user.list.time'                                 => '时间',
     'leader.user.list.score'                                => '分数',
     'leader.user.list.increase'                             => '用户每日增分量',
-    'leader.user.list.submit'                               => '用户每日提交量',
+    'leader.user.list.submit'                               => '提交量',
+    'leader.user.list.submit_perday'                        => '用户每日提交量',
     'leader.user.list.total_submit'                         => '提交总量',
     'leader.user.list.increasing'                           => '増分量',
 
