@@ -20,18 +20,6 @@ abstract class Model_Save extends Model_Base
         // 过滤不存在的数据
         $data = $this->raw_array();
 
-        if ( isset($this->{static::$primary_key}) and $this->{static::$primary_key})
-        {
-            // if primary key exist, then update, contain primary key, haha
-            $primary_id = $this->{static::$primary_key};
-            //            unset($this->data[static::$primary_key]);
-
-            $query = DB::update(static::$table)->set($data)->where(static::$primary_key, '=', $primary_id);
-            $ret   = $query->execute();
-
-            return $ret;
-        } else
-        {
             // else save new record
             $keys   = array_keys($data);
             $values = array_values($data);
@@ -41,6 +29,6 @@ abstract class Model_Save extends Model_Base
             $this->{static::$primary_key} = $id;
 
             return $affect_row;
-        }
+      
     }
 }

@@ -32,8 +32,8 @@
         <div class="panel panel-default">
             <div class="panel-heading" style="padding:0;border:0;">
                 <ul class="nav nav-tabs" id="myTab">
-                  <li class="active text-center" style="width:50%;"><a href="#new_in" style="border-left:0;border-top:0;margin:0">生成邀请码</a></li>
-                  <li class="text-center" style="width:50%;"><a href="#list_in" style="border-right:0;border-top:0;margin:0">已有邀请码</a></li>
+                  <li class="active text-center" style="width:50%;"><a href="#new_in" style="border-left:0;border-top:0;margin:0"><?php echo __('admin.index.generate_invitation'); ?></a></li>
+                  <li class="text-center" style="width:50%;"><a href="#list_in" style="border-right:0;border-top:0;margin:0"><?php echo __('admin.index.exist_invitation'); ?></a></li>
                 </ul>
             </div>
             <div class="panel-body">
@@ -41,12 +41,12 @@
                     <div class="tab-pane active" id="new_in" >
                         <form role="form" class="form-horizontal col-sm-12" action="<?php e::url('/admin/index/code');?>">
                             <div class="form-group">
-                                <div class="col-sm-offset-2 col-sm-6">
+                                <div class="col-sm-offset-2 col-sm-7">
                                     <label class="radio-inline pull-left">
-                                        <input type="radio" name="type" id="type" value="1" checked> 组员
+                                        <input type="radio" name="type" id="type" value="1" checked> <?php echo __('admin.index.group_member'); ?>
                                     </label>
                                     <label class="radio-inline pull-right">
-                                        <input type="radio" name="type" id="type" value="2"> 组长
+                                        <input type="radio" name="type" id="type" value="2"> <?php echo __('admin.index.group_leader'); ?>
                                     </label>
                                 </div>
                             </div>
@@ -54,7 +54,7 @@
                                 <div class="col-sm-offset-2 col-sm-8">
                                 <!-- 此处需要组数据option遍历组名称 -->
                                     <select class="form-control" name="id" id="id">
-                                        <option>请选择组</option>
+                                        <option><?php echo __('admin.index.choose_group'); ?></option>
                                         <?php foreach($all_group_id as $g):?>
                                         <option value="<?php echo $g['group_id']; ?>"><?php echo $g['group_id']; ?></option>
                                         <?php endforeach; ?>
@@ -63,25 +63,25 @@
                             </div>
                             <div class="form-group">
                                 <div class="col-sm-offset-2 col-sm-8">
-                                    <input type="number" class="form-control" name="num" placeholder="请输入生效次数">
+                                    <input type="number" class="form-control" name="num" placeholder="<?php echo __('admin.index.effective_counts'); ?>">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="col-sm-offset-2 col-sm-8">
-                                    <input type="number" class="form-control" name="time" placeholder="请输入有效时间(分钟)">
+                                    <input type="number" class="form-control" name="time" placeholder="<?php echo __('admin.index.effective_time'); ?>">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="col-sm-offset-2 col-sm-8">
-                                    <button id="adm_in_su" type="submit" class="btn btn-primary col-sm-12">生成邀请码</button>
+                                    <button id="adm_in_su" type="submit" class="btn btn-primary col-sm-12"><?php echo __('admin.index.generate_invitation'); ?></button>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="alert alert-info col-sm-offset-2 col-sm-8" role="alert">
                                     <?php if(isset( $code ))
-                                        print_r ($code);
+                                        print_r($code);
                                         else
-                                            echo "此处生成邀请码";
+                                            echo  __('admin.index.generate_here');;
                                     ?>
                                 </div>
                             </div>
@@ -90,11 +90,11 @@
                     <div class="tab-pane" id="list_in">
                         <table class="table table-striped">
                                 <thead>
-                                    <th>邀请码</th>
-                                    <th>所在组</th>
-                                    <th>有效次数</th>
-                                    <th>类型</th>
-                                    <th>创建时间</th>
+                                    <th><?php echo __('admin.index.index.invitation'); ?></th>
+                                    <th><?php echo __('admin.index.effective_counts'); ?></th>
+                                    <th><?php echo __('admin.index.group'); ?></th>
+                                    <th><?php echo __('admin.index.type'); ?></th>
+                                    <th><?php echo __('admin.index.time'); ?></th>
                                 </thead>
                                 <tbody>
                                 </tbody>
@@ -113,7 +113,7 @@
             time = form.time.value,
             group_id = form.id.value;
         if(group_id=='' || num=="" || !is_num.test(num)|| time=="" || !is_num.test(time)){
-            alert("输入信息有误！");
+            alert("<?php echo __('admin.index.input_error'); ?>");
             return false;
         }
         return true;
@@ -140,7 +140,7 @@
                                  '<td>'+value_j.code+'</td>'+
                                  '<td>'+value_j.group_id+'</td>'+
                                  '<td>'+value_j.num+'</td>'+
-                                 '<td>'+(value_j.type=="1"?"组员":"组长")+'</td>'+
+                                 '<td>'+(value_j.type=="1"?"<?php echo __('admin.index.group_member'); ?>":"<?php echo __('admin.index.group_leader'); ?>")+'</td>'+
                                  '<td>'+value_j.cereatetime+'</td>'+
                                  '</tr>';
                         $(href).find('tbody').append(tr);

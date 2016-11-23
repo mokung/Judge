@@ -61,6 +61,9 @@ class Controller_Leader_Groups extends Controller_Leader_Base{
 
       $this->view = 'leader/groups/config';
       $this->template_data['levelnum'] = 5;   //难度个数
+      $this->template_data['default_problem'] = 10;   //默认题目个数
+      $this->template_data['default_passed'] = 8;   //默认通过的题数
+      $this->template_data['default_score'] = array(1, 2, 5, 10, 30);   //默认通过的题数
 
       //count numbers of each level problems
       $num1 = Model_Problem::count(array('level' => 1));

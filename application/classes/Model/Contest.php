@@ -243,7 +243,9 @@ class Model_Contest extends Model_Base
         foreach($user_list as $user_id)
         {
             $perm = new Model_Privilege;
+            $user = Model_User::find_by_id($user_id);
             $perm->user_id = $user_id;
+            $perm->group_id = $user['group_id'];
             $perm->rightstr = 'c'.$this->contest_id;
             $perm->save();
         }
