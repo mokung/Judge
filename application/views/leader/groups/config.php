@@ -80,7 +80,7 @@
                 data:JSON.stringify(getData())
             },
             function(){
-                alert('success');
+                window.location.href = '<?php e::url("/leader/groups/list");?>';
             }
         );
     });
