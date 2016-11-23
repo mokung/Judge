@@ -11,6 +11,12 @@
                     </div>
                 </div>
                 <div class="form-group">
+                    <label for="group_id" class="control-label col-sm-2"><?php echo(__('admin.user.edit.group_id')); ?></label>
+                    <div class="col-sm-10">
+                        <input type="text" id="group_id" name="group_id" readonly="readonly" class="form-control disabled" value="<?php echo $user['group_id']; ?>">
+                    </div>
+                </div>
+                <div class="form-group">
                     <label for="nick" class="control-label col-sm-2"><?php echo(__('admin.user.edit.nick')); ?></label>
                     <div class="col-sm-10">
                         <input type="text" id="nick" name="nick" class="form-control" value="<?php echo $user['nick']; ?>">
@@ -61,18 +67,6 @@
                         </select>
                     </div>
                 </div>
-                <div class="form-group">
-                    <div class="col-sm-offset-2 col-sm-10">
-                        <?php foreach(OJ::permission_list() as $permission):?>
-                        <div class="checkbox">
-                            <label>
-                                <input type="checkbox" name="permission[]" value="<?php echo $permission;?>" <?php if ($user->has_permission($permission)):?>checked="checked" <?php endif;?>/> <?php echo __($permission);?>
-                            </label>
-                        </div>
-                        <?php endforeach;?>
-                    </div>
-                </div>
-
                 <div class="form-group form-actions">
                     <div class="col-sm-10 col-sm-offset-2">
                         <button class="btn btn-primary" type="submit"><?php echo(__('admin.user.edit.save')); ?></button>

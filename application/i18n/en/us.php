@@ -23,6 +23,7 @@ return array(
     'top_backend.contest'                          => 'Contest',
     'top_backend.news'                             => 'News',
     'top_backend.configure'                        => 'Configure',
+    'top_backend.group_configure'                  => 'Group Configure',
 
     'footer.about'                                 => 'About',
     'footer.links'                                 => 'Links',
@@ -230,6 +231,12 @@ return array(
     'mail.view.sender'                             => 'Sender: ',
     'mail.view.time'                               => 'Time: ',
 
+    'leader.index.index.configure'                 => 'Stage Configure',
+    'leader.index.index.create_stage'              => 'Create Stage',
+    'leader.index.index.stagenum'                  => 'Stage Number',
+    'leader.index.index.difficulty'                => 'Difficulty',
+    'leader.index.index.score'                     => 'Score',
+
     'admin.index.sidebar.home'                     => 'Home',
     'admin.index.index.dashboard'                  => 'Dashboard',
     'admin.index.index.rejudge'                    => 'Rejudge',
@@ -239,7 +246,20 @@ return array(
     'admin.index.index.runid'                      => 'Run ID',
     'admin.index.index.id'                         => 'ID',
     'admin.index.index.submit'                     => 'Submit',
-    'admin.index.index.invitation'                     => 'Invitation',
+    'admin.index.index.invitation'                 => 'Invitation',
+    'admin.index.type'                             => 'Type',
+    'admin.index.generate_invitation'              => 'Generate Invitation',
+    'admin.index.exist_invitation'                 => 'Existed Invitation',
+    'admin.index.effect_counts'                    => 'Please input the effective counts',
+    'admin.index.effective_time'                   => 'Please input the effective time (m)',
+    'admin.index.generate_here'                    => 'Generate Invitation Here',
+    'admin.index.group'                            => 'Group',
+    'admin.index.counts'                           => 'Effective Counts',
+    'admin.index.time'                             => 'Generate Time',
+    'admin.index.group_member'                     => 'Group Member',
+    'admin.index.group_leader'                     => 'Group Leader',
+    'admin.index.choose_group'                     => 'Choose Group',
+    'admin.index.input_error'                      => 'Input error!',
 
     'admin.problem.sidebar.new'                    => 'New',
 
@@ -306,6 +326,7 @@ return array(
     'admin.user.edit.contact'                      => 'Contact Information',
     'admin.user.edit.other'                        => 'Other Information',
     'admin.user.edit.username'                     => 'Username',
+    'admin.user.edit.group_id'                     => 'Group Id',
     'admin.user.edit.nick'                         => 'Nick',
     'admin.user.edit.password'                     => 'Password',
     'admin.user.edit.not_change'                   => 'Leave blank if not changing',
@@ -455,6 +476,20 @@ return array(
     'leader.group.configure.score'                 => 'Score',
     'leader.group.configure.problem_num'           => 'Total Problem',
     'leader.group.configure.problem_passed'        => 'Passed Problem',
+    'leader.group.configure.add_stage'             => 'Add Stage',
+    'leader.group.configure.delete_stage'          => 'Delete Stage',
+    'leader.group.configure.submit'                => 'Submit',
+    'leader.group.configure.input_nonumber'        => 'Please Input the Correct Number',
+    'leader.group.configure.least_stage'           => 'At Leat 5 Stages',
+
+    'leader.user.list.stage'                       => 'Stage',
+    'leader.user.list.member'                      => 'Member',
+    'leader.user.list.time'                        => 'Time',
+    'leader.user.list.score'                       => 'Score',
+    'leader.user.list.increase'                    => 'Increasing Score Per Day',
+    'leader.user.list.submit'                      => 'Submit Per Day',
+    'leader.user.list.total_submit'                => 'Total Submit',
+    'leader.user.list.increasing'                  => 'Increasing Score',
 
 
 );

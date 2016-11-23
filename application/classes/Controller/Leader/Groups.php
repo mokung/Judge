@@ -37,6 +37,8 @@ class Controller_Leader_Groups extends Controller_Leader_Base{
           $this->template_data['stagenum'] = null;
           $this->template_data['levelscore'] = 0;
 
+          $this->action_config();
+
 
         }else{
         $this->template_data['showconfigure'] = true;
@@ -59,6 +61,9 @@ class Controller_Leader_Groups extends Controller_Leader_Base{
 
       $this->view = 'leader/groups/config';
       $this->template_data['levelnum'] = 5;   //难度个数
+      $this->template_data['default_problem'] = 10;   //默认题目个数
+      $this->template_data['default_passed'] = 8;   //默认通过的题数
+      $this->template_data['default_score'] = array(1, 2, 5, 10, 30);   //默认通过的题数
 
       //count numbers of each level problems
       $num1 = Model_Problem::count(array('level' => 1));
@@ -125,6 +130,8 @@ class Controller_Leader_Groups extends Controller_Leader_Base{
               $errors = $post->errors("User");
               $this->flash_error($errors);
 
+              // $this->action_list();
+
 
         }
       }else  {
@@ -136,7 +143,8 @@ class Controller_Leader_Groups extends Controller_Leader_Base{
         $this->template_data['title'] = __('leader.group.configure');
         // $this->action_list();
     }
-        /*
+
+    /*
     author : zhang zexiang
     function : group status graph
     data : 2016.11.15

@@ -19,7 +19,8 @@ class Controller_Schedule extends Controller_Base
         //get message from solution
         // $result = Model_Situation::oneday_message_from_solution();
         //
-        $last_day_date = date('Y-m-d',strtotime("yesterday"));
+        // $last_day_date = date('Y-m-d',strtotime("yesterday"));
+        $last_day_date = date('Y-m-d');
 
 
         if(Model_Situation::check_exists($last_day_date)!=null){

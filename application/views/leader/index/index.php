@@ -3,8 +3,8 @@
         <div class="panel panel-default">
             <div class="panel-heading" style="padding:0;border:0;">
                 <ul class="nav nav-tabs" id="myTab">
-                  <li class="active text-center" style="width:50%;"><a href="#new_in" style="border-left:0;border-top:0;margin:0">生成邀请码</a></li>
-                  <li class="text-center" style="width:50%;"><a href="#list_in" style="border-right:0;border-top:0;margin:0">已有邀请码</a></li>
+                  <li class="active text-center" style="width:50%;"><a href="#new_in" style="border-left:0;border-top:0;margin:0"><?php echo __('admin.index.generate_invitation'); ?></a></li>
+                  <li class="text-center" style="width:50%;"><a href="#list_in" style="border-right:0;border-top:0;margin:0"><?php echo __('admin.index.exist_invitation'); ?></a></li>
                 </ul>
             </div>
             <div class="panel-body">
@@ -13,17 +13,17 @@
                         <form role="form" class="form-horizontal col-sm-12" action="<?php e::url('/leader/index/code');?>">
                             <div class="form-group">
                                 <div class="col-sm-offset-2 col-sm-8">
-                                    <input type="number" class="form-control" name="num" placeholder="请输入生效次数">
+                                    <input type="number" class="form-control" name="num" placeholder="<?php echo __('admin.index.effective_counts'); ?>">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="col-sm-offset-2 col-sm-8">
-                                    <input type="number" class="form-control" name="time" placeholder="请输入有效时间(分钟)">
+                                    <input type="number" class="form-control" name="time" placeholder="<?php echo __('admin.index.effective_time'); ?>">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="col-sm-offset-2 col-sm-8">
-                                    <button id="lea_in_su" type="submit" class="btn btn-primary col-sm-12">生成邀请码</button>
+                                    <button id="lea_in_su" type="submit" class="btn btn-primary col-sm-12"><?php echo __('admin.index.generate_invitation'); ?></button>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -31,7 +31,7 @@
                                     <?php if(isset( $code ))
                                         print_r($code);
                                         else
-                                            echo "此处生成邀请码";
+                                            echo  __('admin.index.generate_here');;
                                     ?>
                                 </div>
                             </div>
@@ -41,10 +41,10 @@
                         <table class="table table-striped">
                             <thead>
                                 <tr>
-                                    <th>邀请码</th>
-                                    <th>所在组</th>
-                                    <th>有效次数</th>
-                                    <th>创建时间</th>
+                                    <th><?php echo __('admin.index.index.invitation'); ?></th>
+                                    <th><?php echo __('admin.index.group'); ?></th>
+                                    <th><?php echo __('admin.index.counts'); ?></th>
+                                    <th><?php echo __('admin.index.time'); ?></th>
                                 </tr>
                             </thead>
                             <tbody></tbody>
@@ -67,14 +67,15 @@
         }
         return true;
     });
-
-    $('#myTab a').click(function (e) {
-        var href = $(this).attr("href");
+    function showList(e){
+        var $button = $(this);
+        var href = $button.attr("href");
         e.preventDefault();
         // 显示生成邀请码页面，并初始化表单
         if(href=='#new_in'){
             $(href).find('form').get(0).reset();
         }else{
+            $button.unbind('click');
             //显示有效的邀请码列表
             $.ajax({
                 url: '<?php e::url("/leader/index/list/");?>',
@@ -92,9 +93,11 @@
                                  '</tr>';
                         $(href).find('tbody').append(tr);
                     });
+                    $button.bind('click',showList);
                 }
             });
         }
         $(this).tab('show');
-    });
+    }
+    $('#myTab a').on('click',showList);
 </script>
