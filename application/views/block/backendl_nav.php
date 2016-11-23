@@ -8,6 +8,6 @@
     <li <?php if (Request::$current->controller() == 'Contest'):?>class="active" <?php endif;?>><a href="<?php e::url('leader/contest');?>"><?php echo(__('top_backend.contest')); ?></a></li>
     <li <?php if (Request::$current->controller() == 'News'):?>class="active" <?php endif;?>><a href="<?php e::url('leader/news');?>"><?php echo(__('top_backend.news')); ?></a></li>
     <li <?php if (Request::$current->controller() == 'Setting'):?>class="active" <?php endif;?>><a href="<?php e::url('leader/setting');?>"><?php echo(__('top_backend.configure')); ?></a></li>
-    <li <?php if (Request::$current->controller() == 'Groups'):?>class="active" <?php endif;?>><a href="<?php e::url('/leader/groups/list');?>">组配置</a></li>
+    <li <?php if (Request::$current->controller() == 'Groups'):?>class="active" <?php endif;?>><a href="<?php e::url('/leader/groups/list');?>"><?php echo(__('top_backend.group_configure')); ?></a></li>
 
 </ul>

@@ -23,6 +23,7 @@ return array(
     'top_backend.contest'                                   => '比赛',
     'top_backend.news'                                      => '新闻',
     'top_backend.configure'                                 => '设置',
+    'top_backend.group_configure'                           => '组配置',
 
     'footer.about'                                          => '关于',
     'footer.links'                                          => '链接',
@@ -245,6 +246,19 @@ return array(
     'admin.index.index.id'                                  => '编号',
     'admin.index.index.submit'                              => '重测',
     'admin.index.index.invitation'                          => '邀请码',
+    'admin.index.type'                                      => '类型',
+    'admin.index.generate_invitation'                       => '生成邀请码',
+    'admin.index.exist_invitation'                          => '已有邀请码',
+    'admin.index.effective_counts'                          => '请输入生效次数',
+    'admin.index.effective_time'                            => '请输入生效事件(分钟)',
+    'admin.index.generate_here'                             => '此处生成邀请码',
+    'admin.index.group'                                     => '所在组',
+    'admin.index.counts'                                    => '有效次数',
+    'admin.index.time'                                      => '创建时间',
+    'admin.index.group_member'                              => '组员',
+    'admin.index.group_leader'                              => '组长',
+    'admin.index.choose_group'                              => '选择组',
+    'admin.index.input_error'                               => '输入信息有误！',
 
     'admin.problem.sidebar.new'                             => '创建题目',
 
@@ -513,5 +527,19 @@ return array(
     'leader.group.configure.score'                          => '分数',
     'leader.group.configure.problem_num'                    => '题目数量',
     'leader.group.configure.problem_passed'                 => '通过题数',
+    'leader.group.configure.add_stage'                      => '添加阶段',
+    'leader.group.configure.delete_stage'                   => '减少阶段',
+    'leader.group.configure.submit'                         => '提 交',
+    'leader.group.configure.input_nonumber'                 => '请输入正确的数字',
+    'leader.group.configure.least_stage'                    => '最少需要五个阶段！',
+
+    'leader.user.list.stage'                                => '阶段',
+    'leader.user.list.member'                               => '人数',
+    'leader.user.list.time'                                 => '时间',
+    'leader.user.list.score'                                => '分数',
+    'leader.user.list.increase'                             => '用户每日增分量',
+    'leader.user.list.submit'                               => '用户每日提交量',
+    'leader.user.list.total_submit'                         => '提交总量',
+    'leader.user.list.increasing'                           => '増分量',
 
 );

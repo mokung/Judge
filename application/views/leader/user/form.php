@@ -32,7 +32,7 @@
     var $user_addscore = echarts.init($('#user-form-addscore').get(0));//用户每日增分量
     var option_addscore = {
         title:{
-            text:'用户每日增分量',
+            text:"<?php echo __('leader.user.list.increase'); ?>",
             show:true,
             textStyle:{
                 color:"#000",
@@ -44,7 +44,7 @@
         },
         legend:{
             show:true,
-            data:['增分量']
+            data:["<?php echo __('leader.user.list.increasing'); ?>"]
         },
         tooltip:{
             trigger: 'axis',
@@ -56,20 +56,21 @@
             show:true,
         },
         xAxis:{
-            name:"时间",
+            max:10,
+            name:"<?php echo __('leader.user.list.time'); ?>",
         },
         yAxis:{
-            name:"分数",
+            name:"<?php echo __('leader.user.list.score'); ?>",
         },
         series: [{
-                name: '增分量',
+                name: "<?php echo __('leader.user.list.increasing'); ?>",
                 type: 'line',
             }]
     };
     var $user_submited = echarts.init($('#user-form-submited').get(0));//用户每日增分量
     var option_submited = {
         title:{
-            text:'用户每日提交量',
+            text:"<?php echo __('leader.user.list.submit'); ?>",
             show:true,
             textStyle:{
                 color:"#000",
@@ -81,7 +82,7 @@
         },
         legend:{
             show:true,
-            data:['提交总量','00:00-05:00','05:00-11:00','12:00-17:00','17:00-21:00','21:00-00:00']
+            data:["<?php echo __('leader.user.list.total_submit'); ?>",'00:00-05:00','05:00-11:00','12:00-17:00','17:00-21:00','21:00-00:00']
         },
         tooltip:{
             trigger: 'axis',
@@ -93,13 +94,14 @@
             show:true,
         },
         xAxis:{
-            name:"时间",
+            max:10,
+            name:"<?php echo __('leader.user.list.time'); ?>",
         },
         yAxis:{
-            name:"提交量",
+            name:"<?php echo __('leader.user.list.score'); ?>",
         },
         series: [{
-                name: '提交总量',
+                name: "<?php echo __('leader.user.list.total_submit'); ?>",
                 type: 'line',
                 data:[],
             },{
