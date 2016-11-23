@@ -530,7 +530,7 @@ class Controller_Problem extends Controller_Base
         $per_page = OJ::per_page;
 
         $current_user = $this->get_current_user();
-
+        $current_group = $current_user['group_id'];
         if ( ! $problem OR ! $problem->can_user_access($current_user) )
             throw new Exception_Page(__('common.problem_not_found'));
 
@@ -538,7 +538,7 @@ class Controller_Problem extends Controller_Base
         $this->template_data['start_rank'] = $per_page * ($page - 1);
         $this->template_data['summary'] = $problem->summary();
         $this->template_data['total'] = ceil($this->template_data['summary']['submit_user'] / $per_page);
-        $this->template_data['solutions'] = $problem->best_solution($page-1, $per_page);
+        $this->template_data['solutions'] = $problem->best_solution($current_group,$page-1, $per_page);
 
         $this->template_data['title']
             = __('problem.summary.summary_of_:id', array(':id' => $problem_id));

@@ -275,23 +275,43 @@ class Model_Solution extends Model_Base
      *
      * @return array
      */
-    public static function solution_by_rank($problem_id, $page=0, $limit=50)
+    public static function solution_by_rank($current_group,$problem_id, $page=0, $limit=50)
     {
         $start = $page * $limit;
 
-        $sql = 'SELECT solution_id, problem_id, count(*) AS att, user_id, language, memory, time, min(10000000000000000000 + time * 100000000000 + memory * 100000 + code_length) AS score, in_date
+       
+       if (!$current_group) {
+          $sql = 'SELECT solution_id, problem_id, count(*) AS att, user_id, language, memory, time, min(10000000000000000000 + time * 100000000000 + memory * 100000 + code_length) AS score, in_date
                 FROM solution
-                WHERE result = :status
+                WHERE result = :status 
                 AND problem_id = :problem_id
-                GROUP BY user_id
+                GROUP BY solution_id,user_id
                 ORDER BY score, in_date
                 LIMIT :start, :limit';
-
-        $query = DB::query(Database::SELECT, $sql)
+                $query = DB::query(Database::SELECT, $sql)
             ->param(':status', self::STATUS_AC)
             ->param(':problem_id', $problem_id)
             ->param(':start', $start)
             ->param(':limit', $limit);
+       }else{
+         $sql = 'SELECT solution_id, problem_id, count(*) AS att, user_id, language, memory, time, min(10000000000000000000 + time * 100000000000 + memory * 100000 + code_length) AS score, in_date
+                FROM solution
+                WHERE result = :status 
+                AND problem_id = :problem_id
+                AND group_id = :group_id
+                GROUP BY solution_id,user_id
+                ORDER BY score, in_date
+                LIMIT :start, :limit';
+                $query = DB::query(Database::SELECT, $sql)
+            ->param(':status', self::STATUS_AC)
+            ->param(':problem_id', $problem_id)
+            ->param(':group_id', $current_group)
+            ->param(':start', $start)
+            ->param(':limit', $limit);
+       }
+       
+
+        
 
         $result = $query->execute();
 

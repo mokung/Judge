@@ -6,6 +6,10 @@ class Controller_User extends Controller_Base
 
     public function action_list()
     {
+        if (  OJ::is_admin() ){
+            $this->go_home();
+            return;
+        }
         $this->current_user = $this->check_login();
         // initial
         $page = $this->request->param('id', 1);
