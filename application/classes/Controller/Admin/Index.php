@@ -146,7 +146,7 @@ class Controller_Admin_Index extends Controller_Admin_Base
 
         }
 
-          public function action_list()
+    public function action_list()
         {
 
             $user = $this->get_current_user();

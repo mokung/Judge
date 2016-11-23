@@ -41,7 +41,7 @@
                     <div class="tab-pane active" id="new_in" >
                         <form role="form" class="form-horizontal col-sm-12" action="<?php e::url('/admin/index/code');?>">
                             <div class="form-group">
-                                <div class="col-sm-offset-2 col-sm-6">
+                                <div class="col-sm-offset-2 col-sm-7">
                                     <label class="radio-inline pull-left">
                                         <input type="radio" name="type" id="type" value="1" checked> <?php echo __('admin.index.group_member'); ?>
                                     </label>
@@ -79,9 +79,9 @@
                             <div class="form-group">
                                 <div class="alert alert-info col-sm-offset-2 col-sm-8" role="alert">
                                     <?php if(isset( $code ))
-                                        print_r ($code);
+                                        print_r($code);
                                         else
-                                            echo "<?php echo __('admin.index.generate_here'); ?>";
+                                            echo  __('admin.index.generate_here');;
                                     ?>
                                 </div>
                             </div>

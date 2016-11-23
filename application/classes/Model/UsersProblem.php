@@ -67,7 +67,8 @@ class Model_UsersProblem extends Model_Base
 
 
         $query = DB::select()->from('problem')
-            ->where('level', '=', $problem_level);
+            ->where('level', '=', $problem_level)
+            ->where('defunct', '=', "N");
 
 
         $result = $query->execute();
