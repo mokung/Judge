@@ -324,6 +324,30 @@ class Controller_Problem extends Controller_Base
         $problem = Model_Problem::find_by_id($pid);
         $current_user = $this->get_current_user();
 
+
+        //if this user is not lead or root , he not allow to see all problem
+        if(Model_Privilege::permission_of_user($current_user->user_id)==null){
+
+            $all_problem_id = Model_UsersProblem::find_current_all_problem_id($current_user->user_id);
+
+
+
+            $problem_id = array();
+            foreach ($all_problem_id as $key) {
+                # code...
+                array_push($problem_id, $key["problem_id"]);
+            }
+
+            // $this->template_data['ddd'] = $problem_id;
+
+            if(!in_array($pid, $problem_id)){
+                $this->action_list();
+            }
+
+        }
+
+
+
         if ( $problem AND $problem->can_user_access($current_user) )
         {
             //TODO: is defunct problem can access?

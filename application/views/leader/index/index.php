@@ -67,14 +67,15 @@
         }
         return true;
     });
-
-    $('#myTab a').click(function (e) {
-        var href = $(this).attr("href");
+    function showList(e){
+        var $button = $(this);
+        var href = $button.attr("href");
         e.preventDefault();
         // 显示生成邀请码页面，并初始化表单
         if(href=='#new_in'){
             $(href).find('form').get(0).reset();
         }else{
+            $button.unbind('click');
             //显示有效的邀请码列表
             $.ajax({
                 url: '<?php e::url("/leader/index/list/");?>',
@@ -92,9 +93,11 @@
                                  '</tr>';
                         $(href).find('tbody').append(tr);
                     });
+                    $button.bind('click',showList);
                 }
             });
         }
         $(this).tab('show');
-    });
+    }
+    $('#myTab a').on('click',showList);
 </script>

@@ -91,13 +91,13 @@
     // 使用刚指定的配置项和数据显示图表。
     // myChart.setOption(option);
     myChart.showLoading();
-    function getGroupStage(){
+    function getGroupStage(button,flag){
+        button&&$(button).unbind('click');
         $.ajax({
             url: '<?php e::url('/admin/groups/status/');?>?id=<?php echo($title)?>&date='+date,
             type:'post',
             dataType:'json',
             success:function(data){
-                console.log(data);
                 myChart.hideLoading();
                 var item = null,
                     series_item = {},
@@ -132,11 +132,16 @@
                 option.series = series;
                 option.title.text = date;
                 myChart.setOption(option);
+                if(flag==1){
+                    $(button).bind('click',prevMonth);
+                }else{
+                    $(button).bind('click',nextMonth);
+                }
             }
         });
     }
     getGroupStage();
-    $('#g-l').click(function(){
+    function prevMonth(){
         myChart.showLoading();
         var year = parseInt(date.split('-')[0]),
             month = parseInt(date.split('-')[1]);
@@ -147,9 +152,9 @@
             month--;
         }
         date = year+'-'+((month>9)?month:('0'+month));
-        getGroupStage();
-    });
-    $('#g-r').click(function(){
+        getGroupStage(this,1);
+    }
+    function nextMonth(){
         myChart.showLoading();
         var year = parseInt(date.split('-')[0]),
             month = parseInt(date.split('-')[1]);
@@ -161,8 +166,10 @@
             month++;
         }
         date = year+'-'+((month>9)?month:('0'+month));
-        getGroupStage();
-    });
+        getGroupStage(this,2);
+    }
+    $('#g-l').on('click',prevMonth);
+    $('#g-r').on('click',nextMonth);
 })();
 </script>
 

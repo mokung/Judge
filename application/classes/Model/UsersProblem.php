@@ -50,6 +50,17 @@ class Model_UsersProblem extends Model_Base
         return $result;
     }
 
+    public static function find_current_all_problem_id($user_id)
+    {
+
+
+        $query = DB::select('problem_id')->from(static::$table)
+            ->where('user_id', '=', $user_id);
+
+        $result = $query->execute();
+        return $result->as_array();
+    }
+
 
     public static function find_level_problem($problem_level)
     {
