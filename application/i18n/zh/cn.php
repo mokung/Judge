@@ -375,6 +375,7 @@ return array(
     'admin.contest.edit.add'                                => '添加',
     'admin.contest.edit.save_changes'                       => '保存修改',
     'admin.contest.edit.cancel'                             => '取消',
+    'admin.contest.edit.add_problem_tips'                   => '请输入题目标题',
 
     'admin.contest.member.member_of_contest_:name'          => '比赛 :name 的成员',
     'admin.contest.member.username'                         => '用户名',

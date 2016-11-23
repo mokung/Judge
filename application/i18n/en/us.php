@@ -370,6 +370,7 @@ return array(
     'admin.contest.edit.add'                       => 'Add',
     'admin.contest.edit.save_changes'              => 'Save Changes',
     'admin.contest.edit.cancel'                    => 'Cancel',
+    'admin.contest.edit.add_problem_tips'          => 'please input the title of problem',
 
     'admin.contest.member.member_of_contest_:name' => 'Member of Contest :name',
     'admin.contest.member.username'                => 'Username',

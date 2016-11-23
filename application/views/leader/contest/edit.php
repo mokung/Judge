@@ -49,7 +49,7 @@
         <div class="form-group">
             <label class="control-label col-sm-2" for="problem-new"><?php echo(__('admin.contest.edit.add_problem')); ?></label>
             <div class="col-sm-6">
-                <input class="form-control" id="problem-new" name="problem-new">
+                <input class="form-control" id="problem-new" placeholder="<?php echo(__('admin.contest.edit.add_problem_tips')); ?>" name="problem-new">
             </div>
             <div class="col-sm-2">
                 <input class="btn btn-primary" type="button" value="<?php echo(__('admin.contest.edit.add')); ?>" id="add-problem"/>
