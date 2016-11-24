@@ -91,7 +91,7 @@
                         <table class="table table-striped">
                                 <thead>
                                     <th><?php echo __('admin.index.index.invitation'); ?></th>
-                                    <th><?php echo __('admin.index.effective_counts'); ?></th>
+                                    <th><?php echo __('admin.index.counts'); ?></th>
                                     <th><?php echo __('admin.index.group'); ?></th>
                                     <th><?php echo __('admin.index.type'); ?></th>
                                     <th><?php echo __('admin.index.time'); ?></th>
