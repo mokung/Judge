@@ -37,7 +37,6 @@
                 });
                 /* ]]> */
             </script>
-            <?php echo HTML::script('js/jquery-ui-timepicker-addon.js'); ?>
         </div>
         <div class="form-group">
             <label class="control-label col-sm-2" for="description"><?php echo(__('admin.contest.edit.description')); ?></label>
