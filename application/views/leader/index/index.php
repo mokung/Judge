@@ -81,6 +81,9 @@
                 url: '<?php e::url("/leader/index/list/");?>',
                 type:'post',
                 dataType:'json',
+                error: function(){
+                    $button.bind('click',showList);
+                },
                 success:function(data){
                     $(href).find('tbody').empty();
                     $.each(data, function(index, value) {
