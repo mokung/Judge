@@ -91,8 +91,8 @@
                         <table class="table table-striped">
                                 <thead>
                                     <th><?php echo __('admin.index.index.invitation'); ?></th>
-                                    <th><?php echo __('admin.index.counts'); ?></th>
                                     <th><?php echo __('admin.index.group'); ?></th>
+                                    <th><?php echo __('admin.index.counts'); ?></th>
                                     <th><?php echo __('admin.index.type'); ?></th>
                                     <th><?php echo __('admin.index.time'); ?></th>
                                 </thead>
@@ -132,6 +132,9 @@
                 url: '<?php e::url('/admin/index/list/');?>',
                 type:'post',
                 dataType:'json',
+                error: function(){
+                    $button.bind('click',showList);
+                },
                 success:function(data){
                     $(href).find('tbody').empty();
                     $.each(data, function(index, value) {

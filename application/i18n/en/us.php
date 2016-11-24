@@ -324,6 +324,7 @@ return array(
     'admin.user.list.ratio'                        => 'Ratio',
     'admin.user.list.op'                           => 'OP',
     'admin.user.list.edit'                         => 'Edit',
+    'admin.group.list.group_list'                  => 'Group List',
 
     'admin.user.edit.edit_:user'                   => 'Edit :user',
     'admin.user.edit.basic'                        => 'Basic Information',
