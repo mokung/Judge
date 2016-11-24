@@ -111,7 +111,8 @@ class Controller_Admin_User extends Controller_Admin_Base{
         $filter = $this->clear_data($filter,  array(-1, '', null));
     	$user_list = Model_User::find($filter, $page);
 
-        $this->template_data['total'] = Model_User::count();
+        $total = $this->template_data['total'] = Model_User::count();
+        $this->template_data['total_page'] = ceil($total / OJ::per_page);
         $this->template_data['user_list'] = $user_list;
         $this->template_data['title']  = $group;
     }
