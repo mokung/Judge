@@ -311,6 +311,7 @@ return array(
     'admin.gorups.list.timecreated'                => 'Time Created',
 
 
+    'admin.group.new_group'                        => 'New Group',
     'admin.user.sidebar.new'                       => 'New',
 
     'admin.user.list.user_list'                    => 'User List',
