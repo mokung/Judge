@@ -216,7 +216,7 @@ class Controller_Leader_Groups extends Controller_Leader_Base{
       }
       $alldata["stage_num"] =  $group_config_stages;
 
-      $alldata["stage_num"] =  $group_config_stages;
+      // $alldata["stage_num"] =  $group_config_stages;
 
       $this->response->body(json_encode($alldata));
 
