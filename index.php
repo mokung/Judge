@@ -105,14 +105,14 @@ $response = $request->execute();
 //         ->body();
 
 $http_code = $response->status();
-// if ( $http_code != 200 AND $http_code != 302 )
-// {
-//     if (Kohana::$environment !== Kohana::DEVELOPMENT)
-//     {
-//        // $view = View::factory('error');
-//         $response->body("出错了，请联Desmond#gmail");
-//     }
-// }
+ if ( $http_code != 200 AND $http_code != 302 )
+ {
+     if (Kohana::$environment !== Kohana::DEVELOPMENT)
+     {
+        // $view = View::factory('error');
+         $response->body("出错了，请联系管理员!");
+     }
+ }
 
 if ($response->send_headers())
 {

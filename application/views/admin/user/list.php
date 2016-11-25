@@ -33,7 +33,7 @@
             <?php endforeach; ?>
             </tbody>
         </table>
-        <?php echo(View::factory('block/pager', array('base_url' => '/admin/user', 'total' => $total)));?>
+        <?php echo(View::factory('block/pager', array('base_url' => '/admin/user', 'total' => $total_page)));?>
     </div>
 </div>
 <div class="dashboard-widget row">
@@ -115,9 +115,9 @@
                     series_item = {};
                 }
                 for(var p in data){
-                    item = (p.indexOf('-')>-1)&&p.split('-')[2];
+                    item = (p.indexOf('-')>-1);
                     if(item){
-                        xAxis_data.push('11-'+item);
+                        xAxis_data.push('11-'+p);
                         for(i=1; i<=data.stage_num; i++){
                             if(data[p][i]){
                                 series[i-1].data.push(data[p][i]);

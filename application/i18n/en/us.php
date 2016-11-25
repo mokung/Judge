@@ -311,6 +311,7 @@ return array(
     'admin.gorups.list.timecreated'                => 'Time Created',
 
 
+    'admin.group.new_group'                        => 'New Group',
     'admin.user.sidebar.new'                       => 'New',
 
     'admin.user.list.user_list'                    => 'User List',
@@ -324,6 +325,7 @@ return array(
     'admin.user.list.ratio'                        => 'Ratio',
     'admin.user.list.op'                           => 'OP',
     'admin.user.list.edit'                         => 'Edit',
+    'admin.group.list.group_list'                  => 'Group List',
 
     'admin.user.edit.edit_:user'                   => 'Edit :user',
     'admin.user.edit.basic'                        => 'Basic Information',

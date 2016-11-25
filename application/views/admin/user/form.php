@@ -147,27 +147,29 @@
             type:'post',
             dataType:'json',
             success:function(data){
-                console.log(data);
                 var data_x = new Array(),//时间轴坐标
                     data_y = new Array();//提交量坐标
 
                 var json={};
                 var i=0,
                     len = data.length,//数据长度
-                    data_item;
-                var data_len = $.parseJSON(data[len-1]).hasOwnProperty('lastmonth')? (len-1):len;
-                for(i=0; i<data.length; i++){
-                    data_item = $.parseJSON(data[i]);
-                    var time = data_item.data.split(' ')[0]
-                    if(i>=1){
-                        json[time] = parseInt(data_item.score) - parseInt($.parseJSON(data[i-1]).score)
-                    }else{
-                        json[time] = (data_len == len) ? parseInt(data_item.score):(parseInt(data_item.score)-$.parseJSON(data[len-1]).lastmonth);
+                    data_item,
+                    data_len;
+                if(len>0){
+                    var data_len = $.parseJSON(data[len-1]).hasOwnProperty('lastmonth')? (len-1):len;
+                    for(i=0; i<data.length; i++){
+                        data_item = $.parseJSON(data[i]);
+                        var time = data_item.data;
+                        if(i>=1){
+                            json[time] = parseInt(data_item.score) - parseInt($.parseJSON(data[i-1]).score)
+                        }else{
+                            json[time] = (data_len == len) ? parseInt(data_item.score):(parseInt(data_item.score)-$.parseJSON(data[len-1]).lastmonth);
+                        }
                     }
-                }
-                for(var cc in json){
-                    data_x.push(cc);
-                    data_y.push(json[cc]);
+                    for(var cc in json){
+                        data_x.push(cc);
+                        data_y.push(json[cc]);
+                    }
                 }
                 option_addscore.xAxis.data = data_x;
                 option_addscore.series[0].data = data_y;

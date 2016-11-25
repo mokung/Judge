@@ -62,7 +62,7 @@
             time = form.time.value,
             num = form.num.value;
         if(num=="" || !is_num.test(num)|| time=="" || !is_num.test(time)){
-            alert(<?php echo __('admin.index.input_error'); ?>);
+            alert('<?php echo __('admin.index.input_error'); ?>');
             return false;
         }
         return true;
@@ -81,6 +81,9 @@
                 url: '<?php e::url("/leader/index/list/");?>',
                 type:'post',
                 dataType:'json',
+                error: function(){
+                    $button.bind('click',showList);
+                },
                 success:function(data){
                     $(href).find('tbody').empty();
                     $.each(data, function(index, value) {

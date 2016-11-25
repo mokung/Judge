@@ -22,4 +22,15 @@ DELIMITER ;
 
 create trigger updatemember after insert
 on users for each row
-  UPDATE groups SET groups.member = groups.member+1 WHERE group_id = new.group_id; 
+  UPDATE groups SET groups.member = groups.member+1 WHERE group_id = new.group_id;
+
+//禁用题目后删除当前阶段被禁用的题
+DELIMITER |
+create trigger deldefuctproblem after update
+on problem for each row
+begin
+  if new.defunct='Y' and old.defunct='N' THEN
+  DELETE FROM `users_problem` WHERE problem_id=new.problem_id;
+  end IF;
+end|
+DELIMITER ;

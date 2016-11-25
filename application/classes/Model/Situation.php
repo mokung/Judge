@@ -169,8 +169,8 @@ function : if exists this day of users_status
             $term = "%{$text}%";
             $query = DB::select()->from('users_status')
                 ->where($area, 'LIKE', $term)
-                ->where($left, '=' , $right)
-                ->limit(100);
+                ->where($left, '=' , $right);
+                
 
             foreach($orderby as $key => $order)
             {
