@@ -35,13 +35,22 @@ class Controller_Problem extends Controller_Base
         $this->template_data['stages'] = $current_user->stage;
         $this->template_data['stage'] = $stage;
 
+        $current_problem = Model_UsersProblem::find_current_problem($current_user->user_id, $stage);
 
-        if($stage == null){
+
+        if($stage == null || ($stage<($current_user->stage) && count($current_problem)==0 )){
 
 
 
          $current_user_group = $current_user->group_id;
          $current_user_stage = $current_user->stage;
+
+         if($stage != null){
+         if($stage<($current_user->stage) && count($current_problem) == 0){
+
+            $current_user_stage = $stage;
+         }
+     }
 
 
          //if this user group has configed
@@ -68,7 +77,7 @@ class Controller_Problem extends Controller_Base
 
             if($num == 0){
 
-                $problemlist = $this->action_generate($current_problem_level,$current_show_num, $current_user, $current_user_group_config,$current_problem);
+                $problemlist = $this->action_generate($current_problem_level,$current_show_num, $current_user, $current_user_group_config,$current_problem,$current_user_stage);
 
                 $current_problem = Model_UsersProblem::find_current_problem($current_user->user_id, $current_user_stage);
 
@@ -145,11 +154,11 @@ class Controller_Problem extends Controller_Base
     */
 
 
-   public function action_generate($current_problem_level,$current_show_num,$current_user, $current_user_group_config,$current_problem)
+   public function action_generate($current_problem_level,$current_show_num,$current_user, $current_user_group_config,$current_problem,$current_user_stage)
    {
         $all_leve_problem = Model_UsersProblem::find_level_problem($current_problem_level);
         $this->template_data['all_leve_problem'] = $all_leve_problem[0]['title'];
-        $current_user_stage = $current_user->stage;
+        // $current_user_stage = $current_user->stage;
 
 
         $num = count($all_leve_problem);
@@ -231,7 +240,7 @@ class Controller_Problem extends Controller_Base
             $users_problem = new Model_UsersProblem;
             $users_problem->user_id = $current_user->user_id;
             $users_problem->problem_id = $all_leve_problem[$key]['problem_id'];
-            $users_problem->stage = $current_user->stage;
+            $users_problem->stage = $current_user_stage;
 
             $users_problem->save();
 

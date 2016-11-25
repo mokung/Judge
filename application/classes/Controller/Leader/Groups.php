@@ -54,7 +54,7 @@ class Controller_Leader_Groups extends Controller_Leader_Base{
     }
 
 
-//save config
+
 
     public function action_config()
     {
@@ -66,11 +66,11 @@ class Controller_Leader_Groups extends Controller_Leader_Base{
       $this->template_data['default_score'] = array(1, 2, 5, 10, 30);   //默认通过的题数
 
       //count numbers of each level problems
-      $num1 = Model_Problem::count(array('level' => 1));
-      $num2 = Model_Problem::count(array('level' => 2));
-      $num3 = Model_Problem::count(array('level' => 3));
-      $num4 = Model_Problem::count(array('level' => 4));
-      $num5 = Model_Problem::count(array('level' => 5));
+      $num1 = Model_Problem::count(array('level' => 1,'defunct'=>"N"));
+      $num2 = Model_Problem::count(array('level' => 2,'defunct'=>"N"));
+      $num3 = Model_Problem::count(array('level' => 3,'defunct'=>"N"));
+      $num4 = Model_Problem::count(array('level' => 4,'defunct'=>"N"));
+      $num5 = Model_Problem::count(array('level' => 5,'defunct'=>"N"));
 
       $this->template_data['num1'] = $num5;
       $this->flash_info(__('all problems number: 1->'.$num1.' ---- 2->'.$num2.' ---- 3->'.$num3.' ---- 4->'.$num4.' ---- 5->'.$num5));
