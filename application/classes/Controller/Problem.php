@@ -377,7 +377,7 @@ class Controller_Problem extends Controller_Base
     {
 
         $current_user = $this->get_current_user();
-        if($current_user == null || Model_Privilege::permission_of_user($current_user->user_id) )
+        if($current_user == null || !Model_Privilege::user_is_normal($current_user->user_id) )
         {
 
 

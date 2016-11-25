@@ -35,6 +35,24 @@ class Model_Privilege extends Model_Save
         return $result;
     }
 
+    public static function user_is_normal($user_id)
+    {
+        $filter = array(
+            'user_id' => $user_id,
+        );
+        $result = self::find($filter, 0, 0);
+
+
+        foreach ($result as $key) {
+                    # code...
+                    if($key == "administrator" || $key == "leader" ){
+                        return false;
+                    }
+                }
+
+                return true;
+    }
+
 
     public static function permission_of_user_id()
     {
@@ -69,6 +87,9 @@ class Model_Privilege extends Model_Save
         return $query->execute();
     }
 
+
+
+
     /**
      * @param $contest_id
      *
@@ -87,7 +108,7 @@ class Model_Privilege extends Model_Save
         }
         return $result;
     }
- 
+
     protected function initial_data()
     {
         $this->defunct = self::DEFUNCT_NO;
