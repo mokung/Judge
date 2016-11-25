@@ -197,4 +197,348 @@ class Controller_Schedule extends Controller_Base
         }
     }
 
+
+     /*
+     author : zhangzexiang
+     functiont : add mysql data of user_status by solustion
+     date : 2016-11-24
+     info : just used once , and it's awful , don't want to see second
+      */
+
+        public function action_record()
+        {
+
+            $this->view = 'schedule/inject';
+            $this->template_data['title']   = "ddddd";
+
+            $all_user = Model_User::get_all_users();
+
+
+            $date=null;
+            $submited=0;
+            $score=0;
+            $staged=1;
+            $pass_acount = 0;
+            $during_time=array();
+
+            $set = array();
+
+
+            foreach ($all_user as $user) {
+                # code...
+                $user_all_solution = Model_Solution::user_all_solution($user->user_id);
+                $user_group_config = Model_GroupConfig::find_by_id($user->group_id);
+
+                if($user->group_id == null || $user->stage == null || $user_group_config == null){
+                    continue;
+                }
+
+
+
+                foreach ($user_all_solution  as $key) {
+                    # code...
+
+                    $user_day_data = Model_Situation::user_day_data(date("Y-m-d", strtotime($key->in_date)),$user->user_id);
+
+
+                     Model_Situation::dd(array("date"=>date("Y-m-d", strtotime($key->in_date)),"user_id"=>$user->user_id));
+
+                    if( $user_day_data != null){
+
+                        $mycache = new Memcache;
+                        $mycache->connect('127.0.0.1', 11211);
+
+                        $aaa = $mycache->get($user->user_id);
+                        $date=date("Y-m-d", strtotime($key->in_date));
+                        $submited=$aaa["submited"];
+                        $score=$aaa["score"];
+                        $staged=$aaa["staged"];
+                        $pass_acount = $aaa["pass_acount"];
+                        $during_time=$aaa["during_time"];
+
+                        $sub = $user_day_data->submited+1;
+
+                        $submited = $sub;
+
+                        //update  score
+                        $problem = Model_Problem::find_by_id($key->problem_id);
+
+
+                        if($problem != null){
+
+
+                        $problem_level = $problem->level;
+                        $problem_score = json_decode($user_group_config->level_score,true)[$problem_level];
+
+                        $pass_num = json_decode($user_group_config->pass_num,true)[$staged];
+                        $stage_num = $user_group_config->stage_num;
+
+                        if($key->result == 4){
+                            $sco = $user_day_data->score + $problem_score;
+                            $pass_acount++ ;
+                            $score = $sco;
+                        }else{
+                            $sco = $user_day_data->score;
+
+                            $score = $sco;
+
+                        }
+
+                        //update stage
+                        if($pass_acount >= $pass_num && $staged <= $stage_num-1){
+                            $sta = $user_day_data->staged + 1;
+                            $pass_acount = 0;
+
+                            $staged = $sta;
+                        }else{
+                            $sta = $user_day_data->staged;
+                            $staged = $sta;
+                        }
+
+                        //update during_time
+                        // $during_time =json_decode($user_day_data->during_time,true);
+                        array_push($during_time,date("H:i:s", strtotime($key->in_date)));
+
+
+
+                        $user_status = new Model_Situation;
+
+                        $user_status->user_id = $user->user_id;
+                        $user_status->date = date("Y-m-d", strtotime($key->in_date));
+                        $user_status->group_id = $user->group_id;
+
+                        $user_status->submited = $submited;
+                        $user_status->score = $score;
+                        $user_status->staged = $staged;
+                        $user_status->during_time = json_encode($during_time);
+
+                        $user_status->save();
+
+                        $mycache = new Memcache;
+                        $mycache->connect('127.0.0.1', 11211);
+
+                        $mycache->set($user->user_id, array("submited"=>$submited,"score"=>$score,"staged"=>$staged,"pass_acount"=>$pass_acount,"during_time"=>$during_time), 0, 120);
+
+
+
+
+
+                        }
+
+                    }else{
+
+                        if(!array_key_exists($user->user_id, $set))
+                        {
+
+
+                           // array_push($set,$user->user_id);
+                           $set[$user->user_id] = 1;
+
+                           $mycache = new Memcache;
+                           $mycache->connect('127.0.0.1', 11211);
+
+                            $mycache->set($user->user_id, array("submited"=>0,"score"=>0,"staged"=>1,"pass_acount"=>0,"during_time"=>array()), 0, 120);
+
+                        }
+
+                           $mycache = new Memcache;
+                           $mycache->connect('127.0.0.1', 11211);
+                        $aaa = $mycache->get($user->user_id);
+                        $date=date("Y-m-d", strtotime($key->in_date));
+                        $submited=$aaa["submited"];
+                        $score=$aaa["score"];
+                        $staged=$aaa["staged"];
+                        $pass_acount = $aaa["pass_acount"];
+                        $during_time=array();
+
+
+
+
+
+                        $user_status = new Model_Situation;
+
+                        $user_status->user_id = $user->user_id;
+                        $user_status->date = date("Y-m-d", strtotime($key->in_date));
+                        $user_status->group_id = $user->group_id;
+
+                        $user_status->submited = $submited+1;
+                        $submited = $user_status->submited;
+                        // $user_status->score = $score;
+                        // $user_status->staged = $staged;
+                        // $user_status->during_time = $during_time;
+
+
+                        //update  score
+                        //
+
+                        $problem = Model_Problem::find_by_id($key->problem_id);
+
+                        if($problem != null && $problem->level != null){
+
+                        $problem_level = $problem->level;
+                        $problem_score = json_decode($user_group_config->level_score,true)[$problem_level];
+                        $pass_num = json_decode($user_group_config->pass_num,true)[$staged];
+                        $stage_num = $user_group_config->stage_num;
+
+                        if($key->result == 4){
+                            $user_status->score =  $score + $problem_score;
+                            $pass_acount++ ;
+                            $score = $user_status->score;
+                        }else{
+                            $user_status->score =  $score;
+                            $score = $user_status->score;
+                        }
+
+                        //update stage
+                        if($pass_acount >= $pass_num && $staged <= $stage_num-1){
+                            $user_status->staged = $staged + 1;
+                            $pass_acount = 0;
+                            $staged = $user_status->staged;
+                        }else{
+                            $user_status->staged = $staged;
+                            $staged = $user_status->staged;
+                        }
+
+                        array_push($during_time,date("H:i:s", strtotime($key->in_date)));
+
+                        $user_status->during_time = json_encode($during_time);
+
+
+                        $user_status->save();
+
+                        $mycache = new Memcache;
+                        $mycache->connect('127.0.0.1', 11211);
+
+                        $mycache->set($user->user_id, array("submited"=>$submited,"score"=>$score,"staged"=>$staged,"pass_acount"=>$pass_acount,"during_time"=>$during_time), 0, 120);
+
+                    }
+
+                }
+            }
+        }
+
+             $this->template_data['cid']     = $user_all_solution;
+    }
+
+
+
+        public function action_fix(){
+
+            $this->view = 'schedule/inject';
+            $this->template_data['title']   = "ddddd";
+
+            $all_user = Model_User::get_all_users();
+
+
+            foreach ($all_user as $user) {
+                # code...
+                $user_all_solution = Model_Solution::user_all_solution($user->user_id);
+                $user_group_config = Model_GroupConfig::find_by_id($user->group_id);
+
+                if($user->group_id == null || $user->stage == null || $user_group_config == null){
+                    continue;
+                }
+
+                $start_day = date("Y-m-d", strtotime("2016-07-01"));
+                $mycache = new Memcache;
+                $mycache->connect('127.0.0.1', 11211);
+
+                $aaa = array("time" => $start_day , "initial_sub" => 0,"initial_sco" => 0,"initial_sta" => 0);
+
+                $mycache->set($user->user_id,$aaa,0,100);
+
+
+
+                for ($i=1; $i<=90;$i++) {
+
+                    # code...
+                    $user_day_data = Model_Situation::user_day_data(date("Y-m-d", strtotime($mycache->get($user->user_id)["time"])),$user->user_id);
+
+                    if($user_day_data == null){
+
+                        $user_status = new Model_Situation;
+
+                        $user_status->user_id = $user->user_id;
+                        $user_status->date = date("Y-m-d", strtotime($mycache->get($user->user_id)["time"]));
+                        $user_status->group_id = $user->group_id;
+
+                        $user_status->submited = $mycache->get($user->user_id)["initial_sub"];
+                        $user_status->score = $mycache->get($user->user_id)["initial_sco"];
+                        $user_status->staged = $mycache->get($user->user_id)["initial_sta"];
+                        $user_status->during_time = json_encode(array());
+
+                        $user_status->save();
+
+                    }else{
+
+
+                        $sub = $user_day_data->submited;
+                        $sco = $user_day_data->score;
+                        $sta = $user_day_data->staged;
+
+                        $mycache = new Memcache;
+                        $mycache->connect('127.0.0.1', 11211);
+                        $bbb = array("time" => $mycache->get($user->user_id)["time"] , "initial_sub" => $sub,            "initial_sco"=> $sco,"initial_sta" => $sta);
+
+                        $mycache->set($user->user_id,$bbb,0,100);
+
+                    }
+
+                    $mycache = new Memcache;
+                    $mycache->connect('127.0.0.1', 11211);
+
+                    $xx= $mycache->get($user->user_id);
+
+
+                    $start_day1 = strtotime("+1 day", strtotime($mycache->get($user->user_id)["time"]));
+                    $start_day  =  date("Y-m-d",$start_day1);
+
+
+
+                    $sub = $mycache->get($user->user_id)["initial_sub"];
+                    $sco = $mycache->get($user->user_id)["initial_sco"];
+                    $sta = $mycache->get($user->user_id)["initial_sta"];
+
+
+
+                    $bbb = array("time" => $start_day , "initial_sub" => $sub,"initial_sco" => $sco,"initial_sta" => $sta);
+
+                    $mycache->set($user->user_id,$bbb,0,100);
+
+                }
+
+        }
+
+
+        }
+
+        public function action_chageStage(){
+
+            $this->view = 'schedule/inject';
+            $this->template_data['title']   = "ddddd";
+
+            $all_user = Model_User::get_all_users();
+
+
+            foreach ($all_user as $user) {
+
+                $user_day_data = Model_Situation::user_day_data(date("Y-m-d", strtotime("2016-09-28")),$user->user_id);
+
+                if($user_day_data!=null){
+
+                $stage = $user_day_data->staged;
+
+                $user->stage = $stage;
+
+                $user->save();
+
+                }
+
+            }
+
+            $this->template_data['title']   = "ddddd";
+
+
+        }
+
 }
