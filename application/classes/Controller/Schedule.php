@@ -64,7 +64,10 @@ class Controller_Schedule extends Controller_Base
 
         foreach ($all_privilege as $key) {
 
+            if(!Model_Privilege::user_is_normal($key['user_id'])){
+
             array_push($all_user_id_array, $key['user_id']);
+             }
         }
 
 
