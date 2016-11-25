@@ -53,6 +53,8 @@ class Model_Situation extends Model_Base
         $query->execute();
     }
 
+
+
     public static function get_oneday_userdetail($user_id)
     {
         return Model_User::find_by_username($user_id);
@@ -190,4 +192,33 @@ function : if exists this day of users_status
 
     public function validate()
     {}
+
+
+//add
+
+
+    public static function user_day_data($date, $user_id){
+
+        // $term = "%{$date}%";
+        // $query = DB::select()->from('users_status')
+        //     ->where('date', '=', $date)
+        //     ->where('user_id', '=' , $user_id);
+
+        // $ret = $query->as_object(get_called_class())->execute();
+
+        $result = DB::select()->from(static::$table)->where('date', '=', $date)->where('user_id', '=' , $user_id)->as_object(get_called_class())->execute();
+        return $result->current();
+
+    }
+
+    public static function dd ($array){
+
+    $query = DB::delete(static::$table);
+
+            foreach($array as $col => $val)
+            {
+                $query->where($col, '=', $val);
+            }
+            return $query->execute();
+    }
 }

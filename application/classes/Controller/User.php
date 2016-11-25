@@ -136,8 +136,8 @@ class Controller_User extends Controller_Base
 
             if ($post->check()) {
 
-                    
-                            
+
+
                         $user = Model_User::find_by_id($post['username']);
 
                         if ( ! $user )
@@ -171,17 +171,17 @@ class Controller_User extends Controller_Base
 
                                       break;
                                     }
-                                } 
+                                }
                               } catch (Exception $e) {
-                                    
+
                               }
-                                                
+
 
                         if ($user_group_id!=null) {
-                                    
-                             
+
+
                             $user = new Model_User;
-                         
+
                             $user->update($post->data());
                             $user->group_id = $user_group_id;
                             $user->user_id = $post['username'];
@@ -206,9 +206,9 @@ class Controller_User extends Controller_Base
                     }else{
                          $this->flash_error(array(__('common.user_exist')));
 
-                       
+
                     }
-              
+
 
             }
             $errors = $post->errors("User");
@@ -247,6 +247,7 @@ class Controller_User extends Controller_Base
     {
         $username = $this->get_post('username');
         $password = $this->get_post('pwd');
+
         if ( Auth::instance()->login($username, $password, true) ) {
             // go back url
             $ss = Session::instance();

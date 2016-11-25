@@ -120,42 +120,45 @@ class Controller_Admin_Groups extends Controller_Admin_Base{
 
       $this->template_data['result'] = $result;
 
-      $alldata = array();
-      $eachday = array();
+      // $alldata = array();
+      // $eachday = array();
 
-      foreach ($result as $key) {
+      // foreach ($result as $key) {
 
-          # code...
-        $time = date("Y-m-d",strtotime($key->date));
+      //     # code...
+      //   $time = date("Y-m-d",strtotime($key->date));
 
-        if (array_key_exists($time, $alldata)) {
+      //   if (array_key_exists($time, $alldata)) {
 
-          $oldstage = $alldata[$time];
+      //     $oldstage = $alldata[$time];
 
-          if(array_key_exists($key->staged, $oldstage)){
+      //     if(array_key_exists($key->staged, $oldstage)){
 
-            $oldstage[$key->staged] = $oldstage[$key->staged]+1;
+      //       $oldstage[$key->staged] = $oldstage[$key->staged]+1;
 
-          }else{
+      //     }else{
 
-            $oldstage[$key->staged] = 1;
-          }
+      //       $oldstage[$key->staged] = 1;
+      //     }
 
-          ksort($oldstage);
-          $alldata[$time] = $oldstage;
+      //     ksort($oldstage);
+      //     $alldata[$time] = $oldstage;
 
-        }else{
+      //   }else{
 
-          $alldata[$time] = array($key->staged => 1);
+      //     $alldata[$time] = array($key->staged => 1);
 
-        }
+      //   }
 
-      }
-      $alldata["stage_num"] =  $group_config_stages;
+      // }
+      // $alldata["stage_num"] =  $group_config_stages;
 
-      $alldata["stage_num"] =  $group_config_stages;
 
-      $this->response->body(json_encode($alldata));
+      // $this->response->body(json_encode($alldata));
+
+      $this->template_data['result'] = $result;
+
+
 
     }
 

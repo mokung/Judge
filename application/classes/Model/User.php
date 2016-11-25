@@ -26,7 +26,7 @@ class Model_User extends Model_Base
         'theme',
         'score',
         'punish',
-        'activity',
+
     );
 
     static $primary_key = 'user_id';
@@ -52,7 +52,7 @@ class Model_User extends Model_Base
     public $theme;
     public $score;
     public $punish;
-    public $activity;
+
 
     /* @var Model_Privilege[] $permission_list */
     protected $permission_list = null;
@@ -423,7 +423,7 @@ class Model_User extends Model_Base
         $this->ip          = Request::$client_ip;
         $this->defunct     = self::DEFUNCT_NO;
         $this->score       = 0;
-        $this->activity    = 1;
+
     }
 
     /**
