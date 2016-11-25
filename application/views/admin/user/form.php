@@ -159,7 +159,7 @@
                     var data_len = $.parseJSON(data[len-1]).hasOwnProperty('lastmonth')? (len-1):len;
                     for(i=0; i<data.length; i++){
                         data_item = $.parseJSON(data[i]);
-                        var time = data_item.data.split(' ')[0]
+                        var time = data_item.data;
                         if(i>=1){
                             json[time] = parseInt(data_item.score) - parseInt($.parseJSON(data[i-1]).score)
                         }else{
