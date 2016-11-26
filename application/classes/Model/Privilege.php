@@ -35,22 +35,22 @@ class Model_Privilege extends Model_Save
         return $result;
     }
 
-    public static function user_is_normal($user_id)
+    public static function user_is_root_leader($user)
     {
-        $filter = array(
-            'user_id' => $user_id,
-        );
-        $result = self::find($filter, 0, 0);
+
+        $permission_list = Model_Privilege::permission_of_user($user->user_id);
 
 
-        foreach ($result as $key) {
-                    # code...
-                    if($key == "administrator" || $key == "leader" ){
-                        return false;
-                    }
-                }
+       foreach($permission_list as $p)
+       {
+           if ( $p->rightstr == Model_Privilege::PERM_ADMIN || $p->rightstr == Model_Privilege::PERM_LEADER )
+           {
 
-                return true;
+               if ( $p->is_defunct() ) return false;
+               return true;
+           }
+       }
+       return false;
     }
 
 

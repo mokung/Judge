@@ -269,7 +269,7 @@
                 month = 12;
                 year--;
             }else{
-                month--;    
+                month--;
             }
             date_submited = year+'-'+((month>9)?month:('0'+month));
             getUserSubmited(this,1);
@@ -280,7 +280,7 @@
                 month = 12;
                 year--;
             }else{
-                month--;    
+                month--;
             }
             date_addstore = year+'-'+((month>9)?month:('0'+month));
             getUserAddScore(this,1);
@@ -294,7 +294,7 @@
                 month = 1;
                 year++;
             }else{
-                month++;    
+                month++;
             }
             date_submited = year+'-'+((month>9)?month:('0'+month));
             getUserSubmited(this,2);
@@ -305,7 +305,7 @@
                 month = 1;
                 year++;
             }else{
-                month++;    
+                month++;
             }
             date_addstore = year+'-'+((month>9)?month:('0'+month));
             getUserAddScore(this,2);
