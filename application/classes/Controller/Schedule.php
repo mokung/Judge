@@ -283,9 +283,11 @@ class Controller_Schedule extends Controller_Base
 
 
                         $problem_level = $problem->level;
-                        $problem_score = json_decode($user_group_config->level_score,true)[$problem_level];
+                        $problem_score_json = json_decode($user_group_config->level_score,true);
+                        $problem_score = $problem_score_json[$problem_level];
 
-                        $pass_num = json_decode($user_group_config->pass_num,true)[$staged];
+                        $pass_num_json = json_decode($user_group_config->pass_num,true);
+                        $pass_num = $pass_num_json[$staged];
                         $stage_num = $user_group_config->stage_num;
 
                         if($key->result == 4){
@@ -391,8 +393,12 @@ class Controller_Schedule extends Controller_Base
                         if($problem != null && $problem->level != null){
 
                         $problem_level = $problem->level;
-                        $problem_score = json_decode($user_group_config->level_score,true)[$problem_level];
-                        $pass_num = json_decode($user_group_config->pass_num,true)[$staged];
+                        $problem_score_json = json_decode($user_group_config->level_score,true);
+                        $problem_score = $problem_score_json[$problem_level];
+
+                        $pass_num_json = json_decode($user_group_config->pass_num,true);
+                        $pass_num = $pass_num_json[$staged];
+
                         $stage_num = $user_group_config->stage_num;
 
                         if($key->result == 4){
