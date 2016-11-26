@@ -494,9 +494,9 @@ class Controller_Schedule extends Controller_Base
                         $user_status->date = date("Y-m-d", strtotime($dd["time"]));
                         $user_status->group_id = $user->group_id;
 
-                        $user_status->submited = $mycache->get($user->user_id)["initial_sub"];
-                        $user_status->score = $mycache->get($user->user_id)["initial_sco"];
-                        $user_status->staged = $mycache->get($user->user_id)["initial_sta"];
+                        $user_status->submited = $dd["initial_sub"];
+                        $user_status->score = $dd["initial_sco"];
+                        $user_status->staged = $dd["initial_sta"];
                         $user_status->during_time = json_encode(array());
 
                         $user_status->save();
@@ -529,9 +529,9 @@ class Controller_Schedule extends Controller_Base
 
 
 
-                    $sub = $mycache->get($user->user_id)["initial_sub"];
-                    $sco = $mycache->get($user->user_id)["initial_sco"];
-                    $sta = $mycache->get($user->user_id)["initial_sta"];
+                    $sub = $dd["initial_sub"];
+                    $sco = $dd["initial_sco"];
+                    $sta = $dd["initial_sta"];
 
 
 
