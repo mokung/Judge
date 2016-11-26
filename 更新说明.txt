@@ -1,0 +1,8 @@
+0.克隆代码
+1.执行 judge.sql 导入原有数据
+2.执行 修改表结构.sql
+3.访问 http://112.124.38.1/OnlineJudge/schedule/record
+4.访问 http://112.124.38.1/OnlineJudge/schedule/fix
+5.执行 UPDATE users,users_status SET users.stage = users_status.staged WHERE users.user_id=users_status.user_id AND users_status.date='2016-11-25';
+6.执行 DROP TRIGGER IF EXISTS updategroup_id;
+7.执行 触发器和定时器.sql
