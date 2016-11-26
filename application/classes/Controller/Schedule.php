@@ -481,15 +481,17 @@ class Controller_Schedule extends Controller_Base
 
                 for ($i=1; $i<=148;$i++) {
 
+                    $dd = $mycache->get($user->user_id);
+
                     # code...
-                    $user_day_data = Model_Situation::user_day_data(date("Y-m-d", strtotime($mycache->get($user->user_id)["time"])),$user->user_id);
+                    $user_day_data = Model_Situation::user_day_data(date("Y-m-d", strtotime($dd["time"])),$user->user_id);
 
                     if($user_day_data == null){
 
                         $user_status = new Model_Situation;
 
                         $user_status->user_id = $user->user_id;
-                        $user_status->date = date("Y-m-d", strtotime($mycache->get($user->user_id)["time"]));
+                        $user_status->date = date("Y-m-d", strtotime($dd["time"]));
                         $user_status->group_id = $user->group_id;
 
                         $user_status->submited = $mycache->get($user->user_id)["initial_sub"];
@@ -501,6 +503,7 @@ class Controller_Schedule extends Controller_Base
 
                     }else{
 
+                        $dd = $mycache->get($user->user_id);
 
                         $sub = $user_day_data->submited;
                         $sco = $user_day_data->score;
@@ -508,7 +511,7 @@ class Controller_Schedule extends Controller_Base
 
                         $mycache = new Memcache;
                         $mycache->connect('127.0.0.1', 11211);
-                        $bbb = array("time" => $mycache->get($user->user_id)["time"] , "initial_sub" => $sub,            "initial_sco"=> $sco,"initial_sta" => $sta);
+                        $bbb = array("time" => $dd["time"] , "initial_sub" => $sub,"initial_sco"=> $sco,"initial_sta" => $sta);
 
                         $mycache->set($user->user_id,$bbb,0,100);
 
@@ -519,8 +522,9 @@ class Controller_Schedule extends Controller_Base
 
                     $xx= $mycache->get($user->user_id);
 
+                    $dd = $mycache->get($user->user_id);
 
-                    $start_day1 = strtotime("+1 day", strtotime($mycache->get($user->user_id)["time"]));
+                    $start_day1 = strtotime("+1 day", strtotime($dd["time"]));
                     $start_day  =  date("Y-m-d",$start_day1);
 
 
