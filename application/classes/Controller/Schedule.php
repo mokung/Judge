@@ -283,9 +283,11 @@ class Controller_Schedule extends Controller_Base
 
 
                         $problem_level = $problem->level;
-                        $problem_score = json_decode($user_group_config->level_score,true)[$problem_level];
+                        $problem_score_json = json_decode($user_group_config->level_score,true);
+                        $problem_score = $problem_score_json[$problem_level];
 
-                        $pass_num = json_decode($user_group_config->pass_num,true)[$staged];
+                        $pass_num_json = json_decode($user_group_config->pass_num,true);
+                        $pass_num = $pass_num_json[$staged];
                         $stage_num = $user_group_config->stage_num;
 
                         if($key->result == 4){
@@ -391,8 +393,12 @@ class Controller_Schedule extends Controller_Base
                         if($problem != null && $problem->level != null){
 
                         $problem_level = $problem->level;
-                        $problem_score = json_decode($user_group_config->level_score,true)[$problem_level];
-                        $pass_num = json_decode($user_group_config->pass_num,true)[$staged];
+                        $problem_score_json = json_decode($user_group_config->level_score,true);
+                        $problem_score = $problem_score_json[$problem_level];
+
+                        $pass_num_json = json_decode($user_group_config->pass_num,true);
+                        $pass_num = $pass_num_json[$staged];
+
                         $stage_num = $user_group_config->stage_num;
 
                         if($key->result == 4){
@@ -467,34 +473,37 @@ class Controller_Schedule extends Controller_Base
                 $mycache = new Memcache;
                 $mycache->connect('127.0.0.1', 11211);
 
-                $aaa = array("time" => $start_day , "initial_sub" => 0,"initial_sco" => 0,"initial_sta" => 0);
+                $aaa = array("time" => $start_day , "initial_sub" => 0,"initial_sco" => 0,"initial_sta" => 1);
 
                 $mycache->set($user->user_id,$aaa,0,100);
 
 
 
-                for ($i=1; $i<=148;$i++) {
+                for ($i=1; $i<=148; $i++) {
+
+                    $dd = $mycache->get($user->user_id);
 
                     # code...
-                    $user_day_data = Model_Situation::user_day_data(date("Y-m-d", strtotime($mycache->get($user->user_id)["time"])),$user->user_id);
+                    $user_day_data = Model_Situation::user_day_data(date("Y-m-d", strtotime($dd["time"])),$user->user_id);
 
                     if($user_day_data == null){
 
                         $user_status = new Model_Situation;
 
                         $user_status->user_id = $user->user_id;
-                        $user_status->date = date("Y-m-d", strtotime($mycache->get($user->user_id)["time"]));
+                        $user_status->date = date("Y-m-d", strtotime($dd["time"]));
                         $user_status->group_id = $user->group_id;
 
-                        $user_status->submited = $mycache->get($user->user_id)["initial_sub"];
-                        $user_status->score = $mycache->get($user->user_id)["initial_sco"];
-                        $user_status->staged = $mycache->get($user->user_id)["initial_sta"];
+                        $user_status->submited = $dd["initial_sub"];
+                        $user_status->score = $dd["initial_sco"];
+                        $user_status->staged = $dd["initial_sta"];
                         $user_status->during_time = json_encode(array());
 
                         $user_status->save();
 
                     }else{
 
+                        $dd = $mycache->get($user->user_id);
 
                         $sub = $user_day_data->submited;
                         $sco = $user_day_data->score;
@@ -502,7 +511,7 @@ class Controller_Schedule extends Controller_Base
 
                         $mycache = new Memcache;
                         $mycache->connect('127.0.0.1', 11211);
-                        $bbb = array("time" => $mycache->get($user->user_id)["time"] , "initial_sub" => $sub,            "initial_sco"=> $sco,"initial_sta" => $sta);
+                        $bbb = array("time" => $dd["time"] , "initial_sub" => $sub,"initial_sco"=> $sco,"initial_sta" => $sta);
 
                         $mycache->set($user->user_id,$bbb,0,100);
 
@@ -513,15 +522,16 @@ class Controller_Schedule extends Controller_Base
 
                     $xx= $mycache->get($user->user_id);
 
+                    $dd = $mycache->get($user->user_id);
 
-                    $start_day1 = strtotime("+1 day", strtotime($mycache->get($user->user_id)["time"]));
+                    $start_day1 = strtotime("+1 day", strtotime($dd["time"]));
                     $start_day  =  date("Y-m-d",$start_day1);
 
 
 
-                    $sub = $mycache->get($user->user_id)["initial_sub"];
-                    $sco = $mycache->get($user->user_id)["initial_sco"];
-                    $sta = $mycache->get($user->user_id)["initial_sta"];
+                    $sub = $dd["initial_sub"];
+                    $sco = $dd["initial_sco"];
+                    $sta = $dd["initial_sta"];
 
 
 
