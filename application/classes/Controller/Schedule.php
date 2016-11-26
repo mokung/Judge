@@ -212,8 +212,15 @@ class Controller_Schedule extends Controller_Base
         public function action_record()
         {
 
+
             $this->view = 'schedule/inject';
             $this->template_data['title']   = "ddddd";
+
+
+            if(Model_Situation::user_day_data(date("Y-m-d", strtotime("2016-08-16")),"ZhangZexiang") != null){
+                return 0;
+            }
+
 
             $all_user = Model_User::get_all_users();
 
@@ -230,6 +237,10 @@ class Controller_Schedule extends Controller_Base
 
             foreach ($all_user as $user) {
                 # code...
+
+
+
+
                 $user_all_solution = Model_Solution::user_all_solution($user->user_id);
                 $user_group_config = Model_GroupConfig::find_by_id($user->group_id);
 
@@ -431,11 +442,20 @@ class Controller_Schedule extends Controller_Base
             $this->view = 'schedule/inject';
             $this->template_data['title']   = "ddddd";
 
+
+            if(Model_Situation::user_day_data(date("Y-m-d", strtotime("2016-11-25")),"spidermandl") != null){
+                return 0;
+            }
+
             $all_user = Model_User::get_all_users();
 
 
             foreach ($all_user as $user) {
                 # code...
+
+
+
+
                 $user_all_solution = Model_Solution::user_all_solution($user->user_id);
                 $user_group_config = Model_GroupConfig::find_by_id($user->group_id);
 
