@@ -473,13 +473,13 @@ class Controller_Schedule extends Controller_Base
                 $mycache = new Memcache;
                 $mycache->connect('127.0.0.1', 11211);
 
-                $aaa = array("time" => $start_day , "initial_sub" => 0,"initial_sco" => 0,"initial_sta" => 0);
+                $aaa = array("time" => $start_day , "initial_sub" => 0,"initial_sco" => 0,"initial_sta" => 1);
 
                 $mycache->set($user->user_id,$aaa,0,100);
 
 
 
-                for ($i=1; $i<=148;$i++) {
+                for ($i=1; $i<=148; $i++) {
 
                     $dd = $mycache->get($user->user_id);
 
